@@ -10,22 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@RequestMapping("/api")
 @RestController
+@RequestMapping("/api")
 public class APIController {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
 
     @Autowired
     private APIService apiService;
 
-    private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
+    //private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
 
     @GetMapping("/locations")
     public ResponseEntity<String> getLocations(){
-
         return apiService.findFlightsNear();
+    }
+
+    @GetMapping("/locations/live")
+    public ResponseEntity<String> getLiveLocations(){
+        return apiService.findCurrentLocation();
     }
 
 

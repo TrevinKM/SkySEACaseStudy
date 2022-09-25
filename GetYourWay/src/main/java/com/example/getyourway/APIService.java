@@ -11,11 +11,19 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class APIService {
 
-    @Autowired
     private RestTemplate template = new RestTemplate();
 
     private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
+    private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
 
+    public ResponseEntity<String> findCurrentLocation() {
+        HttpHeaders headers = new HttpHeaders();
+        //headers.set("API_KEY", "AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE");
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = template.exchange(
+                url2, HttpMethod.POST, requestEntity, String.class, "");
+        return response;
+    }
 
     public ResponseEntity<String> findFlightsNear() {
         HttpHeaders headers = new HttpHeaders();
