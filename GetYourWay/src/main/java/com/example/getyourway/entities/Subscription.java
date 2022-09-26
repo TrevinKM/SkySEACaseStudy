@@ -14,5 +14,9 @@ public class Subscription {
 
     private Date startDate;
 
+    public boolean hasExpired(){
+        return new Date().before(endDate);
+    }
+
     private Date endDate;
 }

@@ -1,6 +1,8 @@
 package com.example.getyourway.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +23,7 @@ public class User {
     private Subscription subscription;
 
     public boolean hasSubscription() {
-        return subscription != null;
+        return subscription != null && !subscription.hasExpired();
     }
 
     @ManyToOne
