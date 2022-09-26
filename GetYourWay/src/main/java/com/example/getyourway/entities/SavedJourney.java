@@ -6,7 +6,7 @@ import java.util.Date;
 
 //TODO: Move to DTO
 @Entity
-public class Journey {
+public class SavedJourney {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
