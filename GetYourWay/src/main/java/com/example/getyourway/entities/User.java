@@ -17,19 +17,25 @@ public class User {
     private String username;
 
     private String email;
-    @OneToOne
-    private Subscription subscription;
 
-    public boolean hasSubscription() {
+
+
+
+    private byte[] photo;
+    /*
+        public boolean hasSubscription() {
         return subscription != null && !subscription.hasExpired();
     }
+
+    @OneToOne
+    private Subscription subscription;
 
     @ManyToOne
     private Address address;
 
-    private byte[] photo;
-
     @ManyToMany
     private List<Payment> payments;
+
+     */
 
 }

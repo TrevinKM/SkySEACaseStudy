@@ -4,12 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
 @Entity
-public class Airport extends Address{
+public class Airport {
     @Id
     @GeneratedValue
-    public String IATA;
+    private String IATA;
 
-    public String airportName;
+    private String airportName;
 }
