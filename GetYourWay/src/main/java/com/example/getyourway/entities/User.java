@@ -30,9 +30,9 @@ public class User {
         return subscription != null && !subscription.hasExpired();
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
+    private UserAddress address;
 
     @ManyToMany
     private List<Payment> payments;

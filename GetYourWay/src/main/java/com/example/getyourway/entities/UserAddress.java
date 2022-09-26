@@ -3,7 +3,7 @@ package com.example.getyourway.entities;
 import javax.persistence.*;
 
 @Entity
-public class Address {
+public class UserAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
