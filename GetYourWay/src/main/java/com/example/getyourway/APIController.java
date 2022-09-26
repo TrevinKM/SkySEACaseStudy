@@ -19,9 +19,6 @@ public class APIController {
 
     private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
 
-
-
-
     @GetMapping("/locations")
     public ResponseEntity<String> getLocations(){
         HttpHeaders headers = new HttpHeaders();
@@ -33,6 +30,4 @@ public class APIController {
         //Object[] locations = restTemplate.getForObject(url, Object[].class);
         return response;
     }
-
-
 }
