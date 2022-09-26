@@ -27,7 +27,7 @@ public class APIController {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(
                 url, HttpMethod.GET, requestEntity, String.class, "");
-        //Object[] locations = restTemplate.getForObject(url, Object[].class);
+
         return response;
     }
 }

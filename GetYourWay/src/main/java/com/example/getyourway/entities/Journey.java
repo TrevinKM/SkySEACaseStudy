@@ -10,22 +10,17 @@ import java.util.Date;
 public class Journey {
     @Id
     @GeneratedValue
-    public int id;
-    public Date startDate;
-    public Date endDate;
+    private int id;
 
-    //Should these be airport class?
-    /*
-    public String departureIATA;
-    public String arrivalIATA;
-    public String departurePlace;
-    public String arrivalPlace;
-     */
+    private Date startDate;
+    private Date endDate;
+/*
+    @OneToOne
+    private Airport arrivalAirport;
 
     @OneToOne
-    public Airport arrivalAirport;
-
-    @OneToOne
-    public Airport departureAirport;
+    private Airport departureAirport;
+    
+ */
 
 }
