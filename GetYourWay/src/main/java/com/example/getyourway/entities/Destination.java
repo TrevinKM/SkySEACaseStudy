@@ -14,7 +14,9 @@ public class Destination {
     private String name;
 
     private int localTransportHubId;
-
+/*
     @OneToOne
     private WeatherForecast weatherForecast;
+
+ */
 }
