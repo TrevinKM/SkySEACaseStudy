@@ -34,7 +34,7 @@ public class User {
     @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
     private UserAddress address;
 
-    @ManyToMany
+    @OneToMany
     private List<Payment> payments;
 
 }
