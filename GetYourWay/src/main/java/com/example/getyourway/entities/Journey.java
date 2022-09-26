@@ -3,6 +3,8 @@ package com.example.getyourway.entities;
 import javax.persistence.*;
 import java.util.Date;
 
+
+//TODO: Move to DTO
 @Entity
 public class Journey {
     @Id

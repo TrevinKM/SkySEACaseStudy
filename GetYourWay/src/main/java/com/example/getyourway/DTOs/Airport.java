@@ -1,16 +1,13 @@
-package com.example.getyourway.entities;
+package com.example.getyourway.DTOs;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-//TODO: Move to DTO
-@Entity
 public class Airport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String IATA;
+
+    private String IATACode;
 
     private String airportName;
 }

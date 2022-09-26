@@ -2,6 +2,7 @@ package com.example.getyourway.entities;
 
 import javax.persistence.*;
 
+//TODO: Move to DTO
 @Entity
 public class Destination {
     @Id
@@ -14,6 +15,5 @@ public class Destination {
 /*
     @OneToOne
     private WeatherForecast weatherForecast;
-
  */
 }
