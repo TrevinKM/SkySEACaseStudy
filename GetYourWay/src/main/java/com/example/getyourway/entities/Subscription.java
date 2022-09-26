@@ -1,15 +1,15 @@
 package com.example.getyourway.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "subscription")
 public class Subscription {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
 
     private Date startDate;
@@ -19,4 +19,8 @@ public class Subscription {
     }
 
     private Date endDate;
+
+    @OneToOne(mappedBy="subscription")
+    private User user;
+
 }

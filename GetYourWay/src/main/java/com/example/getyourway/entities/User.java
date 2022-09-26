@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private int id;
 
     private String firstname;
@@ -18,18 +20,17 @@ public class User {
 
     private String email;
 
-
-
-
     private byte[] photo;
-    /*
-        public boolean hasSubscription() {
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscription subscription;
+/*
+    public boolean hasSubscription() {
         return subscription != null && !subscription.hasExpired();
     }
-
-    @OneToOne
-    private Subscription subscription;
-
     @ManyToOne
     private Address address;
 
