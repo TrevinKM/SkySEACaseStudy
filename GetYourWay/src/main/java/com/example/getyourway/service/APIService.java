@@ -1,4 +1,4 @@
-package com.example.getyourway;
+package com.example.getyourway.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
