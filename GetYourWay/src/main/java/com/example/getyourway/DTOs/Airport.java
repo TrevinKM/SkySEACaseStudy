@@ -5,9 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Airport {
+public class Airport extends Address {
 
     private String IATACode;
 
     private String airportName;
+
 }

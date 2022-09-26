@@ -2,18 +2,19 @@ package com.example.getyourway.entities;
 
 import javax.persistence.*;
 
-//TODO: Move to DTO
 @Entity
-public class Destination {
+public class RecommendedDestination {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String name;
 
-    private int localTransportHubId;
-/*
-    @OneToOne
-    private WeatherForecast weatherForecast;
- */
+    private int arrivalIATACode;
+
+    private String skyShow;
+
+    private String destinationInfo;
+
+
 }
