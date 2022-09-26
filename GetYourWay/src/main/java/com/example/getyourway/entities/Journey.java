@@ -1,12 +1,14 @@
 package com.example.getyourway.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
 public class Journey {
     @Id
+    @GeneratedValue
     public int id;
     public Date startDate;
     public Date endDate;

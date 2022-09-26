@@ -1,14 +1,15 @@
 package com.example.getyourway.entities;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
 @Entity
 public class Airport extends Address{
     @Id
-    public String iataCode;
+    @GeneratedValue
+    public String IATA;
 
     public String airportName;
 }
