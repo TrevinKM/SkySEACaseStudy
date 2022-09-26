@@ -22,21 +22,19 @@ public class User {
 
     private byte[] photo;
 
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscription subscription;
-/*
+
     public boolean hasSubscription() {
         return subscription != null && !subscription.hasExpired();
     }
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @ManyToMany
     private List<Payment> payments;
-
-     */
 
 }
