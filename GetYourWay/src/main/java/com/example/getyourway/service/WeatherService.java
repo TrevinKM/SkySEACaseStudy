@@ -26,7 +26,7 @@ public class WeatherService implements IAPIService {
     public ResponseEntity<String> getCurrentWeatherAt(float lat, float lon) {
         //TODO:proper request building
 
-        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=" +lat + "," + lon + "&" + key;
+        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=leeds&" + key; // +lat + "," + lon + "&" + key;
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(null);
         ResponseEntity<String> response = template.exchange(

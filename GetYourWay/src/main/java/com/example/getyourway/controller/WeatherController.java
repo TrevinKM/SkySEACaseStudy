@@ -15,11 +15,11 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
     @GetMapping(path= "/weather", params = {"location"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam String location){
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("location") String location){
         return weatherService.getCurrentWeatherAt(location);
     }
-    @GetMapping(path= "/weather/test/", params = {"lat", "lon"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam float lat, @RequestParam float lon){
+    @GetMapping(path= "/weather", params = {"lat", "lon"})
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("lat") float lat, @RequestParam("lon") float lon){
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
 
