@@ -1,26 +1,25 @@
 package com.example.getyourway.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 
+
+//TODO: Move to DTO
 @Entity
-public class Journey {
+public class SavedJourney {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private Date startDate;
     private Date endDate;
-/*
-    @OneToOne
+
+    /*
+    @OneToMany
     private Airport arrivalAirport;
 
-    @OneToOne
+    @OneToMany
     private Airport departureAirport;
-    
- */
+    */
 
 }

@@ -24,6 +24,4 @@ public class WeatherService implements IAPIService {
         return response;
     }
 
-
-
 }
