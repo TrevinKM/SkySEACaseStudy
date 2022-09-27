@@ -1,38 +1,55 @@
 package com.example.getyourway.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class WeatherService implements IAPIService {
-    private final String baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/";
-    private final String key = "key=4H8VPJ5U2NCJXSLAFEC5R4AQ5";
+public class WeatherService{
+    private final String baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast";
+    private final String key = "4H8VPJ5U2NCJXSLAFEC5R4AQ5";
+
+    @Autowired
+    RestTemplate template;
 
     public ResponseEntity<String> getCurrentWeatherAt(String location) {
 
-        //TODO:proper request building
-        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=" + location + "&" + key;
+        String url = buildCurrentWeatherRequest()
+                .queryParam("locations", String.format("%s", location))
+                .encode()
+                .toUriString();
 
-        HttpEntity<Void> requestEntity = new HttpEntity<>(null);
+        return template.exchange(
+                url, HttpMethod.GET, null, String.class, "");
+
+    }
+
+    public ResponseEntity<String> getCurrentWeatherAt(float lat, float lon) {
+        String url = buildCurrentWeatherRequest()
+                .queryParam("locations", String.format("%f,%f", lat, lon))
+                .encode()
+                .toUriString();
+
         ResponseEntity<String> response = template.exchange(
-                url, HttpMethod.GET, requestEntity, String.class, "");
+                url, HttpMethod.GET, null, String.class, "");
 
         return response;
     }
 
-    public ResponseEntity<String> getCurrentWeatherAt(float lat, float lon) {
-        //TODO:proper request building
 
-        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=leeds&" + key; // +lat + "," + lon + "&" + key;
-
-        HttpEntity<Void> requestEntity = new HttpEntity<>(null);
-        ResponseEntity<String> response = template.exchange(
-                url, HttpMethod.GET, requestEntity, String.class, "");
-
-        return response;
+    private UriComponentsBuilder buildCurrentWeatherRequest(){
+        return UriComponentsBuilder.fromUriString(baseUrl)
+                .queryParam("key",key)
+                .queryParam("aggregateHours", 24)
+                .queryParam("contentType", "json")
+                .queryParam("unitGroup", "us")
+                .queryParam("locationMode", "single");
     }
 
 }
