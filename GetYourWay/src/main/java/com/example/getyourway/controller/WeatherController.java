@@ -18,9 +18,9 @@ public class WeatherController {
     public ResponseEntity<String> getCurrentWeatherAt(@RequestParam String location){
         return weatherService.getCurrentWeatherAt(location);
     }
-    @GetMapping(path= "/weather/test/", params = {"lon", "lat"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam float lon, @RequestParam float lat){
-        return weatherService.getCurrentWeatherAt(lon, lat);
+    @GetMapping(path= "/weather/test/", params = {"lat", "lon"})
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam float lat, @RequestParam float lon){
+        return weatherService.getCurrentWeatherAt(lat, lon);
     }
 
 }

@@ -23,10 +23,10 @@ public class WeatherService implements IAPIService {
         return response;
     }
 
-    public ResponseEntity<String> getCurrentWeatherAt(float lon, float lat) {
+    public ResponseEntity<String> getCurrentWeatherAt(float lat, float lon) {
         //TODO:proper request building
 
-        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=leeds&" + key;
+        final String url = baseUrl + "weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&locations=" +lat + "," + lon + "&" + key;
 
         HttpEntity<Void> requestEntity = new HttpEntity<>(null);
         ResponseEntity<String> response = template.exchange(
