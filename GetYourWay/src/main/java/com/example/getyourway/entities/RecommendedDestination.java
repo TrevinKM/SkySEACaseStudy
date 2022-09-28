@@ -10,7 +10,7 @@ public class RecommendedDestination {
 
     private String name;
 
-    private int arrivalIATACode;
+    private String arrivalIATACode;
 
     private String skyShow;
 
