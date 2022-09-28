@@ -1,5 +1,6 @@
 package com.example.getyourway.controller;
 
+import com.example.getyourway.Response;
 import com.example.getyourway.service.APIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +26,12 @@ public class APIController {
 
     @GetMapping("/locations")
     public ResponseEntity<String> getLocations(){
+
         return apiService.findFlightsNear();
     }
 
     @GetMapping("/locations/live")
-    public ResponseEntity<String> getLiveLocations(){
+    public ResponseEntity<Response> getLiveLocations(){
         return apiService.findCurrentLocation();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.getyourway.service;
 
+import com.example.getyourway.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,12 +17,15 @@ public class APIService {
     private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
     private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
 
-    public ResponseEntity<String> findCurrentLocation() {
+    public ResponseEntity<Response> findCurrentLocation() {
         HttpHeaders headers = new HttpHeaders();
         //headers.set("API_KEY", "AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE");
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = template.exchange(
-                url2, HttpMethod.POST, requestEntity, String.class, "");
+        ResponseEntity<Response> response = template.exchange(
+                url2, HttpMethod.POST, requestEntity, Response.class, "");
+        System.out.println(response);
+        System.out.println("-------->");
+        System.out.println(response.getBody().getLocation().getLat());
         return response;
     }
 
