@@ -1,50 +1,40 @@
 package com.example.getyourway.entities;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false)
-    private Long userID;
+    @Column(name="id")
+    private int id;
+
     private String firstname;
+
     private String lastname;
+
     private String username;
+
     private String email;
+
     private byte[] photo;
 
-    public User(String firstname, String lastname, String username, String email, byte[] photo) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.email = email;
-        this.photo = photo;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscription subscription;
 
-    /*
-        public boolean hasSubscription() {
+    public boolean hasSubscription() {
         return subscription != null && !subscription.hasExpired();
     }
 
-    @OneToOne
-    private Subscription subscription;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
+    private UserAddress address;
 
-    @ManyToOne
-    private Address address;
-
-    @ManyToMany
+    @OneToMany
     private List<Payment> payments;
-
-     */
 
 }
