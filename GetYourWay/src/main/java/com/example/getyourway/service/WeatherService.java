@@ -27,16 +27,7 @@ public class WeatherService {
                 .encode()
                 .toUriString();
 
-        ResponseEntity<String> response = template.exchange(
-                url, HttpMethod.GET, null, String.class, "");
-
-        JSONObject weather = new JSONObject(response.getBody())
-                .getJSONObject("location")
-                .getJSONObject("currentConditions");
-
-        Weather result = (Weather)mapJSONToClass(weather, Weather.class);
-        System.out.println(weather);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return getCurrentWeatherResponse(url);
     }
 
     public ResponseEntity<Weather> getCurrentWeatherAt(float lat, float lon) {
@@ -45,6 +36,10 @@ public class WeatherService {
                 .encode()
                 .toUriString();
 
+        return getCurrentWeatherResponse(url);
+    }
+
+    private ResponseEntity<Weather> getCurrentWeatherResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
@@ -53,7 +48,6 @@ public class WeatherService {
                 .getJSONObject("currentConditions");
 
         Weather result = (Weather)mapJSONToClass(weather, Weather.class);
-        System.out.println(weather);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
