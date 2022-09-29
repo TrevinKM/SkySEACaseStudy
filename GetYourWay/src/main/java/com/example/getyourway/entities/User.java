@@ -37,4 +37,8 @@ public class User {
     @OneToMany
     private List<Payment> payments;
 
+    public static Object withDefaultPasswordEncoder() {
+        return null;
+    }
+
 }
