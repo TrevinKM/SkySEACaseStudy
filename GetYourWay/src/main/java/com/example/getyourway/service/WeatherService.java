@@ -2,7 +2,11 @@ package com.example.getyourway.service;
 
 import com.example.getyourway.Response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TreeTraversingParser;
+import lombok.AllArgsConstructor;
 import netscape.javascript.JSObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,16 +51,21 @@ public class WeatherService {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
-        /*ResponseEntity<List<Weather>> rateResponse =
-                template.exchange(url,
-                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Weather>>() {
-                        });
-        //System.out.print(x.toString());*/
-        JSONObject test = new JSONObject(response.getBody());
-        JSONArray weather = test.getJSONObject("location").getJSONArray("values");
+        JSONObject weather = new JSONObject(response.getBody()).getJSONObject("location").getJSONArray("values").getJSONObject(0);
+        Weather result = (Weather)mapJSONToClass(weather.toString(), Weather.class);
+
+        System.out.print(result.temp);
         return response;
     }
 
+    private Object mapJSONToClass(String json, Class c){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(json.toString(), Weather.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private UriComponentsBuilder buildCurrentWeatherRequest() {
         return UriComponentsBuilder.fromUriString(baseUrl)
@@ -69,11 +78,8 @@ public class WeatherService {
 
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Weather{
-        public Weather(float temp){
-            this.temp = temp;
-        }
-        public float temp;
+    public static final class Weather{
+        public double temp;
     }
 
 }
