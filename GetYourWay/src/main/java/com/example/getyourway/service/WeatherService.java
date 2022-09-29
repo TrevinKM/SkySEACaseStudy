@@ -11,10 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-@Service
+import java.util.*;
 
+@Service
 public class WeatherService {
-    private final String baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast";
+    private final String baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services";
     private final String key = "4H8VPJ5U2NCJXSLAFEC5R4AQ5";
 
     @Autowired
@@ -22,21 +23,20 @@ public class WeatherService {
 
     public ResponseEntity<Weather> getCurrentWeatherAt(String location) {
 
-        String url = buildCurrentWeatherRequest()
-                .queryParam("locations", String.format("%s", location))
-                .encode()
-                .toUriString();
+        String url = getCurrentWeatherURL(String.format("%s", location));
 
         return getCurrentWeatherResponse(url);
     }
 
     public ResponseEntity<Weather> getCurrentWeatherAt(float lat, float lon) {
-        String url = buildCurrentWeatherRequest()
-                .queryParam("locations", String.format("%f,%f", lat, lon))
-                .encode()
-                .toUriString();
+        String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
 
         return getCurrentWeatherResponse(url);
+    }
+
+    public ResponseEntity<List<Weather>> getForecastWeatherAt(Date startDate, Date endDate, String location){
+        String url = getForecastWeatherURL(startDate, endDate, location);
+        return getForecastWeatherResponse(url);
     }
 
     private ResponseEntity<Weather> getCurrentWeatherResponse(String url) {
@@ -51,6 +51,41 @@ public class WeatherService {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+    private String getCurrentWeatherURL(String location) {
+        return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
+                .queryParam("key", key)
+                .queryParam("aggregateHours", 24)
+                .queryParam("contentType", "json")
+                .queryParam("unitGroup", "us")
+                .queryParam("locationMode", "single")
+                .queryParam("locations", location).encode().toUriString();
+    }
+
+    private String getForecastWeatherURL(Date startDate, Date endDate, String location) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("location", location);
+        parameters.put("date1", startDate.toString());
+        parameters.put("date2", endDate.toString());
+        return UriComponentsBuilder.fromUriString(baseUrl)
+                .path("/timeline/{location}/{date1}/{date2}")
+                .queryParam("key", key)
+                .queryParam("include", "days")
+                .build(parameters).toString();
+    }
+
+    private ResponseEntity<List<Weather>> getForecastWeatherResponse(String url) {
+        ResponseEntity<String> response = template.exchange(
+                url, HttpMethod.GET, null, String.class, "");
+
+        JSONObject weather = new JSONObject(response.getBody())
+                .getJSONObject("location")
+                .getJSONObject("currentConditions");
+
+        Weather result = (Weather)mapJSONToClass(weather, Weather.class);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+    }
+
     private Object mapJSONToClass(JSONObject json, Class c){
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -59,16 +94,6 @@ public class WeatherService {
             return null;
         }
     }
-
-    private UriComponentsBuilder buildCurrentWeatherRequest() {
-        return UriComponentsBuilder.fromUriString(baseUrl)
-                .queryParam("key", key)
-                .queryParam("aggregateHours", 24)
-                .queryParam("contentType", "json")
-                .queryParam("unitGroup", "us")
-                .queryParam("locationMode", "single");
-    }
-
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Weather{
