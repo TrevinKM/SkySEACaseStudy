@@ -8,6 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class APIService {
@@ -15,24 +17,37 @@ public class APIService {
     private RestTemplate template = new RestTemplate();
 
     private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
-    private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
+    //private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
 
     public ResponseEntity<Response> findCurrentLocation() {
         HttpHeaders headers = new HttpHeaders();
-        //headers.set("API_KEY", "AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE");
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("www.googleapis.com")
+                .path("/geolocation/v1/geolocate")
+                .query("key={api_key}")
+                .buildAndExpand("AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE");
+
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<Response> response = template.exchange(
-                url2, HttpMethod.POST, requestEntity, Response.class, "");
-        System.out.println(response);
-        System.out.println("-------->");
-        System.out.println(response.getBody().getLocation().getLat());
+                uriComponents.toString(), HttpMethod.POST, requestEntity, Response.class, "");
         return response;
     }
 
-    public ResponseEntity<String> findFlightsNear() {
+    public ResponseEntity<String> findFlightsNear(double lat, double lng) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-RapidAPI-Host", "aerodatabox.p.rapidapi.com");
         headers.set("X-RapidAPI-Key", "a5f276c5d2msh12b6c646a5ffa06p1f3221jsnd5d923c9a7f6");
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("aerodatabox.p.rapidapi.com")
+                .path("/airports/search/location/{latitude}/{longitude}/km/500/9")
+                .buildAndExpand(Double.toString(lat), Double.toString(lng));
+
+        //System.out.println(uriComponents.toString());
+
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, requestEntity, String.class, "");

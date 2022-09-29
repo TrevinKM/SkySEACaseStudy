@@ -26,8 +26,8 @@ public class APIController {
 
     @GetMapping("/locations")
     public ResponseEntity<String> getLocations(){
-
-        return apiService.findFlightsNear();
+        ResponseEntity<Response> response = apiService.findCurrentLocation();
+        return apiService.findFlightsNear(response.getBody().getLocation().getLat(), response.getBody().getLocation().getLng());
     }
 
     @GetMapping("/locations/live")
