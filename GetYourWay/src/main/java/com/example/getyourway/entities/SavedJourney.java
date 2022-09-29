@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-//TODO: Move to DTO
 @Entity
 public class SavedJourney {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

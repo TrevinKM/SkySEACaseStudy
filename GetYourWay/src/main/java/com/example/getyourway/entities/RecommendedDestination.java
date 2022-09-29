@@ -16,5 +16,4 @@ public class RecommendedDestination {
 
     private String destinationInfo;
 
-
 }

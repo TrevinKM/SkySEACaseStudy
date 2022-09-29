@@ -11,13 +11,13 @@ import org.springframework.web.client.RestTemplate;
 public class GetYourWayApplication {
 
 
-	@Bean
-	public RestTemplate getResTemplate(){
-		return new RestTemplate();
-	}
+    @Bean
+    public RestTemplate getResTemplate() {
+        return new RestTemplate();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(GetYourWayApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GetYourWayApplication.class, args);
+    }
 
 }

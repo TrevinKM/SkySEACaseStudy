@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class APIService {
 
-    private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
-    private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
+    private static final String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
+    private static final String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
 
     RestTemplate template = new RestTemplate();
 
