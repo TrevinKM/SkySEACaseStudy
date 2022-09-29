@@ -3,6 +3,7 @@ package com.example.getyourway.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -34,7 +38,7 @@ public class WeatherService {
         return getCurrentWeatherResponse(url);
     }
 
-    public ResponseEntity<List<Weather>> getForecastWeatherAt(Date startDate, Date endDate, String location){
+    public ResponseEntity<List<WeatherDay>> getForecastWeatherAt(Date startDate, Date endDate, String location){
         String url = getForecastWeatherURL(startDate, endDate, location);
         return getForecastWeatherResponse(url);
     }
@@ -63,10 +67,11 @@ public class WeatherService {
     }
 
     private String getForecastWeatherURL(Date startDate, Date endDate, String location) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, String> parameters = new HashMap<>();
         parameters.put("location", location);
-        parameters.put("date1", startDate.toString());
-        parameters.put("date2", endDate.toString());
+        parameters.put("date1", df.format(startDate));
+        parameters.put("date2", df.format(endDate));
         return UriComponentsBuilder.fromUriString(baseUrl)
                 .path("/timeline/{location}/{date1}/{date2}")
                 .queryParam("key", key)
@@ -74,29 +79,36 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-    private ResponseEntity<List<Weather>> getForecastWeatherResponse(String url) {
+    private ResponseEntity<List<WeatherDay>> getForecastWeatherResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
-        JSONObject weather = new JSONObject(response.getBody())
-                .getJSONObject("location")
-                .getJSONObject("currentConditions");
+        JSONArray weatherWeek = new JSONObject(response.getBody())
+                .getJSONArray("days");
 
-        Weather result = (Weather)mapJSONToClass(weather, Weather.class);
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        List<WeatherDay> weeksWeather = new ArrayList<>();
+
+        for(int i =0; i<weatherWeek.length();i++){
+            weeksWeather.add((WeatherDay)mapJSONToClass(weatherWeek.getJSONObject(i), WeatherDay.class));
+        }
+
+        return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
     }
 
     private Object mapJSONToClass(JSONObject json, Class c){
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(json.toString(), Weather.class);
+            return mapper.readValue(json.toString(), c);
         } catch (JsonProcessingException e) {
             return null;
         }
     }
-
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static final class Weather{
+    public static class WeatherDay extends Weather{
+        public List<Weather> hours;
+    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Weather{
         public double temp;
         public double humidity;
         public double precip;
