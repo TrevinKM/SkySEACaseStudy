@@ -1,11 +1,10 @@
 package com.example.getyourway.DTOs;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Journey {
     private int id;
 
@@ -17,5 +16,5 @@ public class Journey {
 
     private Destination destination;
 
-    private Address startPoint;
+    private Address startAddress;
 }

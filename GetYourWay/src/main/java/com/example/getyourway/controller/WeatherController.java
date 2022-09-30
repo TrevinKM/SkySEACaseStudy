@@ -33,13 +33,13 @@ public class WeatherController {
     }
 
     @GetMapping(path = "/timeline")
-    public ResponseEntity<List<WeatherForecast>> getWeatherBetween(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate ) {
-        try{
+    public ResponseEntity<List<WeatherForecast>> getWeatherBetween(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate) {
+        try {
             SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
             Date sd = s.parse(startdate);
             Date ed = s.parse(enddate);
             return weatherService.getForecastWeatherAt(sd, ed, location);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
         }

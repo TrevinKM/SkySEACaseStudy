@@ -1,7 +1,6 @@
 package com.example.getyourway.service;
 
 import com.example.getyourway.DTOs.WeatherForecast;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -27,19 +26,16 @@ public class WeatherService {
     RestTemplate template;
 
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(String location) {
-
         String url = getCurrentWeatherURL(String.format("%s", location));
-
         return getCurrentWeatherResponse(url);
     }
 
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(float lat, float lon) {
         String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
-
         return getCurrentWeatherResponse(url);
     }
 
-    public ResponseEntity<List<WeatherForecast>> getForecastWeatherAt(Date startDate, Date endDate, String location){
+    public ResponseEntity<List<WeatherForecast>> getForecastWeatherAt(Date startDate, Date endDate, String location) {
         String url = getWeatherBetweenURL(startDate, endDate, location);
         return getWeatherBetweenResponse(url);
     }
@@ -52,8 +48,24 @@ public class WeatherService {
                 .getJSONObject("location")
                 .getJSONObject("currentConditions");
 
-        WeatherForecast result = (WeatherForecast)mapJSONToClass(weather, WeatherForecast.class);
+        WeatherForecast result = (WeatherForecast) mapJSONToClass(weather, WeatherForecast.class);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    private ResponseEntity<List<WeatherForecast>> getWeatherBetweenResponse(String url) {
+        ResponseEntity<String> response = template.exchange(
+                url, HttpMethod.GET, null, String.class, "");
+
+        JSONArray weatherWeek = new JSONObject(response.getBody())
+                .getJSONArray("days");
+
+        List<WeatherForecast> weeksWeather = new ArrayList<>();
+
+        for (int i = 0; i < weatherWeek.length(); i++) {
+            weeksWeather.add((WeatherForecast) mapJSONToClass(weatherWeek.getJSONObject(i), WeatherForecast.class));
+        }
+
+        return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
     }
 
 
@@ -80,23 +92,8 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-    private ResponseEntity<List<WeatherForecast>> getWeatherBetweenResponse(String url) {
-        ResponseEntity<String> response = template.exchange(
-                url, HttpMethod.GET, null, String.class, "");
 
-        JSONArray weatherWeek = new JSONObject(response.getBody())
-                .getJSONArray("days");
-
-        List<WeatherForecast> weeksWeather = new ArrayList<>();
-
-        for(int i =0; i<weatherWeek.length();i++){
-            weeksWeather.add((WeatherForecast) mapJSONToClass(weatherWeek.getJSONObject(i), WeatherForecast.class));
-        }
-
-        return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
-    }
-
-    private Object mapJSONToClass(JSONObject json, Class c){
+    private Object mapJSONToClass(JSONObject json, Class c) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.readValue(json.toString(), c);
@@ -104,7 +101,6 @@ public class WeatherService {
             return null;
         }
     }
-
 
 
 }
