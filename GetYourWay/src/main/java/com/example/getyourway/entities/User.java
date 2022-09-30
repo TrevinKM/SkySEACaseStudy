@@ -2,7 +2,9 @@ package com.example.getyourway.entities;
 
 import javax.persistence.*;
 import java.util.List;
-
+import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "users")
 public class User {
@@ -12,15 +14,17 @@ public class User {
     @Column(name="id", nullable = false)
     private int id;
 
-    private String firstname;
-
-    private String lastname;
-
-    private String username;
-
-    private String email;
-
-    private byte[] photo;
+    @Column(name="FIRST_name", nullable = false)
+    @Size(min=1, max=30)
+    private String firstName;
+    @Size(min=1, max=30)
+    private String lastName;
+    @Size(min=8, max=60)
+    private String hashPassword;
+    //@Pattern (clever regex here + import)
+    private String emailAddress;
+    //some sort of size constraint here 400kb? and file type(s)
+    private byte[] imageFile;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
