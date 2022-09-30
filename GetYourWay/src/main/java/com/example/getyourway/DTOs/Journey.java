@@ -15,4 +15,7 @@ public class Journey {
     private Airport arrivalAirport;
     private Airport departureAirport;
 
+    private Destination destination;
+
+    private Address startPoint;
 }
