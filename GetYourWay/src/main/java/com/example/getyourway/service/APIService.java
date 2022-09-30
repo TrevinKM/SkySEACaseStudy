@@ -13,10 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class APIService {
-
+    @Autowired
     private RestTemplate template = new RestTemplate();
 
-    private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
+    //private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
     //private static String url2 = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE";
 
     public ResponseEntity<Response> findCurrentLocation() {
@@ -46,12 +46,9 @@ public class APIService {
                 .path("/airports/search/location/{latitude}/{longitude}/km/500/9")
                 .buildAndExpand(Double.toString(lat), Double.toString(lng));
 
-        //System.out.println(uriComponents.toString());
-
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<String> response = template.exchange(
-                url, HttpMethod.GET, requestEntity, String.class, "");
-        //Object[] locations = restTemplate.getForObject(url, Object[].class);
+                uriComponents.toString(), HttpMethod.GET, requestEntity, String.class, "");
         return response;
     }
 

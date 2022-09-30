@@ -21,7 +21,7 @@ public class APIController {
 
     private RestTemplate restTemplate;
 
-    private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
+    //private static String url = "https://aerodatabox.p.rapidapi.com/airports/search/location/51.488269/-0.326488/km/200/9";
 
 
     @GetMapping("/locations")
