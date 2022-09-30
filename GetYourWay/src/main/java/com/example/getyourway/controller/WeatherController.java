@@ -31,7 +31,7 @@ public class WeatherController {
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
     @GetMapping(path = "/forecast")
-    public ResponseEntity<List<WeatherService.WeatherDay>> getForecastWeatherAt(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate ) {
+    public ResponseEntity<List<WeatherService.Weather>> getForecastWeatherAt(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate ) {
         try{
             SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
             Date sd = s.parse(startdate);

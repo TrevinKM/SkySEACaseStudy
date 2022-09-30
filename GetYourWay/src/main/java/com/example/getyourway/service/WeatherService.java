@@ -38,7 +38,7 @@ public class WeatherService {
         return getCurrentWeatherResponse(url);
     }
 
-    public ResponseEntity<List<WeatherDay>> getForecastWeatherAt(Date startDate, Date endDate, String location){
+    public ResponseEntity<List<Weather>> getForecastWeatherAt(Date startDate, Date endDate, String location){
         String url = getForecastWeatherURL(startDate, endDate, location);
         return getForecastWeatherResponse(url);
     }
@@ -79,17 +79,17 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-    private ResponseEntity<List<WeatherDay>> getForecastWeatherResponse(String url) {
+    private ResponseEntity<List<Weather>> getForecastWeatherResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
         JSONArray weatherWeek = new JSONObject(response.getBody())
                 .getJSONArray("days");
 
-        List<WeatherDay> weeksWeather = new ArrayList<>();
+        List<Weather> weeksWeather = new ArrayList<>();
 
         for(int i =0; i<weatherWeek.length();i++){
-            weeksWeather.add((WeatherDay)mapJSONToClass(weatherWeek.getJSONObject(i), WeatherDay.class));
+            weeksWeather.add((Weather) mapJSONToClass(weatherWeek.getJSONObject(i), Weather.class));
         }
 
         return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
@@ -103,10 +103,7 @@ public class WeatherService {
             return null;
         }
     }
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class WeatherDay extends Weather{
-        public List<Weather> hours;
-    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Weather{
         public double temp;
