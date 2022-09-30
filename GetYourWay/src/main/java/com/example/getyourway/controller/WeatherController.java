@@ -30,8 +30,8 @@ public class WeatherController {
     public ResponseEntity<WeatherService.Weather> getCurrentWeatherAt(@RequestParam("lat") float lat, @RequestParam("lon") float lon) {
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
-    @GetMapping(path = "/forecast")
-    public ResponseEntity<List<WeatherService.Weather>> getForecastWeatherAt(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate ) {
+    @GetMapping(path = "/timeline")
+    public ResponseEntity<List<WeatherService.Weather>> getWeatherBetween(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate ) {
         try{
             SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
             Date sd = s.parse(startdate);

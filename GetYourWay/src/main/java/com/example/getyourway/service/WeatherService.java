@@ -39,8 +39,8 @@ public class WeatherService {
     }
 
     public ResponseEntity<List<Weather>> getForecastWeatherAt(Date startDate, Date endDate, String location){
-        String url = getForecastWeatherURL(startDate, endDate, location);
-        return getForecastWeatherResponse(url);
+        String url = getWeatherBetweenURL(startDate, endDate, location);
+        return getWeatherBetweenResponse(url);
     }
 
     private ResponseEntity<Weather> getCurrentWeatherResponse(String url) {
@@ -66,7 +66,7 @@ public class WeatherService {
                 .queryParam("locations", location).encode().toUriString();
     }
 
-    private String getForecastWeatherURL(Date startDate, Date endDate, String location) {
+    private String getWeatherBetweenURL(Date startDate, Date endDate, String location) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, String> parameters = new HashMap<>();
         parameters.put("location", location);
@@ -79,7 +79,7 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-    private ResponseEntity<List<Weather>> getForecastWeatherResponse(String url) {
+    private ResponseEntity<List<Weather>> getWeatherBetweenResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
