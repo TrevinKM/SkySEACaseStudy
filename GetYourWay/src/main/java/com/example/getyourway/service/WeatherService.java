@@ -1,5 +1,6 @@
 package com.example.getyourway.service;
 
+import com.example.getyourway.DTOs.WeatherForecast;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,25 +26,25 @@ public class WeatherService {
     @Autowired
     RestTemplate template;
 
-    public ResponseEntity<Weather> getCurrentWeatherAt(String location) {
+    public ResponseEntity<WeatherForecast> getCurrentWeatherAt(String location) {
 
         String url = getCurrentWeatherURL(String.format("%s", location));
 
         return getCurrentWeatherResponse(url);
     }
 
-    public ResponseEntity<Weather> getCurrentWeatherAt(float lat, float lon) {
+    public ResponseEntity<WeatherForecast> getCurrentWeatherAt(float lat, float lon) {
         String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
 
         return getCurrentWeatherResponse(url);
     }
 
-    public ResponseEntity<List<Weather>> getForecastWeatherAt(Date startDate, Date endDate, String location){
+    public ResponseEntity<List<WeatherForecast>> getForecastWeatherAt(Date startDate, Date endDate, String location){
         String url = getWeatherBetweenURL(startDate, endDate, location);
         return getWeatherBetweenResponse(url);
     }
 
-    private ResponseEntity<Weather> getCurrentWeatherResponse(String url) {
+    private ResponseEntity<WeatherForecast> getCurrentWeatherResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
@@ -51,7 +52,7 @@ public class WeatherService {
                 .getJSONObject("location")
                 .getJSONObject("currentConditions");
 
-        Weather result = (Weather)mapJSONToClass(weather, Weather.class);
+        WeatherForecast result = (WeatherForecast)mapJSONToClass(weather, WeatherForecast.class);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -79,17 +80,17 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-    private ResponseEntity<List<Weather>> getWeatherBetweenResponse(String url) {
+    private ResponseEntity<List<WeatherForecast>> getWeatherBetweenResponse(String url) {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
         JSONArray weatherWeek = new JSONObject(response.getBody())
                 .getJSONArray("days");
 
-        List<Weather> weeksWeather = new ArrayList<>();
+        List<WeatherForecast> weeksWeather = new ArrayList<>();
 
         for(int i =0; i<weatherWeek.length();i++){
-            weeksWeather.add((Weather) mapJSONToClass(weatherWeek.getJSONObject(i), Weather.class));
+            weeksWeather.add((WeatherForecast) mapJSONToClass(weatherWeek.getJSONObject(i), WeatherForecast.class));
         }
 
         return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
@@ -104,11 +105,6 @@ public class WeatherService {
         }
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Weather{
-        public double temp;
-        public double humidity;
-        public double precip;
-    }
+
 
 }
