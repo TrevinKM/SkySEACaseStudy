@@ -1,6 +1,7 @@
 package com.example.getyourway.service;
 
 import com.example.getyourway.DTOs.WeatherForecast;
+import com.example.getyourway.exceptions.EndpointException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -70,13 +71,17 @@ public class WeatherService {
 
 
     private String getCurrentWeatherURL(String location) {
-        return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
-                .queryParam("key", key)
-                .queryParam("aggregateHours", 24)
-                .queryParam("contentType", "json")
-                .queryParam("unitGroup", "us")
-                .queryParam("locationMode", "single")
-                .queryParam("locations", location).encode().toUriString();
+        try {
+            return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
+                    .queryParam("key", key)
+                    .queryParam("aggregateHours", 24)
+                    .queryParam("contentType", "json")
+                    .queryParam("unitGroup", "us")
+                    .queryParam("locationMode", "single")
+                    .queryParam("locations", location).encode().toUriString();
+        } catch(Exception e){
+            throw new EndpointException("Invalid URL", e);
+        }
     }
 
     private String getWeatherBetweenURL(Date startDate, Date endDate, String location) {
@@ -98,7 +103,7 @@ public class WeatherService {
         try {
             return mapper.readValue(json.toString(), c);
         } catch (JsonProcessingException e) {
-            return null;
+            throw new EndpointException("Unable to parse JSON", e);
         }
     }
 

@@ -14,14 +14,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(EndpointException.class)
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Something went wrong";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        String bodyOfResponse = "Something went wrong!";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     protected ResponseEntity<Object> handleMissingParams(MissingServletRequestParameterException ex, WebRequest request) {
-        String bodyOfResponse = "You're missing a parameter";
+        String bodyOfResponse = "You're missing a parameter!";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
