@@ -19,14 +19,12 @@ public class WeatherService{
     RestTemplate template;
 
     public ResponseEntity<String> getCurrentWeatherAt(String location) {
-        throw new RuntimeException();
-        //String url = buildCurrentWeatherRequest()
-        //        .queryParam("locations", String.format("%s", location))
-        //        .encode()
-        //        .toUriString();
+        String url = buildCurrentWeatherRequest()
+                .queryParam("locations", String.format("%s", location))
+                .encode()
+                .toUriString();
 
-        //return template.exchange(
-        //        "", HttpMethod.GET, null, String.class, "");
+        return template.exchange(url, HttpMethod.GET, null, String.class, "");
 
     }
 

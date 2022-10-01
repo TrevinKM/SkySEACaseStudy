@@ -9,17 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
+
 @RestController
 public class WeatherController {
 
     @Autowired
     private WeatherService weatherService;
     @GetMapping(path= "/weather", params = {"location"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("location") String location) {
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("location") @NotNull String location) {
         return weatherService.getCurrentWeatherAt(location);
     }
     @GetMapping(path= "/weather", params = {"lat", "lon"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("lat") float lat, @RequestParam("lon") float lon){
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam(value = "lat") float lat, @RequestParam("lon") float lon){
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
 
