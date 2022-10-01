@@ -1,8 +1,10 @@
 package com.example.getyourway.entities;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 @Entity
 public class RecommendedDestination {
     @Id
@@ -16,6 +18,5 @@ public class RecommendedDestination {
     private String skyShow;
     @Size(min=140, max=2000)
     private String destinationInfo;
-
 
 }
