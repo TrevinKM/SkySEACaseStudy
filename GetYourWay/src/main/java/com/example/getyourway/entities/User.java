@@ -38,7 +38,7 @@ public class User {
     @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
     private UserAddress address;
 
-    @OneToMany
-    private List<Payment> payments;
+    //@OneToMany
+    //private List<Payment> payments;
 
 }

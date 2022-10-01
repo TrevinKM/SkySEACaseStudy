@@ -15,7 +15,7 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
     @GetMapping(path= "/weather", params = {"location"})
-    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("location") String location){
+    public ResponseEntity<String> getCurrentWeatherAt(@RequestParam("location") String location) {
         return weatherService.getCurrentWeatherAt(location);
     }
     @GetMapping(path= "/weather", params = {"lat", "lon"})
