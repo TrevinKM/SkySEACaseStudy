@@ -8,6 +8,7 @@ import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NavBar from './components/NavBar';
+import RecommendedDestinations from './components/RecommendedDestinations';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           </div>
           <Header />
           <main className="container">
+            <RecommendedDestinations />
           </main>
           <Footer />
       </>
