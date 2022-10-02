@@ -1,3 +1,30 @@
+import React from 'react';
+import recommended_destinations from './recommended_destinations.json';
+
+const RecommendedDestinations = () => {
+    return (
+        <p>
+            {JSON.stringify(recommended_destinations)}
+        </p>
+    );
+}
+
+{/*}
+const RecommendedDestinations = () => {
+    const allDestinations = recommended_destinations.map(data=>
+        <p item={data} key={data.id} />);
+        return (
+            <>
+                <h2>We recommend visiting</h2>
+                <div>
+                    {allDestinations}
+                </div>
+            </>
+        );
+};
+*/}
+
+export default RecommendedDestinations;
 // potential code for when static data exists in file
 
 
