@@ -4,8 +4,11 @@ import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.exceptions.EndpointException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeAll;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -41,7 +44,7 @@ public class WeatherService {
         return getWeatherBetweenResponse(url);
     }
 
-    private ResponseEntity<WeatherForecast> getCurrentWeatherResponse(String url) {
+    private ResponseEntity<WeatherForecast> getCurrentWeatherResponse(String url) throws EndpointException {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
