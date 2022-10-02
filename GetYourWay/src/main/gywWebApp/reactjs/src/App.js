@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Switch } from 'react-js-switch';
+/*import { Route } from 'react-router-dom';*/
+/*import { Switch } from 'react-js-switch';*/
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import './App.css';
@@ -15,7 +15,7 @@ function App() {
           <NavBar />
           <div className="content">
 
-               {/*routing*/}
+            {/*routing*/}
               {/*<Switch>*/}
               {/*    <Route path="/travelSearch" component={TravelSearch} />*/}
               {/*    <Route path="/login" component={Login} />*/}
