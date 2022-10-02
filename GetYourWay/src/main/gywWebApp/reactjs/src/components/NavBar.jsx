@@ -6,7 +6,7 @@ const NavBar = () => {
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="/">
                     <img src={logo} alt="Get Your Way logo" style={{ width: '25px'}} className="d-inline-block align-text-top" />
                     Get Your Way</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
