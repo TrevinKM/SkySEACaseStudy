@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
+import sample_users from './sample_users.json';
 
 const UserDetails = () => {
     return (
-        <>
         <p>
-            F
+            {JSON.stringify(sample_users)}
         </p>
-        </>
-    )
+    );
 }
+export default UserDetails;
