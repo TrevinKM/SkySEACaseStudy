@@ -1,5 +1,7 @@
-CREATE DATABASE  IF NOT EXISTS `gywdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `gywdb`;
+CREATE
+DATABASE  IF NOT EXISTS `gywdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE
+`gywdb`;
 -- MySQL dump 10.13  Distrib 8.0.29, for macos12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: gywdb
@@ -24,17 +26,18 @@ USE `gywdb`;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `firstname` varchar(256) DEFAULT NULL,
-                         `lastname` varchar(256) DEFAULT NULL,
-                         `username` varchar(256) DEFAULT NULL,
-                         `email` varchar(256) DEFAULT NULL,
-                         `photo` blob,
-                         `subscription_id` int DEFAULT NULL,
-                         `useraddress_id` int DEFAULT NULL,
-                         PRIMARY KEY (`id`),
-                         UNIQUE KEY `id_UNIQUE` (`id`)
+CREATE TABLE `users`
+(
+    `id`              int NOT NULL AUTO_INCREMENT,
+    `firstname`       varchar(256) DEFAULT NULL,
+    `lastname`        varchar(256) DEFAULT NULL,
+    `username`        varchar(256) DEFAULT NULL,
+    `email`           varchar(256) DEFAULT NULL,
+    `photo`           blob,
+    `subscription_id` int          DEFAULT NULL,
+    `useraddress_id`  int          DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

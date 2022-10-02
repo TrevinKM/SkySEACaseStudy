@@ -4,11 +4,8 @@ import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.exceptions.EndpointException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aspectj.lang.annotation.Before;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -32,7 +29,7 @@ public class WeatherService {
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(String location) {
         String url = getCurrentWeatherURL(String.format("%s", location));
         return getCurrentWeatherResponse(url);
-     }
+    }
 
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(float lat, float lon) {
         String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
@@ -82,7 +79,7 @@ public class WeatherService {
                     .queryParam("unitGroup", "us")
                     .queryParam("locationMode", "single")
                     .queryParam("locations", location).encode().toUriString();
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new EndpointException("Invalid URL", e);
         }
     }

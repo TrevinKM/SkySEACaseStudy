@@ -1,8 +1,12 @@
-LOCK TABLES `users` WRITE;
+LOCK
+TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Dan','McKeown','dannymac','dannyboy@fakemail.com',NULL,NULL,NULL),(2,'Ann','Example','annnierose','annnierose@notreal.com',NULL,NULL,NULL);
+INSERT INTO `users`
+VALUES (1, 'Dan', 'McKeown', 'dannymac', 'dannyboy@fakemail.com', NULL, NULL, NULL),
+       (2, 'Ann', 'Example', 'annnierose', 'annnierose@notreal.com', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
