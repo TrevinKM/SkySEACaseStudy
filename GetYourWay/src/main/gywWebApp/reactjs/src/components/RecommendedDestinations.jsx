@@ -51,11 +51,15 @@ const RecommendedDestinations = () => {
             })}
             </table>
         </div>
+            <h3>Recommended Destinations</h3>
+        <p>
+            {JSON.stringify(recommended_destinations)}
+        </p>
         </>
     );
 }
 
-{/*}
+/*}
 const RecommendedDestinations = () => {
     const allDestinations = recommended_destinations.map(data=>
         <p item={data} key={data.id} />);
@@ -68,7 +72,7 @@ const RecommendedDestinations = () => {
             </>
         );
 };
-*/}
+*/
 
 export default RecommendedDestinations;
 // potential code for when static data exists in file
