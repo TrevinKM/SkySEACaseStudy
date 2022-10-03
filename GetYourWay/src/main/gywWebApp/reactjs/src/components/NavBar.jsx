@@ -28,6 +28,9 @@ const NavBar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/travelSearch">Travel Search</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/recommendedDestinations">Recommended Destinations</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
