@@ -14,33 +14,33 @@ import LogIn from "./components/LogIn";
 import TravelSearch from "./components/TravelSearch";
 
 function App() {
-  return (
-      <>
-          <NavBar />
-          <div className="content">
+    return (
+        <>
+            <NavBar/>
+            <div className="content">
 
-              {/*<BrowserRouter>*/}
-              {/*    <Routes>*/}
-              {/*        <Route path="/travelSearch" component={TravelSearch} />*/}
-              {/*        <Route path="/login" component={LogIn} />*/}
-              {/*        <Route path="/signup" component={SignUp} />*/}
-              {/*        <Route path="/profile" component={Profile} />*/}
-              {/*        <Route path="/recommendedDestinations" component={RecommendedDestinations} />*/}
-              {/*  </Routes>*/}
-              {/*</BrowserRouter>*/}
+                {/*<BrowserRouter>*/}
+                {/*    <Routes>*/}
+                {/*        <Route path="/travelSearch" component={TravelSearch} />*/}
+                {/*        <Route path="/login" component={LogIn} />*/}
+                {/*        <Route path="/signup" component={SignUp} />*/}
+                {/*        <Route path="/profile" component={Profile} />*/}
+                {/*        <Route path="/recommendedDestinations" component={RecommendedDestinations} />*/}
+                {/*  </Routes>*/}
+                {/*</BrowserRouter>*/}
 
-          </div>
-          <Header />
-          <main className="container">
-            <Profile />
-            <RecommendedDestinations />
-              <SignUp />
-              <LogIn />
-              <TravelSearch />
-          </main>
-          <Footer />
-      </>
-  );
+            </div>
+            <Header/>
+            <main className="container">
+                <Profile/>
+                <RecommendedDestinations/>
+                <SignUp/>
+                <LogIn/>
+                <TravelSearch/>
+            </main>
+            <Footer/>
+        </>
+    );
 }
 
 export default App;

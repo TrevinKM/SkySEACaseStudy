@@ -1,7 +1,6 @@
 import React from 'react';
 
-const LogIn = () =>
-{
+const LogIn = () => {
     return (
         <p>Log In form</p>
 

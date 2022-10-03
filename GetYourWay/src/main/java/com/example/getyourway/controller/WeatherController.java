@@ -2,7 +2,6 @@ package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.exceptions.InvalidDateException;
-import com.example.getyourway.exceptions.ServiceException;
 import com.example.getyourway.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

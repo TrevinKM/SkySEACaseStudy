@@ -14,13 +14,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     final String defaultResponse = "Something went wrong! Check your request against our documentation";
+
     @ExceptionHandler(ServiceException.class)
     protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+
     @ExceptionHandler(InvalidDateException.class)
     protected ResponseEntity<Object> handleInvalidDateException(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 }
