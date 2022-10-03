@@ -4,7 +4,6 @@ import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.exceptions.IncompatibleResponseException;
 import com.example.getyourway.exceptions.InvalidCoordException;
 import com.example.getyourway.exceptions.InvalidDateException;
-import com.example.getyourway.exceptions.ServiceException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
