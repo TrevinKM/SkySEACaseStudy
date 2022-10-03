@@ -1,7 +1,10 @@
 package com.example.getyourway.service;
 
 import com.example.getyourway.DTOs.WeatherForecast;
-import com.example.getyourway.exceptions.EndpointException;
+import com.example.getyourway.exceptions.IncompatibleResponseException;
+import com.example.getyourway.exceptions.InvalidCoordException;
+import com.example.getyourway.exceptions.InvalidDateException;
+import com.example.getyourway.exceptions.ServiceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -32,16 +35,20 @@ public class WeatherService {
     }
 
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(float lat, float lon) {
+        if(lat < -90 || lat > 90 || lon < -180 || lon > 180) throw new InvalidCoordException();
+
         String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
         return getCurrentWeatherResponse(url);
     }
 
     public ResponseEntity<List<WeatherForecast>> getForecastWeatherAt(Date startDate, Date endDate, String location) {
+        if(startDate.after(endDate)) throw new InvalidDateException("End date must be before start date");
+
         String url = getWeatherBetweenURL(startDate, endDate, location);
         return getWeatherBetweenResponse(url);
     }
 
-    private ResponseEntity<WeatherForecast> getCurrentWeatherResponse(String url) throws EndpointException {
+    private ResponseEntity<WeatherForecast> getCurrentWeatherResponse(String url) throws ServiceException {
         ResponseEntity<String> response = template.exchange(
                 url, HttpMethod.GET, null, String.class, "");
 
@@ -69,9 +76,7 @@ public class WeatherService {
         return new ResponseEntity<>(weeksWeather, HttpStatus.OK);
     }
 
-
     private String getCurrentWeatherURL(String location) {
-        try {
             return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
                     .queryParam("key", key)
                     .queryParam("aggregateHours", 24)
@@ -79,9 +84,6 @@ public class WeatherService {
                     .queryParam("unitGroup", "us")
                     .queryParam("locationMode", "single")
                     .queryParam("locations", location).encode().toUriString();
-        } catch (Exception e) {
-            throw new EndpointException("Invalid URL", e);
-        }
     }
 
     private String getWeatherBetweenURL(Date startDate, Date endDate, String location) {
@@ -103,9 +105,7 @@ public class WeatherService {
         try {
             return mapper.readValue(json.toString(), c);
         } catch (JsonProcessingException e) {
-            throw new EndpointException("Unable to parse JSON", e);
+            throw new IncompatibleResponseException("Unable to parse JSON", e);
         }
     }
-
-
 }

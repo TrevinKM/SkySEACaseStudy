@@ -13,10 +13,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(EndpointException.class)
-    protected ResponseEntity<Object> handleEndpointException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Something went wrong!";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    final String defaultResponse = "Something went wrong! Check your request against our documentation";
+    @ExceptionHandler(ServiceException.class)
+    protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
 }
