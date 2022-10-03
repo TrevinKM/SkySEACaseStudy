@@ -1,4 +1,4 @@
-package com.example.getyourway;
+package com.example.getyourway.DTOs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,36 +11,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "location",
-        "accuracy"
+        "lat",
+        "lng"
 })
-public class Response {
+public class Location {
 
-    @JsonProperty("location")
-    private Location location;
-    @JsonProperty("accuracy")
-    private Double accuracy;
+    @JsonProperty("lat")
+    private Double lat;
+    @JsonProperty("lng")
+    private Double lng;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("location")
-    public Location getLocation() {
-        return location;
+    @JsonProperty("lat")
+    public Double getLat() {
+        return lat;
     }
 
-    @JsonProperty("location")
-    public void setLocation(Location location) {
-        this.location = location;
+    @JsonProperty("lat")
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
-    @JsonProperty("accuracy")
-    public Double getAccuracy() {
-        return accuracy;
+    @JsonProperty("lng")
+    public Double getLng() {
+        return lng;
     }
 
-    @JsonProperty("accuracy")
-    public void setAccuracy(Double accuracy) {
-        this.accuracy = accuracy;
+    @JsonProperty("lng")
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
     @JsonAnyGetter

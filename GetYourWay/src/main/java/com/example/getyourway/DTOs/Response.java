@@ -1,7 +1,9 @@
-package com.example.getyourway;
+package com.example.getyourway.DTOs;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.getyourway.DTOs.Location;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,36 +13,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "lat",
-        "lng"
+        "location",
+        "accuracy"
 })
-public class Location {
+public class Response {
 
-    @JsonProperty("lat")
-    private Double lat;
-    @JsonProperty("lng")
-    private Double lng;
+    @JsonProperty("location")
+    private Location location;
+    @JsonProperty("accuracy")
+    private Double accuracy;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("lat")
-    public Double getLat() {
-        return lat;
+    @JsonProperty("location")
+    public Location getLocation() {
+        return location;
     }
 
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-        this.lat = lat;
+    @JsonProperty("location")
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    @JsonProperty("lng")
-    public Double getLng() {
-        return lng;
+    @JsonProperty("accuracy")
+    public Double getAccuracy() {
+        return accuracy;
     }
 
-    @JsonProperty("lng")
-    public void setLng(Double lng) {
-        this.lng = lng;
+    @JsonProperty("accuracy")
+    public void setAccuracy(Double accuracy) {
+        this.accuracy = accuracy;
     }
 
     @JsonAnyGetter

@@ -1,6 +1,7 @@
 package com.example.getyourway.service;
 
-import com.example.getyourway.Response;
+import com.google.gson.*;
+import com.example.getyourway.DTOs.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +33,45 @@ public class APIService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<Response> response = template.exchange(
                 uriComponents.toString(), HttpMethod.POST, requestEntity, Response.class, "");
+        return response;
+    }
+
+    // https://maps.googleapis.com/maps/api/geocode/json?address=Washington&key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE
+    public ResponseEntity<String> findGeolocation(String address) {
+        HttpHeaders headers = new HttpHeaders();
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("maps.googleapis.com")
+                .path("/maps/api/geocode/json")
+                .query("address={address}&key={api_key}")
+                .buildAndExpand(address,"AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE")
+                .encode();
+        System.out.println(uriComponents.toString());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = template.exchange(
+                uriComponents.toString(), HttpMethod.GET, requestEntity, String.class, "");
+        return response;
+    }
+
+    //https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE
+
+    public ResponseEntity<String> findReverseGeolocation(double lat, double lng) {
+        HttpHeaders headers = new HttpHeaders();
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme("https")
+                .host("maps.googleapis.com")
+                .path("/maps/api/geocode/json")
+                .query("latlng={latitude},{longitude}&key={api_key}")
+                .buildAndExpand(lat,lng,"AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE")
+                .encode();
+        System.out.println(uriComponents.toString());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = template.exchange(
+                uriComponents.toString(), HttpMethod.GET, requestEntity, String.class, "");
+        System.out.println(((Object) response).getClass().getSimpleName());
+        System.out.println(((Object) response.getBody()).getClass().getSimpleName());
         return response;
     }
 
