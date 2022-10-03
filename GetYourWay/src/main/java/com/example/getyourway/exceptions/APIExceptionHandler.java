@@ -18,5 +18,9 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+    @ExceptionHandler(InvalidDateException.class)
+    protected ResponseEntity<Object> handleInvalidDateException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
 }

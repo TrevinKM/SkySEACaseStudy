@@ -1,6 +1,7 @@
 package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.WeatherForecast;
+import com.example.getyourway.exceptions.InvalidDateException;
 import com.example.getyourway.exceptions.ServiceException;
 import com.example.getyourway.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class WeatherController {
             Date ed = s.parse(enddate);
             return weatherService.getForecastWeatherAt(sd, ed, location);
         } catch (Exception e) {
-            throw new ServiceException("Invalid date", e);
+            throw new InvalidDateException("The dates provided are in the incorrect format");
         }
     }
 

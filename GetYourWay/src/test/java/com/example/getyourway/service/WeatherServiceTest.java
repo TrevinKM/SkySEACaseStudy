@@ -35,15 +35,12 @@ class WeatherServiceTest {
     @InjectMocks
     //@Autowired
     private WeatherService service;
-
     private final String validAddress = "Leeds";
     private final float validLon = 180, validLat = 90, invalidLon = -181, invalidLat = -91;
     private final String validWeatherJSON = "{\"location\":{\"currentConditions\": {temp:1.5, humidity:1.5, precip: 1.5}}}";
     private final String invalidWeatherJSON = "{\"location\":{\"currentConditions\": {not_temp:1.5, not_humidity:1.5, not_precip: 1.5}}}";
-
     private final ResponseEntity<WeatherForecast> validWeatherResponse = new ResponseEntity<>(new WeatherForecast(1.5, 1.5, 1.5), HttpStatus.OK);
     private final List<WeatherForecast> forecastList = new ArrayList<>();
-
 
     @Test
     public void getCurrentWeatherAtLatLon_Returns_ValidWeatherForecastResponse() {
