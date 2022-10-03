@@ -1,4 +1,4 @@
-[
+export const destinationData = [
 	{
 		"id" : 1,
 		"arrivaliatacode" : "BFS",

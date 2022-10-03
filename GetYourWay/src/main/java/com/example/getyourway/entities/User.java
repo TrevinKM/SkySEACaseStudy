@@ -1,10 +1,8 @@
 package com.example.getyourway.entities;
 
 import javax.persistence.*;
-import java.util.List;
-import javax.validation.constraints.*;
-import javax.persistence.Column;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,12 +12,12 @@ public class User {
     @Column(name="id", nullable = false)
     private int id;
 
-    @Column(name="FIRST_name", nullable = false)
-    @Size(min=1, max=30)
+    @Column(name = "FIRST_name", nullable = false)
+    @Size(min = 1, max = 30)
     private String firstName;
-    @Size(min=1, max=30)
+    @Size(min = 1, max = 30)
     private String lastName;
-    @Size(min=8, max=60)
+    @Size(min = 8, max = 60)
     private String hashPassword;
     //@Pattern (clever regex here + import)
     private String emailAddress;
@@ -38,7 +36,7 @@ public class User {
     @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
     private UserAddress address;
 
-    @OneToMany
-    private List<Payment> payments;
+    //@OneToMany
+    //private List<Payment> payments;
 
 }
