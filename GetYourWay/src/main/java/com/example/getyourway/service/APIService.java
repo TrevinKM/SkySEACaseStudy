@@ -1,6 +1,5 @@
 package com.example.getyourway.service;
 
-import com.google.gson.*;
 import com.example.getyourway.DTOs.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

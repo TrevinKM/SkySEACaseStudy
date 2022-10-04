@@ -5,6 +5,15 @@ import com.example.getyourway.service.APIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.amadeus.Amadeus;
+import com.amadeus.Params;
+import com.amadeus.referenceData.Locations;
+import com.amadeus.resources.Location;
+import com.amadeus.exceptions.ResponseException;
+import com.example.getyourway.service.AmadeusConnect;
+import com.amadeus.resources.FlightOfferSearch;
+import com.amadeus.resources.FlightPrice;
+
 
 @RestController
 @RequestMapping("/api")
@@ -65,9 +74,29 @@ public class APIController {
 
 
     //Flights between two destinations
-
-    //
+    //Airports by iata code
+    @GetMapping("/airportlocations")
+    public Location[] locations(
+            @RequestParam(name = "keyword") String keyword
+    ) throws ResponseException
+    {
+        return AmadeusConnect.INSTANCE.location(keyword);
+    }
     @GetMapping("/flights")
+    public FlightOfferSearch[] flights(@RequestParam(name = "origin") String origin,
+                                       @RequestParam(name = "destination") String destination,
+                                       @RequestParam(name = "departDate") String departDate,
+                                       @RequestParam(name = "adults") String adults,
+                                       @RequestParam(required = false, name = "returnDate") String returnDate)
+            throws ResponseException {
+        return AmadeusConnect.INSTANCE.flights(origin, destination, departDate, adults, returnDate);
+    }
+    @PostMapping("/confirm")
+    public FlightPrice confirm(@RequestBody(required=true) FlightOfferSearch search) throws ResponseException {
+        return AmadeusConnect.INSTANCE.confirm(search);
+    }
+    //
+    @GetMapping("/flight")
     public ResponseEntity<Response> getLiveLocations(){
         return apiService.findCurrentLocation();
     }
