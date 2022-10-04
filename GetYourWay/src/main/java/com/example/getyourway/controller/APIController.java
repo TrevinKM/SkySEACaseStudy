@@ -1,7 +1,10 @@
 package com.example.getyourway.controller;
 
+import com.amadeus.resources.Traveler;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.service.APIService;
+import com.example.getyourway.service.DBConnect;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -96,6 +99,12 @@ public class APIController {
         return AmadeusConnect.INSTANCE.confirm(search);
     }
     //
+    @PostMapping("/traveler")
+    public Traveler traveler(@RequestBody(required=true) JsonObject travelerInfo) {
+        return DBConnect.traveler(travelerInfo.get("data").getAsJsonObject());
+    }
+
+
     @GetMapping("/flight")
     public ResponseEntity<Response> getLiveLocations(){
         return apiService.findCurrentLocation();

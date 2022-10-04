@@ -1,5 +1,6 @@
 package com.example.getyourway.service;
 
+import com.amadeus.resources.FlightOrder;
 import com.google.gson.Gson;
 import com.amadeus.Amadeus;
 import com.amadeus.Params;
@@ -8,6 +9,7 @@ import com.amadeus.resources.FlightPrice;
 import com.amadeus.resources.Location;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.exceptions.ResponseException;
+import com.google.gson.JsonObject;
 import org.springframework.stereotype.Service;
 
 public enum AmadeusConnect {
@@ -36,5 +38,9 @@ public enum AmadeusConnect {
 
     public FlightPrice confirm(FlightOfferSearch offer) throws ResponseException {
         return amadeus.shopping.flightOffersSearch.pricing.post(offer);
+    }
+
+    public FlightOrder order(JsonObject order) throws ResponseException {
+        return amadeus.booking.flightOrders.post(order);
     }
 }
