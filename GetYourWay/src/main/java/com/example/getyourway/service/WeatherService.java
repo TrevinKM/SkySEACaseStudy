@@ -99,7 +99,6 @@ public class WeatherService {
                 .build(parameters).toString();
     }
 
-
     private Object mapJSONToClass(JSONObject json, Class c) {
         ObjectMapper mapper = new ObjectMapper();
         try {
