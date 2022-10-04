@@ -8,9 +8,6 @@ import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.amadeus.Amadeus;
-import com.amadeus.Params;
-import com.amadeus.referenceData.Locations;
 import com.amadeus.resources.Location;
 import com.amadeus.exceptions.ResponseException;
 import com.example.getyourway.service.AmadeusConnect;
@@ -37,11 +34,10 @@ public class APIController {
 
 //query function name - gets airports rather than flights so should we change it?
 
-    //Find current live location in lat lng -> convert to location
+    //Find current live location in lat lng
     @GetMapping("/location")
-    public ResponseEntity<String> getLocations(){
-        ResponseEntity<Response> response = apiService.findCurrentLocation();
-        return apiService.findFlightsNear(response.getBody().getLocation().getLat(), response.getBody().getLocation().getLng());
+    public ResponseEntity<Response> getCurrentLocation(){
+        return apiService.findCurrentLocation();
     }
     //Change lat lng to text(good for turning the above live location to text)
     @GetMapping("/address")
