@@ -17,8 +17,8 @@ public class SubscriptionController {
     @Autowired
     SubscriptionService service;
 
-    @PostMapping("/purchase")
-    public ResponseEntity<Void> setCustomerID() throws StripeException {
+    @PostMapping("/subscribe")
+    public ResponseEntity<Void> createSubscription() throws StripeException {
         return service.createSubscription();
     }
 

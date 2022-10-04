@@ -1,7 +1,8 @@
-package com.example.getyourway.service;
+package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.controller.WeatherController;
+import com.example.getyourway.service.WeatherService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
