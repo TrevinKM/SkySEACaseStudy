@@ -17,13 +17,13 @@ public class SubscriptionController {
     @Autowired
     SubscriptionService service;
 
+    //TODO: this should take user ID to pass to the session
     @PostMapping("/subscribe")
     public ResponseEntity<Void> createSubscription() throws StripeException {
         return service.createSubscription();
     }
 
-
-    //TODO:Test this webhook on AWS
+    //TODO:Test this webhook on AWS, the event object should contain user_id in metadata
     @PostMapping("/webhook")
     public ResponseEntity<Void> subscriptionWebhook(@RequestBody String payload, @RequestHeader("Stripe-signature") String sigHeader) {
         return service.webhook(payload, sigHeader);

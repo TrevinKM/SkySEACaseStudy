@@ -1,5 +1,9 @@
 package com.example.getyourway.service;
 
+import com.example.getyourway.entities.Subscription;
+import com.example.getyourway.entities.User;
+import com.example.getyourway.repositiories.SubscriptionRepo;
+import com.example.getyourway.repositiories.UserRepo;
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
@@ -7,14 +11,23 @@ import com.stripe.model.Event;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class SubscriptionService {
+    @Autowired
+    private SubscriptionRepo subscriptionRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
     public ResponseEntity<Void> webhook(String payload, String sigHeader){
         String endpointSecret = "whsec_PEvZgyzKRbbeMlaFFZ8zbR9UNLe3aokA";
 
@@ -26,9 +39,23 @@ public class SubscriptionService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        int user_id = -1;
         switch (event.getType()) {
             case "checkout.session.completed":
-                //Add customer id to user
+                //TODO: How to associate this with user?
+                Subscription s = new Subscription();
+                s.setStripe_id("{{CUSTOMERID}}");
+                s.setStartDate(new Date()); //replace with event object date
+                s.setEndDate(new Date()); //replace with event object date
+
+                Optional<User> optional_user = userRepo.findById(user_id);
+                if(optional_user.isPresent()){
+                    User current_user = optional_user.get();
+                    current_user.setSubscription(s);
+                    userRepo.save(current_user);
+                    subscriptionRepo.save(s);
+                }
+
                 break;
             case "customer.subscription.deleted":
                 // Delete customer id
