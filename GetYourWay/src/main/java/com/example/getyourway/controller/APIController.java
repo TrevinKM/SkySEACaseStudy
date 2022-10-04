@@ -2,6 +2,7 @@ package com.example.getyourway.controller;
 
 import com.amadeus.resources.Traveler;
 import com.example.getyourway.DTOs.Response;
+import com.example.getyourway.DTOs.Result;
 import com.example.getyourway.service.APIService;
 import com.example.getyourway.service.DBConnect;
 import com.google.gson.JsonObject;
@@ -42,7 +43,7 @@ public class APIController {
     //Change lat lng to text(good for turning the above live location to text)
     @GetMapping("/address")
     @ResponseBody
-    public ResponseEntity<String> getAddress(
+    public ResponseEntity<Result> getAddress(
             @RequestParam(name = "lat") double lat,
             @RequestParam(name = "lng") double lng
     )
