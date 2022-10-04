@@ -19,8 +19,8 @@ public class SubscriptionController {
 
     //TODO: this should take user ID to pass to the session
     @PostMapping("/subscribe")
-    public ResponseEntity<Void> createSubscription() throws StripeException {
-        return service.createSubscription();
+    public ResponseEntity<Void> createSubscription(@RequestHeader String userid) throws StripeException {
+        return service.createSubscription(userid);
     }
 
     //TODO:Test this webhook on AWS, the event object should contain user_id in metadata

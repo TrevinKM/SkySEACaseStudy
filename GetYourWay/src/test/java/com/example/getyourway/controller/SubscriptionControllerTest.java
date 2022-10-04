@@ -52,7 +52,7 @@ class SubscriptionControllerTest {
 
     @Test
     public void testCreateSubscription() throws Exception {
-        Mockito.when(service.createSubscription()).thenReturn(new ResponseEntity<>(HttpStatus.OK));
+        Mockito.when(service.createSubscription(Mockito.anyString())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
         mockMvc.perform(post(createSubscriptionURL)).andExpect(status().isOk());
     }
 

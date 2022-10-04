@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,16 +34,16 @@ public class SubscriptionService {
         String endpointSecret = "whsec_PEvZgyzKRbbeMlaFFZ8zbR9UNLe3aokA";
 
         Event event = null;
-
         try {
             event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
         } catch (SignatureVerificationException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        int user_id = -1;
+        System.out.println(event.getData().toJson());
+        int user_id = 0;
         switch (event.getType()) {
             case "checkout.session.completed":
+
                 //TODO: How to associate this with user?
                 Subscription s = new Subscription();
                 s.setStripe_id("{{CUSTOMERID}}");
@@ -55,7 +57,6 @@ public class SubscriptionService {
                     userRepo.save(current_user);
                     subscriptionRepo.save(s);
                 }
-
                 break;
             case "customer.subscription.deleted":
                 // Delete customer id
@@ -69,11 +70,12 @@ public class SubscriptionService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> createSubscription() throws StripeException {
+    public ResponseEntity<Void> createSubscription(String userId) throws StripeException {
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
         String priceId = "price_1LiFqUJ1jIOYkwj99CaiVlkS";
         SessionCreateParams params = new SessionCreateParams.Builder()
+                .putMetadata("user_id", userId)
                 .setSuccessUrl("https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}")
                 .setCancelUrl("https://example.com/canceled.html")
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
@@ -84,8 +86,9 @@ public class SubscriptionService {
                         .build()
                 )
                 .build();
-
         Session session = Session.create(params);
+
+
         return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(session.getUrl())).build();
     }
     public ResponseEntity<Void> getCustomerPortal(String customer_id) throws StripeException{
