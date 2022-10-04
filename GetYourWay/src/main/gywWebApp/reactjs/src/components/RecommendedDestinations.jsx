@@ -28,12 +28,10 @@ const RecommendedDestinations = () => {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img class="smallimg" src={"images/" + data.id + "show.jpeg"}
-                                             alt={"Picture of " + data.sky_show}/>
+                                        <img class="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show} />
                                     </td>
                                     <td>
-                                        <img class="smallimg" src={"images/" + data.id + "dest.jpeg"}
-                                             alt={"Picture of " + data.name}/>
+                                        <img class="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />
                                     </td>
 
                                 </tr>
@@ -53,10 +51,6 @@ const RecommendedDestinations = () => {
                     })}
                 </table>
             </div>
-            <h3>Recommended Destinations</h3>
-            <p>
-                {JSON.stringify(recommended_destinations)}
-            </p>
         </>
     );
 }
