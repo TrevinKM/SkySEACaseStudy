@@ -90,13 +90,13 @@ const SignUpForm = props => {
                 />
             </div>
             <div className="form-group">
-                <input type="submit" className="btn" value="Submit" >Sign Up</input>
+                <input type="submit" className="btn" value="Sign Up"  />
             </div>
         </form>
     );
 };
 
-SignUpForm.propTypes = {
-    submitForm: PropTypes.func.isRequired}
+//SignUpForm.propTypes = {
+//    submitForm: PropTypes.func.isRequired}
 
 export default SignUpForm;

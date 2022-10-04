@@ -36,7 +36,7 @@
 
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import {
+import {add
     Home,
     About,
     Profile,
@@ -46,12 +46,24 @@ import {
 } from './pages';
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import SignUpForm from "./components/SignUpForm";
 
 function App() {
     return (
         <>
         <NavBar />
             <div>
+
+            </div>
+            <SignUpForm />
+            <Footer />
+        </>
+    );
+}
+
+export default App;
+
+/*
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -60,10 +72,4 @@ function App() {
                     <Route path="/travelSearch" element={<TravelSearch />} />
                     <Route path="*" element={<NotFound404 />} />
                 </Routes>
-            </div>
-            <Footer />
-        </>
-    );
-}
-
-export default App;
+ */

@@ -1,7 +1,7 @@
 import React from 'react';
 import {destinationData} from './recommended_destinations';
 
-const RecommendedDestinations = () => {
+const RecommendedDestinations = ({recommended_destinations}) => {
     return (
         <>
         <h2>Get Inspired by Movie and Show Locations</h2>
