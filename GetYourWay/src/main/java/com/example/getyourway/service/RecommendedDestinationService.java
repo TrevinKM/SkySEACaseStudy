@@ -21,16 +21,16 @@ public class RecommendedDestinationService {
 
     public String test(){return "Testing 1, 2, 3!";}
 //should this read method call the jpql or sql version of findAll?   
-public List<RecommendedDestination> getAll() {
+    public List<RecommendedDestination> getAll() {
         return this.repo.findAll();
     }
 
 }  
-{/*public ResponseEntity<RecommendedDestination> getRecommendedDestination(@PathVariable(value = "id") Long id){
-        RecommendedDestination recommendedDestination = this.repo.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("This destination does not exist")
-        );
-        return ResponseEntity.ok().body(recommendedDestination);
-    } /*} 
+//public ResponseEntity<RecommendedDestination> getRecommendedDestination(@PathVariable(value = "id") Long id){
+        //RecommendedDestination recommendedDestination = this.repo.findById(id).orElseThrow(
+                //() -> new ResourceNotFoundException("This destination does not exist")
+        //);
+        //return ResponseEntity.ok().body(recommendedDestination);
+    // /*} 
 
 

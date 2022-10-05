@@ -8,7 +8,7 @@ import com.example.getyourway.entities.RecommendedDestination;
 
 
 @Repository
-public interface RecommendedDestinationRepo extends JpaRepository<RecommendedDestination,Int>{
+public interface RecommendedDestinationRepo extends JpaRepository<RecommendedDestination,Integer>{
     //List<RecommendedDestination> findRecommendedDestination();
 
     //@Query("SELECT p from Person p")
