@@ -1,8 +1,11 @@
-package com.example.getyourway;
+package com.example.getyourway.DTOs;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+
+import com.example.getyourway.DTOs.Result;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,37 +15,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "lat",
-        "lng"
+        "results",
+        "status"
 })
 @Generated("jsonschema2pojo")
-public class Location {
+public class AddressResult {
 
-    @JsonProperty("lat")
-    private Double lat;
-    @JsonProperty("lng")
-    private Double lng;
+    @JsonProperty("results")
+    private List<Result> results = null;
+    @JsonProperty("status")
+    private String status;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("lat")
-    public Double getLat() {
-        return lat;
+    @JsonProperty("results")
+    public List<Result> getResults() {
+        return results;
     }
 
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-        this.lat = lat;
+    @JsonProperty("results")
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 
-    @JsonProperty("lng")
-    public Double getLng() {
-        return lng;
+    @JsonProperty("status")
+    public String getStatus() {
+        return status;
     }
 
-    @JsonProperty("lng")
-    public void setLng(Double lng) {
-        this.lng = lng;
+    @JsonProperty("status")
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @JsonAnyGetter

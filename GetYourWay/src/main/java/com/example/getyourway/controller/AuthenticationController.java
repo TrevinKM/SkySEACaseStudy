@@ -14,7 +14,7 @@ public class AuthenticationController {
     @PostMapping("/process_register")
     public String processRegister(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //String encodedPassword = passwordEncoder.encode(user.getPassword());
+        //String encodedPgit assword = passwordEncoder.encode(user.getPassword());
         //user.setPassword(encodedPassword);
 
         //userRepo.save(user);

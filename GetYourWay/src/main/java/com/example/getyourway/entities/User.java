@@ -1,26 +1,32 @@
 package com.example.getyourway.entities;
 
+import lombok.Data;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
+@Setter
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     private int id;
 
-    private String firstname;
-
-    private String lastname;
-
-    private String username;
-
-    private String email;
-
-    private byte[] photo;
+    @Column(name = "FIRST_name", nullable = false)
+    @Size(min = 1, max = 30)
+    private String firstName;
+    @Size(min = 1, max = 30)
+    private String lastName;
+    @Size(min = 8, max = 60)
+    private String hashPassword;
+    //@Pattern (clever regex here + import)
+    private String emailAddress;
+    //some sort of size constraint here 400kb? and file type(s)
+    private byte[] imageFile;
 
     private boolean enabled;
 
@@ -40,8 +46,8 @@ public class User {
     @JoinColumn(name = "useraddress_id", referencedColumnName = "id")
     private UserAddress address;
 
-    @OneToMany
-    private List<Payment> payments;
+    //@OneToMany
+    //private List<Payment> payments;
 
     public static Object withDefaultPasswordEncoder() {
         return null;
