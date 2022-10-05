@@ -1,4 +1,5 @@
 import React from 'react';
+import Weather from './Weather';
 
 const TravelSearch = () => {
     return (
@@ -6,6 +7,7 @@ const TravelSearch = () => {
             <p>Flights API</p>
             <p>Weather API</p>
             <p>Journey Details</p>
+            <Weather />
         </>
     )
 };
