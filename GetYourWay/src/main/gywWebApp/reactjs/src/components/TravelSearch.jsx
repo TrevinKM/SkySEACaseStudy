@@ -9,7 +9,7 @@ const TravelSearch = () => {
         <>
             <p>Flights API</p>
             <Weather />
-            <Locate handleChoice={setDestination} display={"Origin"}/>
+            <Locate handleChoice={setDestination} display={"Your location"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
 
         </>

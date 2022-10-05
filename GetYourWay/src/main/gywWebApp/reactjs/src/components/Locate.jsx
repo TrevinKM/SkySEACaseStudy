@@ -23,27 +23,27 @@ function Locate(props) {
     //
     //     submit();
     // }, []);
-    // const submit = async (e) => {
-    //     e.preventDefault();
-    //     await axios.get('http://localhost:8082/api/airportlocations', {params: {keyword: 'LON'}})
-    //         .then((res) => setLocations(res.data));
-    // }
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-        fetch(
-            "/api/airportlocations?keyword=" + value
-        )
-            .then((response) => response.json())
-            .then((json) => {
-                setLocations(json);
-            });
+        await axios.get('http://localhost:8082/api/airportlocations', {params: {keyword: value}})
+            .then((res) => setLocations(res.data));
     }
+    // const submit = (e) => {
+    //     e.preventDefault();
+    //     fetch(
+    //         "/api/airportlocations?keyword=" + value
+    //     )
+    //         .then((response) => response.json())
+    //         .then((json) => {
+    //             setLocations(json);
+    //         });
+    // }
 
 
 
     return (
         <div>
-            <TextInput onSubmit={submit} display={props.display} onChange={(e) => setValue(e.target.value)} value={value} />
+            <TextInput onSubmit={submit} display={props.display} onChange={(x) => setValue(x.target.value)} value={value} />
             <LocationSelect data={locations} handleChoice={props.handleChoice} />
         </div>
     );
