@@ -1,16 +1,15 @@
 package com.example.getyourway.controller;
 
 import com.amadeus.resources.Traveler;
+import com.example.getyourway.DTOs.AddressResult;
 import com.example.getyourway.DTOs.Response;
+import com.example.getyourway.DTOs.Result;
 import com.example.getyourway.service.APIService;
 import com.example.getyourway.service.DBConnect;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.amadeus.Amadeus;
-import com.amadeus.Params;
-import com.amadeus.referenceData.Locations;
 import com.amadeus.resources.Location;
 import com.amadeus.exceptions.ResponseException;
 import com.example.getyourway.service.AmadeusConnect;
@@ -37,16 +36,15 @@ public class APIController {
 
 //query function name - gets airports rather than flights so should we change it?
 
-    //Find current live location in lat lng -> convert to location
+    //Find current live location in lat lng
     @GetMapping("/location")
-    public ResponseEntity<String> getLocations(){
-        ResponseEntity<Response> response = apiService.findCurrentLocation();
-        return apiService.findFlightsNear(response.getBody().getLocation().getLat(), response.getBody().getLocation().getLng());
+    public ResponseEntity<Response> getCurrentLocation(){
+        return apiService.findCurrentLocation();
     }
     //Change lat lng to text(good for turning the above live location to text)
     @GetMapping("/address")
     @ResponseBody
-    public ResponseEntity<String> getAddress(
+    public ResponseEntity<Result> getAddress(
             @RequestParam(name = "lat") double lat,
             @RequestParam(name = "lng") double lng
     )
@@ -56,7 +54,7 @@ public class APIController {
     //Change postcode to lat lng/address
     @GetMapping("/coordinates")
     @ResponseBody
-    public ResponseEntity<String> getLatLng(
+    public ResponseEntity<Result> getLatLng(
             @RequestParam(name = "address") String address
     )
     {
@@ -64,7 +62,7 @@ public class APIController {
         return apiService.findGeolocation(address);
     }
 
-    //Find airports near a certain lat lng location
+    //Find airports near a certain lat lng location (using amadeus api instead now)
     @GetMapping("/airports")
     @ResponseBody
     public ResponseEntity<?> getAirPorts(
