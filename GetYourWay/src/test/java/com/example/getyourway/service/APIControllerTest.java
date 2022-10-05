@@ -48,6 +48,9 @@ class APIControllerTest {
     final String baseURL = "/api";
     final String getCurrentLocationURL = baseURL + "/location";
     final String getAddressURL = baseURL + "/address?lat=40.714224&lng=-73.961452";
+    final String getLatLngURL = baseURL + "/coordinates?address=ha11ql";
+    final String getLocationURL = baseURL + "/airportlocations?keyword=LON";
+
 
     @Test
     public void contextLoads() { assertThat(apiController).isNotNull(); }
@@ -64,5 +67,16 @@ class APIControllerTest {
         when(service.findReverseGeolocation(Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(response);
         mockMvc.perform(get(getAddressURL)).andExpect(status().isOk());
     }
+    @Test
+    public void getLatLng_Should_Return_OK() throws Exception {
+        ResponseEntity<Result> response = new ResponseEntity<>(new Result(Collections.emptyList(),"address", new Object(), "placeid", new Object(), Collections.<String>emptyList(), Collections.emptyMap()), HttpStatus.OK);
+        when(service.findGeolocation(Mockito.anyString())).thenReturn(response);
+        mockMvc.perform(get(getLatLngURL)).andExpect(status().isOk());
+    }
+
+//    @Test
+//    public void locations_Should_Return_OK() throws Exception {
+//
+//    }
 
 }

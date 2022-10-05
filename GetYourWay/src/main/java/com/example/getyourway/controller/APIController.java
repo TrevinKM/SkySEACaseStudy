@@ -1,6 +1,7 @@
 package com.example.getyourway.controller;
 
 import com.amadeus.resources.Traveler;
+import com.example.getyourway.DTOs.AddressResult;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.DTOs.Result;
 import com.example.getyourway.service.APIService;
@@ -53,7 +54,7 @@ public class APIController {
     //Change postcode to lat lng/address
     @GetMapping("/coordinates")
     @ResponseBody
-    public ResponseEntity<String> getLatLng(
+    public ResponseEntity<Result> getLatLng(
             @RequestParam(name = "address") String address
     )
     {
@@ -61,7 +62,7 @@ public class APIController {
         return apiService.findGeolocation(address);
     }
 
-    //Find airports near a certain lat lng location
+    //Find airports near a certain lat lng location (using amadeus api instead now)
     @GetMapping("/airports")
     @ResponseBody
     public ResponseEntity<?> getAirPorts(

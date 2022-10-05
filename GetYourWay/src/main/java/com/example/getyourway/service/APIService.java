@@ -1,5 +1,6 @@
 package com.example.getyourway.service;
 
+import com.example.getyourway.DTOs.AddressResult;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.DTOs.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class APIService {
     }
 
     // https://maps.googleapis.com/maps/api/geocode/json?address=Washington&key=AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE
-    public ResponseEntity<String> findGeolocation(String address) {
+    public ResponseEntity<Result> findGeolocation(String address) {
         HttpHeaders headers = new HttpHeaders();
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -47,10 +48,10 @@ public class APIService {
                 .query("address={address}&key={api_key}")
                 .buildAndExpand(address,"AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE")
                 .encode();
-        System.out.println(uriComponents.toString());
+        //System.out.println(uriComponents.toString());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = template.exchange(
-                uriComponents.toString(), HttpMethod.GET, requestEntity, String.class, "");
+        ResponseEntity<Result> response = template.exchange(
+                uriComponents.toString(), HttpMethod.GET, requestEntity, Result.class, "");
         return response;
     }
 
