@@ -26,5 +26,5 @@ public class Subscription {
     @OneToOne(mappedBy = "subscription")
     private User user;
 
-    private String stripe_id;
+    private String stripeId;
 }
