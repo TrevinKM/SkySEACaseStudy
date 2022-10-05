@@ -35,14 +35,14 @@ public class WeatherService {
     }
 
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(float lat, float lon) {
-        if(lat < -90 || lat > 90 || lon < -180 || lon > 180) throw new InvalidCoordException();
+        if (lat < -90 || lat > 90 || lon < -180 || lon > 180) throw new InvalidCoordException();
 
         String url = getCurrentWeatherURL(String.format("%f,%f", lat, lon));
         return getCurrentWeatherResponse(url);
     }
 
     public ResponseEntity<List<WeatherForecast>> getForecastWeatherAt(Date startDate, Date endDate, String location) {
-        if(startDate.after(endDate)) throw new InvalidDateException("End date must be before start date");
+        if (startDate.after(endDate)) throw new InvalidDateException("End date must be before start date");
 
         String url = getWeatherBetweenURL(startDate, endDate, location);
         return getWeatherBetweenResponse(url);
@@ -77,13 +77,13 @@ public class WeatherService {
     }
 
     private String getCurrentWeatherURL(String location) {
-            return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
-                    .queryParam("key", key)
-                    .queryParam("aggregateHours", 24)
-                    .queryParam("contentType", "json")
-                    .queryParam("unitGroup", "us")
-                    .queryParam("locationMode", "single")
-                    .queryParam("locations", location).encode().toUriString();
+        return UriComponentsBuilder.fromUriString(baseUrl + "/weatherdata/forecast")
+                .queryParam("key", key)
+                .queryParam("aggregateHours", 24)
+                .queryParam("contentType", "json")
+                .queryParam("unitGroup", "us")
+                .queryParam("locationMode", "single")
+                .queryParam("locations", location).encode().toUriString();
     }
 
     private String getWeatherBetweenURL(Date startDate, Date endDate, String location) {
@@ -98,7 +98,6 @@ public class WeatherService {
                 .queryParam("include", "days")
                 .build(parameters).toString();
     }
-
 
     private Object mapJSONToClass(JSONObject json, Class c) {
         ObjectMapper mapper = new ObjectMapper();

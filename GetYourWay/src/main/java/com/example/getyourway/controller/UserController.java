@@ -19,8 +19,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    //All get requests for users
-
     @GetMapping("/show")
     public ResponseEntity<List<User>> getUser(){
         return ResponseEntity.ok(this.userRepository.findAll());

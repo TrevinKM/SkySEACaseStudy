@@ -11,11 +11,11 @@ const Header = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                <img
-                    src={logo}
-                    alt="Get Your Way"
-                    style={{ width: '100px'}}
-                />
+                    <img
+                        src={logo}
+                        alt="Get Your Way"
+                        style={{width: '100px'}}
+                    />
                 </a>
                 <a className="navbar-brand" href="/">
                     <h1>Get Your Way</h1>

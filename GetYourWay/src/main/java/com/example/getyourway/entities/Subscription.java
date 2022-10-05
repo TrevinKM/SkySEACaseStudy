@@ -1,10 +1,13 @@
 package com.example.getyourway.entities;
 
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "subscription")
+@Setter
 public class Subscription {
 
     @Id
@@ -22,4 +25,6 @@ public class Subscription {
 
     @OneToOne(mappedBy = "subscription")
     private User user;
+
+    private String stripeId;
 }

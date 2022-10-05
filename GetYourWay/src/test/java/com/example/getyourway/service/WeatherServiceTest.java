@@ -25,6 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
@@ -55,6 +56,7 @@ class WeatherServiceTest {
 
         assertEquals("Valid response", validWeatherResponse, service.getCurrentWeatherAt(validLat, validLon));
     }
+
     @Test
     public void getCurrentWeatherAtAddress_Returns_ValidWeatherForecastResponse() {
         Mockito.when(template.exchange(
@@ -66,6 +68,7 @@ class WeatherServiceTest {
 
         assertEquals("Valid response", validWeatherResponse, service.getCurrentWeatherAt(validAddress));
     }
+
     @Test
     public void getForecastWeatherAtAddress_Returns_ValidWeatherForecastResponse() {
         Date yesterday = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
@@ -109,7 +112,7 @@ class WeatherServiceTest {
                 Mockito.eq(null),
                 Mockito.<Class<String>>any(),
                 Mockito.anyString())).thenReturn(new ResponseEntity<>(response, HttpStatus.OK));
-        forecastList.add(new WeatherForecast(1.5,1.5,1.5));
+        forecastList.add(new WeatherForecast(1.5, 1.5, 1.5));
         assertEquals("Valid response", new ResponseEntity<List<WeatherForecast>>(forecastList, HttpStatus.OK), service.getForecastWeatherAt(yesterday, new Date(), validAddress));
     }
 
@@ -124,24 +127,12 @@ class WeatherServiceTest {
                 Mockito.<Class<String>>any(),
                 Mockito.anyString());
     }
+
     @Test
     public void getCurrentWeatherAtInvalidLon_Returns_InvalidCoordException() {
         assertThrows(InvalidCoordException.class,
-                () -> {service.getCurrentWeatherAt(validLat, invalidLon);
-        });
-        verify(template, never()).exchange(
-                Mockito.anyString(),
-                Mockito.eq(HttpMethod.GET),
-                Mockito.eq(null),
-                Mockito.<Class<String>>any(),
-                Mockito.anyString());
-    }
-    @Test
-    public void getCurrentWeatherAtInvalidDate_Returns_InvalidDateException() {
-        Date yesterday = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
-
-        assertThrows(InvalidDateException.class,
-                () -> {service.getForecastWeatherAt(new Date(), yesterday, validAddress );
+                () -> {
+                    service.getCurrentWeatherAt(validLat, invalidLon);
                 });
         verify(template, never()).exchange(
                 Mockito.anyString(),
@@ -150,6 +141,23 @@ class WeatherServiceTest {
                 Mockito.<Class<String>>any(),
                 Mockito.anyString());
     }
+
+    @Test
+    public void getCurrentWeatherAtInvalidDate_Returns_InvalidDateException() {
+        Date yesterday = Date.from(Instant.now().minus(1, ChronoUnit.DAYS));
+
+        assertThrows(InvalidDateException.class,
+                () -> {
+                    service.getForecastWeatherAt(new Date(), yesterday, validAddress);
+                });
+        verify(template, never()).exchange(
+                Mockito.anyString(),
+                Mockito.eq(HttpMethod.GET),
+                Mockito.eq(null),
+                Mockito.<Class<String>>any(),
+                Mockito.anyString());
+    }
+
     @Test
     public void getCurrentWeatherAtInvalidJSON_Returns_IncompatibleResponseException() {
         Mockito.when(template.exchange(
@@ -161,7 +169,8 @@ class WeatherServiceTest {
 
 
         assertThrows(IncompatibleResponseException.class,
-                () -> {service.getCurrentWeatherAt(validLat, validLon);
+                () -> {
+                    service.getCurrentWeatherAt(validLat, validLon);
                 });
 
     }
