@@ -76,6 +76,7 @@ public class APIController {
 
     //Flights between two destinations
     //Airports by iata code
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/airportlocations")
     public Location[] locations(
             @RequestParam(name = "keyword") String keyword
