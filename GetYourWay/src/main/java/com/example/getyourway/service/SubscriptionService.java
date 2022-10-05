@@ -8,19 +8,19 @@ import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;
+import com.stripe.model.SourceTransaction;
+import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SubscriptionService {
@@ -39,14 +39,19 @@ public class SubscriptionService {
         } catch (SignatureVerificationException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        System.out.println(event.getData().toJson());
-        int user_id = 0;
+        String responseString = event.getData().getObject().toJson();
+        JSONObject responseJSON = new JSONObject(responseString);
+        String stripe_customer_id = responseJSON.get("customer").toString();
+
         switch (event.getType()) {
             case "checkout.session.completed":
+                System.out.println(event.getData());
 
+                int user_id = Integer.parseInt(responseJSON.getJSONObject("metadata").get("user_id").toString());
                 //TODO: How to associate this with user?
+                //event object contains user_id metadata
                 Subscription s = new Subscription();
-                s.setStripe_id("{{CUSTOMERID}}");
+                s.setStripe_id(stripe_customer_id);
                 s.setStartDate(new Date()); //replace with event object date
                 s.setEndDate(new Date()); //replace with event object date
 
@@ -59,15 +64,25 @@ public class SubscriptionService {
                 }
                 break;
             case "customer.subscription.deleted":
-                // Delete customer id
+                deleteSubscription(responseJSON, stripe_customer_id);
                 break;
-            case "invoice.paid":
-                break;
-            case "invoice.payment_failed":
+            case "customer.subscription.updated":
+                deleteSubscription(responseJSON, stripe_customer_id);
+                //if renewed create subscription
                 break;
             default:
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void deleteSubscription(JSONObject responseJSON, String stripe_customer_id){
+        if(responseJSON.get("canceled_at") != null){
+            //delete
+            List<Subscription> to_delete = subscriptionRepo.findSubscriptionByStripe_id(stripe_customer_id);
+            if(to_delete.stream().count() > 0){
+                subscriptionRepo.delete(to_delete.get(0));
+            }
+        }
     }
 
     public ResponseEntity<Void> createSubscription(String userId) throws StripeException {
