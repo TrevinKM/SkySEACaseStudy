@@ -8,11 +8,10 @@ const TravelSearch = () => {
     return (
         <>
             <p>Flights API</p>
+            <Weather />
             <Locate handleChoice={setDestination} display={"Origin"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
-            <>
-                <Weather />
-            </>
+
         </>
     )
 };
