@@ -67,7 +67,7 @@ public class SubscriptionService {
 
         int user_id = Integer.parseInt(responseJSON.getJSONObject("metadata").get("user_id").toString());
         Subscription s = new Subscription();
-        s.setStripe_id(stripe_customer_id);
+        s.setStripeId(stripe_customer_id);
         s.setStartDate(new Date()); //replace with event object date
         s.setEndDate(new Date()); //replace with event object date
 
@@ -83,7 +83,7 @@ public class SubscriptionService {
     private void deleteSubscription(JSONObject responseJSON, String stripe_customer_id){
         if(responseJSON.get("canceled_at") != null){
             //delete
-            List<Subscription> to_delete = subscriptionRepo.findSubscriptionByStripe_id(stripe_customer_id);
+            List<Subscription> to_delete = subscriptionRepo.findSubscriptionsByStripeId(stripe_customer_id);
             if(to_delete.stream().count() > 0){
                 subscriptionRepo.delete(to_delete.get(0));
             }

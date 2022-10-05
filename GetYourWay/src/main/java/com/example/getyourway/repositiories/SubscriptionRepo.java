@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SubscriptionRepo extends JpaRepository<Subscription, Integer> {
-    List<Subscription> findSubscriptionByStripe_id(String stripe_id);
+    List<Subscription> findSubscriptionsByStripeId(String stripeId);
 }
