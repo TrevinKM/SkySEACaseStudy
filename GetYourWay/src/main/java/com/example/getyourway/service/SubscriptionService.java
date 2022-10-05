@@ -13,6 +13,7 @@ import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
+import org.eclipse.jetty.util.ajax.JSON;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,34 +46,38 @@ public class SubscriptionService {
 
         switch (event.getType()) {
             case "checkout.session.completed":
-                System.out.println(event.getData());
-
-                int user_id = Integer.parseInt(responseJSON.getJSONObject("metadata").get("user_id").toString());
-                //TODO: How to associate this with user?
-                //event object contains user_id metadata
-                Subscription s = new Subscription();
-                s.setStripe_id(stripe_customer_id);
-                s.setStartDate(new Date()); //replace with event object date
-                s.setEndDate(new Date()); //replace with event object date
-
-                Optional<User> optional_user = userRepo.findById(user_id);
-                if(optional_user.isPresent()){
-                    User current_user = optional_user.get();
-                    current_user.setSubscription(s);
-                    userRepo.save(current_user);
-                    subscriptionRepo.save(s);
-                }
+                insertSubscription(responseJSON, stripe_customer_id);
                 break;
             case "customer.subscription.deleted":
                 deleteSubscription(responseJSON, stripe_customer_id);
                 break;
             case "customer.subscription.updated":
-                deleteSubscription(responseJSON, stripe_customer_id);
-                //if renewed create subscription
+                if(responseJSON.get("canceled_at") != null){
+                    deleteSubscription(responseJSON, stripe_customer_id);
+                } else {
+                    insertSubscription(responseJSON, stripe_customer_id);
+                }
                 break;
             default:
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void insertSubscription(JSONObject responseJSON, String stripe_customer_id){
+
+        int user_id = Integer.parseInt(responseJSON.getJSONObject("metadata").get("user_id").toString());
+        Subscription s = new Subscription();
+        s.setStripe_id(stripe_customer_id);
+        s.setStartDate(new Date()); //replace with event object date
+        s.setEndDate(new Date()); //replace with event object date
+
+        Optional<User> optional_user = userRepo.findById(user_id);
+        if(optional_user.isPresent()){
+            User current_user = optional_user.get();
+            current_user.setSubscription(s);
+            userRepo.save(current_user);
+            subscriptionRepo.save(s);
+        }
     }
 
     private void deleteSubscription(JSONObject responseJSON, String stripe_customer_id){
@@ -102,7 +107,6 @@ public class SubscriptionService {
                 )
                 .build();
         Session session = Session.create(params);
-
 
         return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(session.getUrl())).build();
     }
