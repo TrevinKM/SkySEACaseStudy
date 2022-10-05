@@ -22,6 +22,12 @@ public class User {
 
     private byte[] photo;
 
+    private boolean enabled;
+
+    private String password;
+
+    private String role;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscription subscription;
