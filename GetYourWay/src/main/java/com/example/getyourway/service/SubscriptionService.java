@@ -8,19 +8,20 @@ import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;
+import com.stripe.model.SourceTransaction;
+import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
+import org.eclipse.jetty.util.ajax.JSON;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SubscriptionService {
@@ -39,35 +40,54 @@ public class SubscriptionService {
         } catch (SignatureVerificationException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        System.out.println(event.getData().toJson());
-        int user_id = 0;
+        String responseString = event.getData().getObject().toJson();
+        JSONObject responseJSON = new JSONObject(responseString);
+        String stripe_customer_id = responseJSON.get("customer").toString();
+
         switch (event.getType()) {
             case "checkout.session.completed":
-
-                //TODO: How to associate this with user?
-                Subscription s = new Subscription();
-                s.setStripe_id("{{CUSTOMERID}}");
-                s.setStartDate(new Date()); //replace with event object date
-                s.setEndDate(new Date()); //replace with event object date
-
-                Optional<User> optional_user = userRepo.findById(user_id);
-                if(optional_user.isPresent()){
-                    User current_user = optional_user.get();
-                    current_user.setSubscription(s);
-                    userRepo.save(current_user);
-                    subscriptionRepo.save(s);
-                }
+                insertSubscription(responseJSON, stripe_customer_id);
                 break;
             case "customer.subscription.deleted":
-                // Delete customer id
+                deleteSubscription(responseJSON, stripe_customer_id);
                 break;
-            case "invoice.paid":
-                break;
-            case "invoice.payment_failed":
+            case "customer.subscription.updated":
+                if(responseJSON.get("canceled_at") != null){
+                    deleteSubscription(responseJSON, stripe_customer_id);
+                } else {
+                    insertSubscription(responseJSON, stripe_customer_id);
+                }
                 break;
             default:
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void insertSubscription(JSONObject responseJSON, String stripe_customer_id){
+
+        int user_id = Integer.parseInt(responseJSON.getJSONObject("metadata").get("user_id").toString());
+        Subscription s = new Subscription();
+        s.setStripeId(stripe_customer_id);
+        s.setStartDate(new Date()); //replace with event object date
+        s.setEndDate(new Date()); //replace with event object date
+
+        Optional<User> optional_user = userRepo.findById(user_id);
+        if(optional_user.isPresent()){
+            User current_user = optional_user.get();
+            current_user.setSubscription(s);
+            userRepo.save(current_user);
+            subscriptionRepo.save(s);
+        }
+    }
+
+    private void deleteSubscription(JSONObject responseJSON, String stripe_customer_id){
+        if(responseJSON.get("canceled_at") != null){
+            //delete
+            List<Subscription> to_delete = subscriptionRepo.findSubscriptionsByStripeId(stripe_customer_id);
+            if(to_delete.stream().count() > 0){
+                subscriptionRepo.delete(to_delete.get(0));
+            }
+        }
     }
 
     public ResponseEntity<Void> createSubscription(String userId) throws StripeException {
@@ -87,7 +107,6 @@ public class SubscriptionService {
                 )
                 .build();
         Session session = Session.create(params);
-
 
         return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(session.getUrl())).build();
     }
