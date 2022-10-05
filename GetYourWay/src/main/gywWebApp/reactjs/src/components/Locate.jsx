@@ -5,7 +5,7 @@ function Locate(props) {
 
     const [value, setValue] = useState('');
     const [locations, setLocations] = useState([]);
-    
+
     const submit = (e) => {
         e.preventDefault();
         fetch(

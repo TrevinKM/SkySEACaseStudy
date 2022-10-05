@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Locate from './Locate';
+import Weather from './Weather';
+import Locate from "./Locate";
 
 const TravelSearch = () => {
     const [origin, setOrigin] = useState();
@@ -9,9 +10,9 @@ const TravelSearch = () => {
             <p>Flights API</p>
             <Locate handleChoice={setDestination} display={"Origin"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
-            <p></p>
+            <Weather />
             <p>Weather API</p>
-            <p>Journey Details</p>
+
         </>
     )
 };
