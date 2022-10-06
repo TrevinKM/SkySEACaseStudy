@@ -46,7 +46,7 @@ public class AuthenticationController {
         User user = userRepo.findByEmailAddress(request.getEmail());
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
         boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
-        if(matches) return new ResponseEntity<>(String.valueOf(user.getId()),HttpStatus.OK);
+        if(matches && user.hasSubscription()) return new ResponseEntity<>(String.valueOf(user.getId()),HttpStatus.OK);
 
         return new ResponseEntity<>("-1", HttpStatus.BAD_REQUEST);
     }
