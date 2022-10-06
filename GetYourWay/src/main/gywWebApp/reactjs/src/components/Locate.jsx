@@ -30,8 +30,12 @@ function Locate(props) {
 
     return (
         <div>
+            <p>
             <TextInput onSubmit={submit} display={props.display} onChange={(x) => setValue(x.target.value)} value={value} />
+            </p>
+            <p>
             <LocationSelect data={locations} handleChoice={props.handleChoice} />
+            </p>
         </div>
     );
 };
