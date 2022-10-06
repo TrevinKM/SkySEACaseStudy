@@ -1,20 +1,16 @@
 import React from "react";
-import {Col, Container, Row} from "react-bootstrap";
+import AboutCards from "./AboutCards";
 
 const About = () => {
     return (
-
-        <Container fluid>
-            <Row>
-                <Col>
-                    <h2>Here is some information about Get Your Way</h2>
-                    <p>Get Your Way was founded in October 2022, by The Increments.
-
-                    </p>
-                </Col>
-            </Row>
-        </Container>
+        <>
+        <h1>About Get Your Way</h1>
+            <p>Get Your Way was created by The Increments in October 2022.<br/>
+            Below are profile cards of the members of The Increments.
+            </p>
+            <br/>
+        <AboutCards />
+        </>
     );
 }
-
 export default About;
