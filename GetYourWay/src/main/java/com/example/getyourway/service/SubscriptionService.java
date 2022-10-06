@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import spark.Spark;
 
 import java.net.URI;
 import java.util.*;
@@ -33,7 +34,6 @@ public class SubscriptionService {
 
     public ResponseEntity<Void> webhook(String payload, String sigHeader){
         String endpointSecret = "whsec_e9d7889ef2bf5007a999ea445d1f861cde21a4824bfd81920c6bbcf1ecc501b1";
-
         Event event = null;
         try {
             event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
@@ -90,7 +90,7 @@ public class SubscriptionService {
         }
     }
 
-    public ResponseEntity<Void> createSubscription(String userId) throws StripeException {
+    public ResponseEntity<String> createSubscription(String userId) throws StripeException {
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
         String priceId = "price_1LiFqUJ1jIOYkwj99CaiVlkS";
@@ -107,8 +107,7 @@ public class SubscriptionService {
                 )
                 .build();
         Session session = Session.create(params);
-
-        return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(session.getUrl())).build();
+        return new ResponseEntity<>(session.getUrl().toString(), HttpStatus.OK);
     }
     public ResponseEntity<Void> getCustomerPortal(String customer_id) throws StripeException{
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";

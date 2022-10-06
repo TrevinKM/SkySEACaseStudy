@@ -10,7 +10,7 @@ function Locate(props) {
 
     const submit = async (e) => {
         e.preventDefault();
-        await axios.get('http://localhost:8082/api/airportlocations', {params: {keyword: value}})
+        await axios.get('http://18.169.58.161:8082/api/airportlocations', {params: {keyword: value}})
             .then((res) => {setLocations(res.data);
             console.log(res.data)});
     }
