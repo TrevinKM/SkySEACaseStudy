@@ -12,6 +12,9 @@ code {
     monospace;
 }
 .smallimg {
-    width: 500px;
-    height: 333px;
+    object-fit: cover;
+}
+
+.d-block {
+    opacity: 0.7;
 }

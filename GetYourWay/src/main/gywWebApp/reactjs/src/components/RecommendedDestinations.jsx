@@ -3,68 +3,50 @@ import {destinationData} from './recommended_destinations';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 
 const RecommendedDestinations = () => {
     return (
         <>
-        <h2>Get Inspired by Movie and Show Locations</h2>
-        <div>
-            <table>
-                <tr>
-                    <th>
-                        On Screen
-                    </th>
-                    <th>
-                        Destination
-                    </th>
-                    <th>
-                        Real Life
-                    </th>
-                </tr>
+        <p>
+        <h4>Get Inspired by Sky Movie and Show Locations</h4>
+        </p>
+        <Container>
+        <Row>
 
             {destinationData.map((data, key) => {
                 return (<>
-                    <tr>
-                        <td>
-                            {data.sky_show}
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img className="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show} />
-                        </td>
-                        <td>
-                        {data.name} - nearest airport {data.arrivaliatacode}<br/>
-                        {data.destination_info}
-                        </td>
-                        <td>
-                            <img className="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />
-                        </td>
-
-                    </tr>
-                    <tr>
-                        
-                            
+                       
+                        <Card style={{ width: '18rem' }}>
+                        <Card.Header>On Screen: {data.sky_show}</Card.Header>
+                            <Card.Img variant="top" className="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show}/>
+                            <Card.Header>Destination: {data.name}</Card.Header>
+                            <Card.Img variant="top" className="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />  
+                                <Card.Body>
+                                    <Card.Title></Card.Title>
+                                    <Card.Title></Card.Title>
+                                    
+                                    <Card.Text>
+                                    {data.destination_info}
+                                    </Card.Text>
+                                    <Button variant="secondary">Find flights to {data.arrivaliatacode} </Button>
+                              </Card.Body>
+                        </Card>                  
                     
-                    </tr>
-                    <tr>
-                        <td>
-                            <tr>
-                            </tr>
-                        </td>
-                    </tr>
                 </>
                     
                 )
             }
             )
             }
-        </table>
-        </div>
+       </Row>
+    </Container>
     </>
 );
 }  
