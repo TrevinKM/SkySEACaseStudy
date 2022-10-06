@@ -16,14 +16,14 @@ export const destinationData = [
     {
         "id": 3,
         "arrivaliatacode": "SFO",
-        "destination_info": "Step into an enviable lifestyle. Surf or simply relax on deserted beaches, See the spectacular Monterey Bay Aquarium and pause for coffee at Palace Trattoria - the real Blue Blues Cafe. Step into an enviable lifestyle. Surf or simply relax on deserted beaches, See the spectacular Monterey Bay Aquarium and pause for coffee at Palace Trattoria - the real Blue Blues Cafe. Step into an enviable lifestyle. Surf or simply relax on deserted beaches, See the spectacular Monterey Bay Aquarium and pause for coffee at Palace Trattoria - the real Blue Blues Cafe. ",
+        "destination_info": "Step into an enviable lifestyle. Surf or simply relax on deserted beaches, See the spectacular Monterey Bay Aquarium and pause for coffee at Palace Trattoria - the real Blue Blues Cafe.",
         "name": "Monterey",
         "sky_show": "Big Little Lies"
     },
     {
         "id": 4,
         "arrivaliatacode": "JFK",
-        "destination_info": "Choose to speed through the jostling attractions of Lower Manhattan (the 12th Precinct in Blue Bloods). Or opt for a more leisurely exploration of Brooklyn, where the Reagan clan gathers for Sunday dinners. ITs tranquil parks and cosy neighbourhood restaurants are the perfect balance to the buzz of downtown.\n",
+        "destination_info": "Choose to speed through the jostling attractions of Lower Manhattan (the 12th Precinct in Blue Bloods). Or opt for a more leisurely exploration of Brooklyn, where the Reagan clan gathers for Sunday dinners. Its tranquil parks and cosy neighbourhood restaurants are the perfect balance to the buzz of downtown.\n",
         "name": "New York",
         "sky_show": "Blue Bloods"
     },
