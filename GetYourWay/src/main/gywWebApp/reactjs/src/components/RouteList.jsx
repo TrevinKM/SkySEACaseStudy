@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./Profile";
 import About from "./About";
@@ -12,6 +11,7 @@ import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LogIn from "./LogIn";
 import RequireAuth from "./ProtectedRoute";
+import TravelInfo from "./TravelInfo";
 
 function RouteList({authenticated, setAuthenticated}) {
     return (
@@ -26,8 +26,9 @@ function RouteList({authenticated, setAuthenticated}) {
                     <Route path="/signUp" element={<RequireAuth authenticated={authenticated}><SignUp /></RequireAuth>} />
                     <Route path="/entryPage" element={<RequireAuth authenticated={authenticated}><EntryPage /></RequireAuth>} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
-
                 <Route path="/logIn" element={<LogIn setAuthenticated={setAuthenticated} />} />
+                <Route path="/logIn" element={<LogIn />} />
+                <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
         </div>
     );

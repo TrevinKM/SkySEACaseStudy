@@ -1,108 +1,139 @@
 import React from 'react';
 import {destinationData} from './recommended_destinations';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+
 
 const RecommendedDestinations = () => {
     return (
         <>
-            <h2>Get Inspired by Movie and Show Locations</h2>
-            <div>
-                <table>
+        <h2>Get Inspired by Movie and Show Locations</h2>
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        On Screen
+                    </th>
+                    <th>
+                        Destination
+                    </th>
+                    <th>
+                        Real Life
+                    </th>
+                </tr>
+
+            {destinationData.map((data, key) => {
+                return (<>
                     <tr>
-                        <th>
-                            On Screen
-                        </th>
-                        <th>
-                            Real Life
-                        </th>
+                        <td>
+                            {data.sky_show}
+                        </td>
+                        <td>
+                            
+                        </td>
                     </tr>
-                    {destinationData.map((data, key) => {
-                        return (
-                            <>
-                                <tr>
-                                    <td>
-                                        {data.sky_show}
-                                    </td>
-                                    <td>
-                                        {data.name} - nearest airport {data.arrivaliatacode}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img class="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show} />
-                                    </td>
-                                    <td>
-                                        <img class="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />
-                                    </td>
+                    <tr>
+                        <td>
+                            <img className="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show} />
+                        </td>
+                        <td>
+                        {data.name} - nearest airport {data.arrivaliatacode}<br/>
+                        {data.destination_info}
+                        </td>
+                        <td>
+                            <img className="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />
+                        </td>
 
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">
-                                        {data.destination_info}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <tr>
-                                        </tr>
-                                    </td>
-                                </tr>
-                            </>
-                        );
-                    })}
-                </table>
-            </div>
-        </>
-    );
-}
-
-/*}
-const RecommendedDestinations = () => {
-    const allDestinations = recommended_destinations.map(data=>
-        <p item={data} key={data.id} />);
-        return (
-            <>
-                <h2>We recommend visiting</h2>
-                <div>
-                    {allDestinations}
-                </div>
-            </>
-        );
-};
-*/
-
+                    </tr>
+                    <tr>
+                        
+                            
+                    
+                    </tr>
+                    <tr>
+                        <td>
+                            <tr>
+                            </tr>
+                        </td>
+                    </tr>
+                </>
+                    
+                )
+            }
+            )
+            }
+        </table>
+        </div>
+    </>
+);
+}  
 export default RecommendedDestinations;
-// potential code for when static data exists in file
 
-
-// import React, { Component } from 'react';
-// import "./App.css";
-//
-// // need to import the static data for recommended destinations
-// // import { nameOfGetterForRecommendedDestinations } from 'folder';
-//
 // const RecommendedDestinations = () => {
-//
+//     const [recommendedDestination, setRecommendedDestination] = useState([]);
+
+//     useEffect(() => {
+//         const getRecommendedDestination = async () => {
+//             let response = await axios.get('http://localhost:8082/recommendedDestination/showAll');
+//             let destinationdata = await response.data;
+//             console.log(destinationdata);
+//             setRecommendedDestination(destinationdata);
+//         };
+//         getRecommendedDestination();
+//     }, []);
 //     return (
-//         <table className="table">
-//             <thead>
-//             <tr>
-//                 <th>Destination Name</th>
-//                 <th>Destination Information</th>
-//                 <th>Sky Show</th>
-//                 <th>Arrival Location</th>
-//             </tr>
-//             </thead>
-//             <tbody>
-//             { this.state.recommendedDestinations.map(recommendedDestination => <tr>
-//                 <td>{recommendedDestination.destinationName}</td>
-//                 <td>{recommendedDestination.destinationInformation}</td>
-//                 <td>{recommendedDestination.skyShow}</td>
-//                 <td>{recommendedDestination.arrivalLocation}</td>
-//             </tr>)}
-//
-//             </tbody>
+//         <>
+//         <h2>Get Inspired by Movie and Show Locations</h2>
+//         <div>
+//             <table>
+//                 <tr>
+//                     <th>
+//                         On Screen
+//                     </th>
+//                     <th>
+//                         Real Life
+//                     </th>
+//                 </tr>
+
+//             {recommendedDestination.map((data, key) => {
+//                 return (<>
+//                     <tr>
+//                         <td>
+//                             {data.sky_show}
+//                         </td>
+//                         <td>
+//                             {data.name} - nearest airport {data.arrivaliatacode}
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td>
+//                             <img className="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show} />
+//                         </td>
+//                         <td>
+//                             <img className="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />
+//                         </td>
+
+//                     </tr>
+//                     <tr>
+//                         <td rowspan="2">
+//                             {data.destination_info}
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td>
+//                             <tr>
+//                             </tr>
+//                         </td>
+//                     </tr>
+//                 </>
+                    
+//                 )
+//             }
+//             )
+//             }
 //         </table>
-//     )
-// };
-//
-// export default RecommendedDestinations;
+//         </div>
+//     </>
+// );
+// }  

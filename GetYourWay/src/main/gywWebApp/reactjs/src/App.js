@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import RouteList from "./components/RouteList";
-import axios from "axios";
-import LogOut from "./components/LogOut";
 
 function App() {
     const [authenticated, setAuthenticated] = useState(-1);

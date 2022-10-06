@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Weather from './Weather';
+import Locate from "./Locate";
+import SearchBar from "./SearchBar";
 
 const TravelSearch = () => {
+    const [origin, setOrigin] = useState();
+    const [destination, setDestination] = useState();
     return (
         <>
-            <p>Flights API</p>
-            <p>Weather API</p>
-            <p>Journey Details</p>
+            <div>
+            <p>
+            <h1>Find Your Way</h1>
+            </p>
+            <p>
+            Search for a destination or use your location and desired destination to begin your adventure.
+            </p>
+            <p>
+            <SearchBar />
+
+            </p>
+            <p>
+
+            <Locate handleChoice={setDestination} display={"Your location"}/>
+            <Locate handleChoice={setOrigin} display={"Destination"}/>
+            <Weather />
+            </p>
+            </div>
         </>
     )
 };
