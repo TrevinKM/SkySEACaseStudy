@@ -10,6 +10,7 @@ const TravelSearch = () => {
         <>
             <p>Flights API</p>
             <SearchBar />
+
             <Locate handleChoice={setDestination} display={"Your location"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
             <Weather />
