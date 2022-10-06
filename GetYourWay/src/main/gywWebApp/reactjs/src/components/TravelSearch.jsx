@@ -17,8 +17,10 @@ const TravelSearch = () => {
             </p>
             <p>
             <SearchBar />
+
             </p>
             <p>
+
             <Locate handleChoice={setDestination} display={"Your location"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
             <Weather />
