@@ -19,5 +19,4 @@ public class RecommendedDestination {
     private String skyShow;
     @Size(min = 140, max = 2000)
     private String destinationInfo;
-
 }

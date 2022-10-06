@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bc2c96c-5358-453b-81e7-3c4936728fcb" name="Changes" comment="">
+    <list default="true" id="7bc2c96c-5358-453b-81e7-3c4936728fcb" name="Changes" comment="updated initial routing">
+      <change afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/EntryPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/Home.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/NotFound.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/RouteList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/LogIn.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/LogIn.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/SignUpForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/GetYourWay/src/main/gywWebApp/reactjs/src/components/SignUpForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +21,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -24,18 +37,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/cas53/Documents/Project/groupProject/SkySEACaseStudy",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cas53/Documents/Project/groupProject/SkySEACaseStudy&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,10 +69,30 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="routingUpdated" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated initial routing" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated initial routing" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

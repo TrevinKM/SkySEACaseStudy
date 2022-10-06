@@ -2,14 +2,10 @@ package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.WeatherForecast;
 import com.example.getyourway.exceptions.InvalidDateException;
-import com.example.getyourway.exceptions.ServiceException;
 import com.example.getyourway.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +28,7 @@ public class WeatherController {
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/timeline")
     public ResponseEntity<List<WeatherForecast>> getWeatherBetween(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate) {
         try {

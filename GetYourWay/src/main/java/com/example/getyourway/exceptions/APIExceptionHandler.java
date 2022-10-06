@@ -1,5 +1,6 @@
 package com.example.getyourway.exceptions;
 
+import com.stripe.exception.StripeException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     final String defaultResponse = "Something went wrong! Check your request against our documentation";
-    @ExceptionHandler(ServiceException.class)
+
+    @ExceptionHandler({ServiceException.class, StripeException.class})
     protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+
     @ExceptionHandler(InvalidDateException.class)
     protected ResponseEntity<Object> handleInvalidDateException(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, defaultResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
 }
