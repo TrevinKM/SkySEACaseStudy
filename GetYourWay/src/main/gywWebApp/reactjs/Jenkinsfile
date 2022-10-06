@@ -15,7 +15,6 @@ pipeline {
         stage("Deploy") {
             steps {
                 dir('GetYourWay/src/main/gywWebApp/reactjs') {
-                    sh 'npm install -g serve'
                     sh 'npm serve -s build'
                 }
             }
