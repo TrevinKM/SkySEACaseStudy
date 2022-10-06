@@ -51,7 +51,6 @@ public class AuthenticationController {
         return new ResponseEntity<>("-1", HttpStatus.BAD_REQUEST);
     }
 
-
     //If this returns a 200 then the user is logged in
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/is_logged_in")
