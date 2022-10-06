@@ -11,6 +11,7 @@ import EntryPage from "./EntryPage";
 import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LogIn from "./LogIn";
+import TravelInfo from "./TravelInfo";
 
 function RouteList() {
     return (
@@ -26,6 +27,7 @@ function RouteList() {
                 <Route path="/entryPage" element={<EntryPage />} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
                 <Route path="/logIn" element={<LogIn />} />
+                <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
         </div>
     );
