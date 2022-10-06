@@ -3,13 +3,17 @@ pipeline {
      stages {
         stage("Build") {
             steps {
-                sh "npm install"
-                sh "npm run build"
+                dir('GetYourWay/src/main/gywWebApp') {
+                    sh "npm install"
+                    sh "npm run build"
+                }
             }
         }
         stage("Deploy") {
-            steps {
-                sh 'serve -s build'
+            dir('GetYourWay/src/main/gywWebApp') {
+                steps {
+                    sh 'serve -s build'
+                }
             }
         }
     }
