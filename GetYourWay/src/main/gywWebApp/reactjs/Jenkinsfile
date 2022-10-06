@@ -10,8 +10,8 @@ pipeline {
             }
         }
         stage("Deploy") {
-            dir('GetYourWay/src/main/gywWebApp') {
-                steps {
+            steps {
+                dir('GetYourWay/src/main/gywWebApp') {
                     sh 'serve -s build'
                 }
             }
