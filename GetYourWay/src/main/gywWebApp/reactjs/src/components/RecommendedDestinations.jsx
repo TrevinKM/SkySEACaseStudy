@@ -11,6 +11,7 @@ const RecommendedDestinations = () => {
         const getRecommendedDestination = async () => {
             let response = await axios.get('http://localhost:8082/recommendedDestination/showAll');
             let destinationdata = await response.data;
+            console.log(destinationdata);
             setRecommendedDestination(destinationdata);
         };
         getRecommendedDestination();

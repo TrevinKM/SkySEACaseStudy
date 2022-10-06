@@ -21,8 +21,14 @@ public class RecommendedDestinationService {
 
     public String test(){return "Testing 1, 2, 3!";}
 //should this read method call the jpql or sql version of findAll?   
+
     public List<RecommendedDestination> getAll() {
-        return this.repo.findAll();
+        List <RecommendedDestination> destinations = this.repo.findAll();
+
+        //System.out.println("BOO");
+        //destinations.forEach(destination -> System.out.println("yo"));
+       //destinations.forEach(destination -> System.out.println(destination.toString()));
+       return destinations;
     }
 
 }  

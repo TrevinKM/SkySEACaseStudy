@@ -12,28 +12,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/recommendedDestination")
 public class RecommendedDestinationController {
-
+    
     private RecommendedDestinationService service;
     @Autowired
     public RecommendedDestinationController (RecommendedDestinationService service){
         super();
         this.service = service;
     }
-
+    
     @GetMapping("/test")
     public String test(){return this.service.test();}
     
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path="/showAll")
+    
     public ResponseEntity<List<RecommendedDestination>> getRecommendedDestination(){
         return ResponseEntity.ok(this.service.getAll());
     }
 
+    
     //@GetMapping("/{id}")
     //public ResponseEntity<RecommendedDestination> getRecommendedDestination(@PathVariable(value = "id") Long id){
         //RecommendedDestination recommendedDestination = this.service.findById(id).orElseThrow(
-                //() -> new ResourceNotFoundException("This destination does not exist")
+        //() -> new ResourceNotFoundException("This destination does not exist")
         //);
         //return ResponseEntity.ok().body(recommendedDestination);
     }
-
+    
+    
