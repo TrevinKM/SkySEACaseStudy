@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, {useEffect, useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./Profile";
 import About from "./About";
@@ -11,22 +10,23 @@ import EntryPage from "./EntryPage";
 import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LogIn from "./LogIn";
+import RequireAuth from "./ProtectedRoute";
 import TravelInfo from "./TravelInfo";
 
-function RouteList() {
+function RouteList({authenticated, setAuthenticated}) {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/recommendedDestinations" element={<RecommendedDestinations />} />
-                <Route path="/travelSearch" element={<TravelSearch />} />
-                <Route path="*" element={<NotFound404 />} />
+                <Route path="/about" element={<About />}/>
+                <Route path="/" element={<RequireAuth authenticated={authenticated}><Home /></RequireAuth>} />
+                <Route path="/profile" element={<RequireAuth authenticated={authenticated}><Profile /></RequireAuth>} />
+                <Route path="/recommendedDestinations" element={<RequireAuth authenticated={authenticated}><RecommendedDestinations /></RequireAuth>} />
+                <Route path="/travelSearch" element={<RequireAuth authenticated={authenticated}><TravelSearch /></RequireAuth>} />
+                <Route path="*" element={<NotFound404 />}/>
                 <Route path="/signUp" element={<SignUp />} />
-                <Route path="/entryPage" element={<EntryPage />} />
+                <Route path="/entryPage" element={<RequireAuth authenticated={authenticated}><EntryPage /></RequireAuth>} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
-                <Route path="/logIn" element={<LogIn />} />
+                <Route path="/logIn" element={<LogIn setAuthenticated={setAuthenticated} />} />
                 <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
         </div>

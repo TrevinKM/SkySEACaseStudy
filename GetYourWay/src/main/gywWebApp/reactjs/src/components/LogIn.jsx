@@ -1,32 +1,57 @@
 import React, { useState } from 'react';
-
-const LogIn = () => {
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {Button, Form, Container, Row, Col} from "react-bootstrap";
+const LogIn = ({setAuthenticated}) => {
 
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
-
-    const printValues = e => {
-        e.preventDefault();
-        console.log(emailAddress, password);
+    let navigate = useNavigate();
+    const submitForm = async event => {
+        event.preventDefault();
+        axios.post('http://18.169.58.161:8082/user_login',{
+            email: emailAddress,
+            password: password
+        }).then(response => {
+                let user_id = 0;
+                localStorage.removeItem("logged_in_as");
+                localStorage.setItem("logged_in_as", response.data);
+                setAuthenticated(1);
+                navigate("/");
+            }
+        );
     }
-
     return (
-        <>
-            <form onSubmit={printValues}>
-                <label>Email Address:</label>
-                <input name = "emailAddress"
-                       type="text"
-                       value={emailAddress}
-                       onChange={e => setEmailAddress(e.target.value)} />
-                <label>Password: </label>
-                <input type="password"
-                       name="password"
-                       value={password}
-                       onChange={e => setPassword(e.target.value)} />
-                <br/>
-                <button>Submit</button>
-            </form>
-        </>
+        <Container>
+            <Row>
+                <Col md={6}>
+                    <h3>Log In</h3>
+                    <Form onSubmit={submitForm}>
+                        <Form.Group className={"mb-3"}>
+                            <Form.Label>Email Address:</Form.Label>
+                            <Form.Control name="email"
+                                          type="text"
+                                          value={emailAddress}
+                                          onChange={e => setEmailAddress(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className={"mb-3"}>
+                            <Form.Label>Password: </Form.Label>
+                            <Form.Control type="password"
+                                          name="password"
+                                          value={password}
+                                          onChange={e => setPassword(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className={"mb-3"}>
+                            <Button type="submit">Submit</Button>
+                        </Form.Group>
+                    </Form>
+                </Col>
+                <Col md={6}>
+                    <img className="smallimg" src={"images/8dest.jpeg"} style={{objectFit: "cover", width:"100%", height: "100%"}}/>
+                </Col>
+            </Row>
+
+        </Container>
     );
 }
 

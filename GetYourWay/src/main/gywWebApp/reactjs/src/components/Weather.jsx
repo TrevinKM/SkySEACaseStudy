@@ -10,7 +10,7 @@ const Weather = () => {
 
     useEffect(() => {
         const getWeather = async () => {
-            let response = await axios.get('http://localhost:8082/weather/timeline', {params: {location: 'London', startdate: '2022-12-05', enddate: '2022-12-12'}});
+            let response = await axios.get('http://18.169.58.161:8082/weather/timeline', {params: {location: 'London', startdate: '2022-12-05', enddate: '2022-12-12'}});
             let weatherdata = await response.data;
             setWeather(weatherdata);
         };
