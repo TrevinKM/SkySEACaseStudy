@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class GetYourWayApplication {
 
-
     @Bean
     public RestTemplate getResTemplate() {
         return new RestTemplate();
