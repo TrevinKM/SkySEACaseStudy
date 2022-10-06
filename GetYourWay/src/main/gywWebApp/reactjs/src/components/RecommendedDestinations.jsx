@@ -24,7 +24,7 @@ const RecommendedDestinations = () => {
                 return (<>
                        
                         <Card style={{ width: '18rem' }}>
-                        <Card.Header>On Screen: {data.sky_show}</Card.Header>
+                        <Card.Header>{data.sky_show}</Card.Header>
                             <Card.Img variant="top" className="smallimg" src={"images/" + data.id + "show.jpeg"} alt= {"Picture of " + data.sky_show}/>
                             <Card.Header>Destination: {data.name}</Card.Header>
                             <Card.Img variant="top" className="smallimg" src={"images/" + data.id + "dest.jpeg"} alt= {"Picture of " + data.name} />  
