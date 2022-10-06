@@ -1,11 +1,23 @@
 import React from 'react';
-import sample_users from './sample_users.json';
+import {sample_users} from './sample_users';
 
 const UserDetails = () => {
     return (
-        <p>
-            {JSON.stringify(sample_users)}
-        </p>
+    
+        <>
+        {sample_users.map((data, key) => {
+            return (<>
+                        
+                        <p>First name: {data.first_name}</p>
+                        <p>Last name: {data.last_name}</p>
+                        <p>E-mail: {data.email_address}</p>
+                                
+                    </>
+            )
+        }
+        )
+        }
+        </>
     );
 }
 export default UserDetails;
