@@ -5,16 +5,11 @@ const LogIn = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
-    const printValues = e => {
-        e.preventDefault();
-        console.log(emailAddress, password);
-    }
-
     return (
         <>
-            <form onSubmit={printValues}>
+            <form method="post" action="http://localhost:8082/login">
                 <label>Email Address:</label>
-                <input name = "emailAddress"
+                <input name="email"
                        type="text"
                        value={emailAddress}
                        onChange={e => setEmailAddress(e.target.value)} />
@@ -24,7 +19,7 @@ const LogIn = () => {
                        value={password}
                        onChange={e => setPassword(e.target.value)} />
                 <br/>
-                <button>Submit</button>
+                <input type="submit" value="submit" />
             </form>
         </>
     );

@@ -1,40 +1,32 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
-
+import axios from "axios";
 const SignUpForm = props => {
 
     const usersUrl = 'http://localhost:3000/users';
 
     const [firstName, setFirstName] = useState(``);
     const [lastName, setLastName] = useState(``);
-    const [emailAddress, setEmailAddress] = useState(``);
-    const [password, setPassword] = useState(``);
+    const [userEmailAddress, setUserEmailAddress] = useState(``);
+    const [userPassword, setUserPassword] = useState(``);
     const [confirmPassword, setConfirmPassword] = useState(``);
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        props.submitForm(firstName, lastName, emailAddress, password)
-        setFirstName(``);
-        setLastName(``);
-        setEmailAddress(``);
-        setPassword(``);
-    }
 
     const submitForm = async event => {
         event.preventDefault();
-        const body = JSON.stringify({firstName, lastName, emailAddress, password});
-        const requestOptions = {
-            method: `POST`,
-            headers: { 'Content-Type': 'application/json' },
-            body
-        };
-        const response = await fetch(usersUrl, requestOptions);
-        const result = await response.json();
-        console.log(result);
+        console.log(userEmailAddress)
+        axios.post('http://localhost:8082/process_register',{
+            firstName: firstName,
+            lastName: lastName,
+            emailAddress: userEmailAddress,
+            password: userPassword,
+            role: "USER",
+            enabled:true
+        }).then(result => console.log(result)).catch(err => console.log(err))
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm} >
             <div className="form-group">
                 <label htmlFor="firstName">First Name: &nbsp;</label>
                 <input
@@ -63,8 +55,8 @@ const SignUpForm = props => {
                     type="text"
                     name="emailAddress"
                     placeholder="Enter your email address"
-                    value={emailAddress}
-                    onChange={event => setEmailAddress(event.target.value)}
+                    value={userEmailAddress}
+                    onChange={event => setUserEmailAddress(event.target.value)}
                 />
             </div>
 
@@ -74,8 +66,8 @@ const SignUpForm = props => {
                     type="text"
                     name="password"
                     placeholder="Password needs to be at least 8 characters"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                    value={userPassword}
+                    onChange={event => setUserPassword(event.target.value)}
                 />
             </div>
 

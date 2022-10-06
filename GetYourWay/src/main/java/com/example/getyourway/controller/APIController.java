@@ -1,7 +1,6 @@
 package com.example.getyourway.controller;
 
 import com.amadeus.resources.Traveler;
-import com.example.getyourway.DTOs.AddressResult;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.DTOs.Result;
 import com.example.getyourway.service.APIService;
