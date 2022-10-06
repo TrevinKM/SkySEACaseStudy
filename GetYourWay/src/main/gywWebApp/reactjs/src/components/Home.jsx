@@ -13,7 +13,7 @@ export function Home() {
                 alt="rainbow line"
                 style={{width: '1450px'}}
             />
-            <h1>[Get Your Way]</h1>
+            <h1>Welcome to</h1>
             <Header />
             <nav>
                 <Link to="about" >About</Link>

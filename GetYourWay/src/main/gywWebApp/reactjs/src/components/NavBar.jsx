@@ -13,7 +13,7 @@ const NavBar = () => {
                          className="d-inline-block align-text-top"/>
                     <img src={logo} alt="Get Your Way logo" style={{width: '25px'}}
                          className="d-inline-block align-text-top"/>
-                    GetYourWay.com</a>
+                    GetYourWay</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -25,7 +25,7 @@ const NavBar = () => {
                             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/about">About Get Your Way</Link>
+                            <Link className="nav-link" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/profile">My Profile</Link>
