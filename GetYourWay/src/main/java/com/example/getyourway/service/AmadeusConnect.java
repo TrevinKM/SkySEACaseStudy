@@ -21,8 +21,12 @@ public enum AmadeusConnect {
                 .build();
     }
     public Location[] location(String keyword) throws ResponseException {
-        return amadeus.referenceData.locations.get(Params
+        String loc =  amadeus.referenceData.locations.get(Params
                 .with("keyword", keyword)
+                .and("subType", Locations.ANY))[0].getDetailedName();
+        System.out.println(loc);
+        return amadeus.referenceData.locations.get(Params
+                .with("keyword", loc)
                 .and("subType", Locations.AIRPORT));
     }
 
