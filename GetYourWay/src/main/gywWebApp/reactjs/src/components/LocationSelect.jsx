@@ -10,6 +10,7 @@ function LocationSelect(props) {
     );
     return (
         <div>
+            <h1>Airports near location</h1>
             {props.data.length > 0 &&
                 <form onChange={(e) => props.handleChoice(e.target.value)}>
                     {options}

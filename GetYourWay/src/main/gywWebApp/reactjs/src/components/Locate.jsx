@@ -8,25 +8,11 @@ function Locate(props) {
     const [value, setValue] = useState('');
     const [locations, setLocations] = useState([]);
 
-    // useEffect((e) => {
-    //     const submit = () => {
-    //         e.preventDefault();
-    //         axios.get("http://localhost:8082/api/airportlocations", {params: {keyword: "LON"}})
-    //             .then((response) => response)
-    //             .then((json) => {
-    //                 setLocations(json);
-    //             });
-    //         submit();
-    // }, []);
-    //
-    // useEffect((e) => {
-    //
-    //     submit();
-    // }, []);
     const submit = async (e) => {
         e.preventDefault();
         await axios.get('http://localhost:8082/api/airportlocations', {params: {keyword: value}})
-            .then((res) => setLocations(res.data));
+            .then((res) => {setLocations(res.data);
+            console.log(res.data)});
     }
     // const submit = (e) => {
     //     e.preventDefault();
@@ -38,6 +24,7 @@ function Locate(props) {
     //             setLocations(json);
     //         });
     // }
+
 
 
 
