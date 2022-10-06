@@ -18,7 +18,7 @@ const SignUpForm = props => {
     const createSubscription = async event => {
         event.preventDefault();
         console.log(userEmailAddress)
-        axios.post('http://localhost:8082/subscription/subscribe',{"body": {}},
+        axios.post('http://18.169.58.161:8082/subscription/subscribe',{"body": {}},
             {
             withCredentials: false,
             headers:{'userId':userid}
@@ -29,7 +29,7 @@ const SignUpForm = props => {
     const submitForm = async event => {
         event.preventDefault();
         console.log(userEmailAddress)
-        axios.post('http://localhost:8082/process_register',{
+        axios.post('http://18.169.58.161:8082/process_register',{
             firstName: firstName,
             lastName: lastName,
             emailAddress: userEmailAddress,

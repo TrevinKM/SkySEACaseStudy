@@ -75,7 +75,7 @@ export default RecommendedDestinations;
 
 //     useEffect(() => {
 //         const getRecommendedDestination = async () => {
-//             let response = await axios.get('http://localhost:8082/recommendedDestination/showAll');
+//             let response = await axios.get('http://18.169.58.161:8082/recommendedDestination/showAll');
 //             let destinationdata = await response.data;
 //             console.log(destinationdata);
 //             setRecommendedDestination(destinationdata);

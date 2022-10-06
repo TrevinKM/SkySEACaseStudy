@@ -5,8 +5,6 @@ import {Col, Container, Row} from "react-bootstrap";
 const SignUp = () => {
     return (
         <Container className={"mx-5"}>
-            <Row>
-            </Row>
             <Row >
                 <Col md={6}>
                     <h3 className={"mb-3"}>Sign up</h3>

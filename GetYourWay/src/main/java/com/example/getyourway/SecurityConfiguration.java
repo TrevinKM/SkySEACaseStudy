@@ -68,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .usernameParameter("email")
-                .defaultSuccessUrl("http://localhost:3000/travelSearch")
+                .defaultSuccessUrl("http://18.169.58.161:3000/travelSearch")
                 .permitAll()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();*/
