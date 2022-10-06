@@ -8,13 +8,24 @@ const TravelSearch = () => {
     const [destination, setDestination] = useState();
     return (
         <>
-            <p>Flights API</p>
+            <div>
+            <p>
+            <h1>Find Your Way</h1>
+            </p>
+            <p>
+            Search for a destination or use your location and desired destination to begin your adventure.
+            </p>
+            <p>
             <SearchBar />
+
+            </p>
+            <p>
 
             <Locate handleChoice={setDestination} display={"Your location"}/>
             <Locate handleChoice={setOrigin} display={"Destination"}/>
             <Weather />
-            <p></p>
+            </p>
+            </div>
         </>
     )
 };
