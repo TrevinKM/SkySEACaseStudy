@@ -2,6 +2,7 @@ import React from 'react';
 import logo from "../logo.png";
 import skyLogo from "./skyLogo.png";
 import {Link} from 'react-router-dom';
+import LogOut from "./LogOut";
 
 const NavBar = () => {
     return (
@@ -36,6 +37,7 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
+                <LogOut />
             </div>
         </nav>
     );

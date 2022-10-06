@@ -1,6 +1,7 @@
 package com.example.getyourway;
 import javax.sql.DataSource;
 
+import com.example.getyourway.repositiories.UserRepo;
 import com.example.getyourway.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private UserRepo userRepo;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -36,34 +42,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().permitAll().and().cors().and().csrf().disable();
+        /*http.authorizeRequests()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .usernameParameter("email")
+                .defaultSuccessUrl("/users")
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/").permitAll();*/
+        /*http
                 .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/users").authenticated()
+                .antMatchers("/users").permitAll()
+                .antMatchers("/is_logged_in").authenticated()
                 .antMatchers("/process_register").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("http://localhost:3000/login")
-                .loginProcessingUrl("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("http://localhost:3000/users")
+                .defaultSuccessUrl("http://localhost:3000/travelSearch")
                 .permitAll()
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
-                .and()
-                .oauth2ResourceServer()
-                .jwt();;
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();*/
     }
 }
