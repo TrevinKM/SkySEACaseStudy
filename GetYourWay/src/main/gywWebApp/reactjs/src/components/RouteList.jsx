@@ -12,6 +12,7 @@ import SignUpForm from "./SignUpForm";
 import LogIn from "./LogIn";
 import RequireAuth from "./ProtectedRoute";
 import TravelInfo from "./TravelInfo";
+import LogOut from "./LogOut";
 
 function RouteList({authenticated, setAuthenticated}) {
     return (
@@ -26,7 +27,8 @@ function RouteList({authenticated, setAuthenticated}) {
                 <Route path="/signUp" element={<SignUp />} />
                 <Route path="/entryPage" element={<RequireAuth authenticated={authenticated}><EntryPage /></RequireAuth>} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
-                <Route path="/logIn" element={<LogIn setAuthenticated={setAuthenticated} />} />
+                <Route path="/logIn" element={<LogIn />} />
+                <Route path="/logOut" element={<LogOut />} />
                 <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
         </div>

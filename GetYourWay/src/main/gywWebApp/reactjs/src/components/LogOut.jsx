@@ -11,7 +11,7 @@ const LogOut = () => {
         if(localStorage.getItem("logged_in_as") != null){
             return(<a onClick={logOut} style={{color: "red"}}>Log Out</a>)
         }
-        else return<></>
-}
+
+        else return<></>}
 
 export default LogOut;
