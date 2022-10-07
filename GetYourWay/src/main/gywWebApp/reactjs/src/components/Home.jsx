@@ -3,6 +3,7 @@ import React from "react";
 import BootstrapCarousel from "./BootstrapCarousel";
 import Header from "./Header";
 import line from "../line.png";
+import SearchBar from "./SearchBar";
 
 export function Home() {
     return (
@@ -11,7 +12,7 @@ export function Home() {
            
             <h3>Welcome to</h3>
             <Header />
-
+            <SearchBar />
         </div>
 
         <div>

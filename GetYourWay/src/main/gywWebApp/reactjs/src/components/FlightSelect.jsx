@@ -1,18 +1,16 @@
 import React from "react";
+import Weather from "./Weather";
 
 function FlightSelect(props) {
-    const providers = ["Which", "TUI", "TravelSupermarket", "Kayak", "SkyScanner"]
+    const providers = ["Which", "TUI", "TravelSupermarket", "Kayak", "SkyScanner", "Which"]
     const options = props.flightOptions.map((flight, index) =>
         <>
-            <input type="radio" id={flight.price.currency} name="select" value={index} />
+            <input type="radio" id={flight.id} name="select" value={index} />
             <label htmlFor={flight.id}>
-                {"Price: " + flight.price.grandTotal + " " + flight.price.currency}
+                {"Cheapest price: " + flight.price.grandTotal + " " + flight.price.currency}
             </label>
             <div>
                 Flight-Codes: {providers[parseInt(flight.id)] + " [ " + flight.itineraries[1].duration + " ] "}
-            </div>
-            <div>
-                Available Seats: {flight.numberOfBookableSeats}
             </div>
             <div>
                 Journey Type: {flight.oneWay ? "This is a single journey" : "This is a return trip"}
@@ -27,7 +25,12 @@ function FlightSelect(props) {
                     {options}
                 </form>
             }
+            {props.returningDate&&
+                props.departureDate&&
+                props.destination&&
+                <Weather startDate={props.departureDate} endDate={props.returningDate} endLocation={props.destination} />
 
+            }
         </div>
     );
 }

@@ -5,7 +5,7 @@ const WeatherDay = (props) => {
                             <>
                                 <tr>
                                     <td>
-                                        Temperature (°C) <br />
+                                        Temperature (°F) <br />
                                         {props.temp}
                                     </td>
                                     <td>
@@ -13,7 +13,7 @@ const WeatherDay = (props) => {
                                         {props.humidity}
                                     </td>
                                     <td>
-                                        Precipitation (mm)<br/>
+                                        Precipitation (in)<br/>
                                         {props.precip}
                                     </td>
                                 </tr>

@@ -52,6 +52,7 @@ public class APIService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<Result> response = template.exchange(
                 uriComponents.toString(), HttpMethod.GET, requestEntity, Result.class, "");
+        System.out.println(response.getBody().getFormattedAddress());
         return response;
     }
 

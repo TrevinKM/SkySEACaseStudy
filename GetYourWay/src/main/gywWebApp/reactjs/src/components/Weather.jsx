@@ -4,13 +4,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import WeatherDay from "./WeatherDay";
 
-const Weather = () => {
-
+const Weather = (props) => {
+    console.log(props.endDate);
+    console.log(props.endLocation);
     const [weather, setWeather] = useState([]);
 
     useEffect(() => {
         const getWeather = async () => {
-            let response = await axios.get('http://localhost:8082/weather/timeline', {params: {location: 'London', startdate: '2022-12-05', enddate: '2022-12-12'}});
+
+            let response = await axios.get('http://localhost:8082/weather/timeline', {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
             let weatherdata = await response.data;
             setWeather(weatherdata);
         };

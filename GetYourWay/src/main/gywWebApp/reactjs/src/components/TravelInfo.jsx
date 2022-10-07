@@ -4,18 +4,18 @@ import Locate from "./Locate";
 import SearchBar from "./SearchBar";
 import {useLocation, useNavigate} from "react-router-dom";
 import Flight from "./Flight";
+import MapsAPITest from "./MapsAPITest";
 
 const TravelInfo = () => {
     const location = useLocation();
     const [origin, setOrigin] = useState();
     const [destination, setDestination] = useState(location.state.destination);
     const [flight, setFlight] = useState();
-    useEffect(() => {
-        // Update the document title using the browser API
-        setDestination(location.state.destination)
-    },  [location.state.destination]);
-
-    console.log(typeof(location.state.destination))
+    const [thisLocation, setThisLocation] = useState();
+    // useEffect(() => {
+    //     // Update the document title using the browser API
+    //     setDestination(location.state.destination)
+    // },  [location.state.destination]);
 
     return (
         <>
@@ -23,7 +23,11 @@ const TravelInfo = () => {
             <Locate value = {location.state.destination} handleChoice={setOrigin} display={"Destination"}/>
             { origin &&
                 destination &&
-                <Flight origin={origin} destination={destination} setFlight={setFlight}/>
+                <MapsAPITest origin={origin} destination={destination} />
+            }
+            { origin &&
+                destination &&
+                <Flight origin={origin} destination={destination} setFlight={setFlight} endDestination={location.state.destination} />
             }
             {/*<Weather />*/}
             <p></p>

@@ -11,9 +11,11 @@ function LocationSelect(props) {
     return (
         <div>
             {props.data.length > 0 &&
+                <label>Airports close to your chosen location</label>
+            }
+            {props.data.length > 0 &&
                 <form onChange={(e) => props.handleChoice(e.target.value)}>
                     {options}
-                <label>Airports close to your chosen location</label>
                 </form>
             }
         </div>
