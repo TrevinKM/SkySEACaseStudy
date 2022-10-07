@@ -1,0 +1,23 @@
+pipeline {
+     agent any
+     stages {
+        stage("Build") {
+            steps {
+                dir('GetYourWay/src/main/gywWebApp/reactjs') {
+                    sh "npm install"
+                }
+                dir('GetYourWay/src/main/gywWebApp/reactjs') {
+                    sh "npm run build"
+                }
+
+            }
+        }
+        stage("Deploy") {
+            steps {
+                dir('GetYourWay/src/main/gywWebApp/reactjs') {
+                    sh  'serve -s build'
+                }
+            }
+        }
+    }
+}

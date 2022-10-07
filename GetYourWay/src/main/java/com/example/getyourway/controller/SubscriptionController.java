@@ -18,8 +18,9 @@ public class SubscriptionController {
     SubscriptionService service;
 
     //TODO: this should take user ID to pass to the session
+    @CrossOrigin(origins = {"${react.url}", "https://checkout.stripe.com"})
     @PostMapping("/subscribe")
-    public ResponseEntity<Void> createSubscription(@RequestHeader String userid) throws StripeException {
+    public ResponseEntity<String> createSubscription(@RequestHeader String userid) throws StripeException {
         return service.createSubscription(userid);
     }
 

@@ -16,9 +16,11 @@ import com.stripe.param.checkout.SessionCreateParams;
 import org.eclipse.jetty.util.ajax.JSON;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import spark.Spark;
 
 import java.net.URI;
 import java.util.*;
@@ -29,11 +31,13 @@ public class SubscriptionService {
     private SubscriptionRepo subscriptionRepo;
 
     @Autowired
+    private Environment environment;
+    @Autowired
     private UserRepo userRepo;
 
     public ResponseEntity<Void> webhook(String payload, String sigHeader){
-        String endpointSecret = "whsec_e9d7889ef2bf5007a999ea445d1f861cde21a4824bfd81920c6bbcf1ecc501b1";
-
+        //String endpointSecret = "whsec_e9d7889ef2bf5007a999ea445d1f861cde21a4824bfd81920c6bbcf1ecc501b1";
+        String endpointSecret = "whsec_gMn3hxepxfF8w6OW8yli7woPKDEvLZtD";
         Event event = null;
         try {
             event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
@@ -90,14 +94,14 @@ public class SubscriptionService {
         }
     }
 
-    public ResponseEntity<Void> createSubscription(String userId) throws StripeException {
+    public ResponseEntity<String> createSubscription(String userId) throws StripeException {
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
         String priceId = "price_1LiFqUJ1jIOYkwj99CaiVlkS";
         SessionCreateParams params = new SessionCreateParams.Builder()
                 .putMetadata("user_id", userId)
-                .setSuccessUrl("https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}")
-                .setCancelUrl("https://example.com/canceled.html")
+                .setSuccessUrl(environment.getProperty("react.url") + "/login")
+                .setCancelUrl(environment.getProperty("react.url") + "/signup")
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                 .addLineItem(new SessionCreateParams.LineItem.Builder()
                         // For metered billing, do not pass quantity
@@ -107,8 +111,7 @@ public class SubscriptionService {
                 )
                 .build();
         Session session = Session.create(params);
-
-        return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(session.getUrl())).build();
+        return new ResponseEntity<>(session.getUrl().toString(), HttpStatus.OK);
     }
     public ResponseEntity<Void> getCustomerPortal(String customer_id) throws StripeException{
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";

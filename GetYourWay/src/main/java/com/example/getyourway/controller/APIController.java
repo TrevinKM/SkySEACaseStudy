@@ -1,7 +1,6 @@
 package com.example.getyourway.controller;
 
 import com.amadeus.resources.Traveler;
-import com.example.getyourway.DTOs.AddressResult;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.DTOs.Result;
 import com.example.getyourway.exceptions.ResourceNotFoundException;
@@ -77,7 +76,7 @@ public class APIController {
 
     //Flights between two destinations
     //Airports by iata code
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://18.169.58.161:3000")
     @GetMapping("/airportlocations")
     public Location[] locations(
             @RequestParam(name = "keyword") String keyword

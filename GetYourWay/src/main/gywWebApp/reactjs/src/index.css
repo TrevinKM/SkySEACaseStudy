@@ -11,3 +11,7 @@ code {
 .smallimg {
     object-fit: cover;
 }
+
+.d-block {
+    opacity: 0.7;
+}

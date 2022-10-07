@@ -1,99 +1,104 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-import UserGreeting from './UserGreeting';
-
+import axios from "axios";
+import {Button, Form} from "react-bootstrap";
 const SignUpForm = props => {
-
-    const usersUrl = 'http://localhost:3000/users';
 
     const [firstName, setFirstName] = useState(``);
     const [lastName, setLastName] = useState(``);
-    const [emailAddress, setEmailAddress] = useState(``);
-    const [password, setPassword] = useState(``);
+    const [userEmailAddress, setUserEmailAddress] = useState(``);
+    const [userPassword, setUserPassword] = useState(``);
     const [confirmPassword, setConfirmPassword] = useState(``);
 
-    const handleSubmit = event => {
+    const [userid, setuserid] = useState("");
+
+    const createSubscription = async event => {
         event.preventDefault();
-        props.submitForm(firstName, lastName, emailAddress, password)
-        setFirstName(``);
-        setLastName(``);
-        setEmailAddress(``);
-        setPassword(``);
+        console.log(userEmailAddress)
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/subscription/subscribe`,{"body": {}},
+            {
+            withCredentials: false,
+            headers:{'userId':userid}
+            }
+        ).then(response => window.location.href = response.data).catch(err => console.log(err))
     }
 
     const submitForm = async event => {
         event.preventDefault();
-        const body = JSON.stringify({firstName, lastName, emailAddress, password});
-        const requestOptions = {
-            method: `POST`,
-            headers: { 'Content-Type': 'application/json' },
-            body
-        };
-        const response = await fetch(usersUrl, requestOptions);
-        const result = await response.json();
-        console.log(result);
+        console.log(userEmailAddress)
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`,{
+            firstName: firstName,
+            lastName: lastName,
+            emailAddress: userEmailAddress,
+            password: userPassword,
+            role: "USER",
+            enabled:true
+        }).then(result => setuserid(result.data)).catch(err => console.log(err))
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="firstName">First Name: &nbsp;</label>
-                <input
-                    type="text"
+        <>
+        <Form onSubmit={submitForm} >
+            <Form.Group>
+                <Form.Label htmlFor="firstName">First Name: &nbsp;</Form.Label>
+                <Form.Control
+                    type="email"
                     name="firstName"
                     placeholder="Enter your first name"
                     value={firstName}
                     onChange={event => setFirstName(event.target.value)}
                 />
-            </div>
+            </Form.Group>
 
-            <div className="form-group">
-                <label htmlFor="lastName">Last Name: &nbsp;</label>
-                <input
+            <Form.Group className="mb-3">
+                <Form.Label htmlFor="lastName">Last Name: &nbsp;</Form.Label>
+                <Form.Control
                     type="text"
                     name="lastName"
                     placeholder="Enter your last name"
                     value={lastName}
                     onChange={event => setLastName(event.target.value)}
                 />
-            </div>
+            </Form.Group>
 
-            <div className="form-group">
-                <label htmlFor="emailAddress">Email Address: &nbsp;</label>
-                <input
+            <Form.Group className="mb-3">
+                <Form.Label htmlFor="emailAddress">Email Address: &nbsp;</Form.Label>
+                <Form.Control
                     type="text"
                     name="emailAddress"
                     placeholder="Enter your email address"
-                    value={emailAddress}
-                    onChange={event => setEmailAddress(event.target.value)}
+                    value={userEmailAddress}
+                    onChange={event => setUserEmailAddress(event.target.value)}
                 />
-            </div>
+            </Form.Group>
 
-            <div className="form-group">
-                <label htmlFor="password">Password: &nbsp;</label>
-                <input
-                    type="text"
+            <Form.Group className="mb-3">
+                <Form.Label htmlFor="password">Password: &nbsp;</Form.Label>
+                <Form.Control
+                    type="password"
                     name="password"
                     placeholder="Password needs to be at least 8 characters"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                    value={userPassword}
+                    onChange={event => setUserPassword(event.target.value)}
                 />
-            </div>
+            </Form.Group>
 
-            <div className="form-group">
-                <label htmlFor="setConfirmPassword">Confirm Password: &nbsp;</label>
-                <input
-                    type="text"
+            <Form.Group className="mb-3">
+                <Form.Label htmlFor="setConfirmPassword">Confirm Password: &nbsp;</Form.Label>
+                <Form.Control
+                    type="password"
                     name="confirmPassword"
                     placeholder="Confirm your chosen password"
                     value={confirmPassword}
                     onChange={event => setConfirmPassword(event.target.value)}
                 />
-            </div>
-            <div className="form-group">
-                <input type="submit" className="btn" value="Sign Up"  />
-            </div>
-        </form>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Control type="submit" className="btn" value="Sign Up"  />
+            </Form.Group>
+        </Form>
+            {userid != 0 ? <Button onClick={createSubscription}>Checkout</Button> : <></>}
+
+    </>
     );
 };
 
