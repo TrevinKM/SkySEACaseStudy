@@ -22,14 +22,12 @@ public class RecommendedDestinationController {
     
     @GetMapping("/test")
     public String test(){return this.service.test();}
-    
+
     @CrossOrigin(origins = "${react.url}")
     @GetMapping(path="/showAll")
-    
     public ResponseEntity<List<RecommendedDestination>> getRecommendedDestination(){
         return ResponseEntity.ok(this.service.getAll());
     }
-
     
     //@GetMapping("/{id}")
     //public ResponseEntity<RecommendedDestination> getRecommendedDestination(@PathVariable(value = "id") Long id){

@@ -27,7 +27,7 @@ function RouteList({authenticated, setAuthenticated}) {
                 <Route path="/signUp" element={<SignUp />} />
                 <Route path="/entryPage" element={<RequireAuth authenticated={authenticated}><EntryPage /></RequireAuth>} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
-                <Route path="/logIn" element={<LogIn />} />
+                <Route path="/logIn" element={<LogIn setAuthenticated={setAuthenticated}/>} />
                 <Route path="/logOut" element={<LogOut />} />
                 <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
