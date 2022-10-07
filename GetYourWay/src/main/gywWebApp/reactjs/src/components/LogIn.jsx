@@ -61,7 +61,7 @@ const LogIn = ({setAuthenticated}) => {
                             <Form.Text className={"text-danger"}>{error}</Form.Text>
                         </Form.Group>
                         <Form.Group className={"mb-3"}>
-                            <Button type="submit">Submit</Button>
+                            <Button type="submit">Log In</Button>
                         </Form.Group>
                     </Form>
                 </Col>

@@ -107,10 +107,10 @@ const SignUpForm = props => {
                 <p className={"text-danger"}>{error}</p>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Button variant="dark" onClick={()=> { if(formValid()) submitForm()}} className={"w-100"}>Sign Up</Button>
+                <Button variant={userid != 0 ? "secondary": "primary"} onClick={()=> { if(formValid()) submitForm()}} className={"w-100"} disabled={userid !=0}>Sign Up</Button>
             </Form.Group>
         </Form>
-            {userid != 0 ? <Button variant="primary" onClick={createSubscription} className={"w-100"}>Checkout</Button> : <></>}
+            {userid != 0 ? <Button variant="primary" onClick={createSubscription} className={"w-100 shadow"}>Checkout</Button> : <></>}
 
     </>
     );
