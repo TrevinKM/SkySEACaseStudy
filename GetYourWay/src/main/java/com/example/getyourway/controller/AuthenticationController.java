@@ -30,7 +30,7 @@ public class AuthenticationController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
-    @CrossOrigin(origins = "http://18.169.58.161:3000")
+    @CrossOrigin(origins = "${react.url}")
     @PostMapping("/process_register")
     public ResponseEntity<String> registerNewUser(@RequestBody User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -40,7 +40,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://18.169.58.161:3000")
+    @CrossOrigin(origins = "${react.url}")
     @PostMapping("/userLogin")
     public ResponseEntity<String> userLogin(@RequestBody LoginRequest request){
 
@@ -53,7 +53,7 @@ public class AuthenticationController {
     }
 
     //If this returns a 200 then the user is logged in
-    @CrossOrigin(origins = "http://18.169.58.161:3000")
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping("/is_logged_in")
     public ResponseEntity<Object> amILoggedIn() {
         return new ResponseEntity<>(HttpStatus.OK);

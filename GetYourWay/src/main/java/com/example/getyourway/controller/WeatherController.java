@@ -28,7 +28,7 @@ public class WeatherController {
         return weatherService.getCurrentWeatherAt(lat, lon);
     }
 
-    @CrossOrigin(origins = "http://18.169.58.161:3000")
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping(path = "/timeline")
     public ResponseEntity<List<WeatherForecast>> getWeatherBetween(@RequestParam String location, @RequestParam String startdate, @RequestParam String enddate) {
         try {

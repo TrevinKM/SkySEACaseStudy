@@ -23,7 +23,7 @@ public class RecommendedDestinationController {
     @GetMapping("/test")
     public String test(){return this.service.test();}
     
-    @CrossOrigin(origins = "http://18.169.58.161:3000")
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping(path="/showAll")
     
     public ResponseEntity<List<RecommendedDestination>> getRecommendedDestination(){
