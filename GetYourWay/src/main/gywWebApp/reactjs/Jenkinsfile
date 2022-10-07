@@ -4,9 +4,6 @@ pipeline {
         stage("Build") {
             steps {
                 dir('GetYourWay/src/main/gywWebApp/reactjs') {
-                    sh "npm cache clear"
-                }
-                dir('GetYourWay/src/main/gywWebApp/reactjs') {
                     sh "npm install"
                 }
                 dir('GetYourWay/src/main/gywWebApp/reactjs') {
