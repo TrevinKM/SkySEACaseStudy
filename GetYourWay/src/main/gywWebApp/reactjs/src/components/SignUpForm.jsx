@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 const SignUpForm = props => {
-
-    const usersUrl = 'http://localhost:3000/users';
 
     const [firstName, setFirstName] = useState(``);
     const [lastName, setLastName] = useState(``);
@@ -18,7 +14,7 @@ const SignUpForm = props => {
     const createSubscription = async event => {
         event.preventDefault();
         console.log(userEmailAddress)
-        axios.post('http://18.169.58.161:8082/subscription/subscribe',{"body": {}},
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/subscription/subscribe`,{"body": {}},
             {
             withCredentials: false,
             headers:{'userId':userid}
@@ -29,7 +25,7 @@ const SignUpForm = props => {
     const submitForm = async event => {
         event.preventDefault();
         console.log(userEmailAddress)
-        axios.post('http://18.169.58.161:8082/process_register',{
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`,{
             firstName: firstName,
             lastName: lastName,
             emailAddress: userEmailAddress,

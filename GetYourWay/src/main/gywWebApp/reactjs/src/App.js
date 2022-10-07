@@ -7,7 +7,6 @@ function App() {
     const [authenticated, setAuthenticated] = useState(-1);
 
     useEffect(() =>{
-        console.log(localStorage.getItem("logged_in_as"));
         if(localStorage.getItem("logged_in_as") != null){
             setAuthenticated(1);
         } else{

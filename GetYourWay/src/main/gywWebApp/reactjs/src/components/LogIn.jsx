@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {Button, Form, Container, Row, Col} from "react-bootstrap";
-const LogIn = ({setAuthenticated}) => {
 
+const LogIn = ({setAuthenticated}) => {
+    console.log(process.env.REACT_APP_SPRING_ROOT)
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     let navigate = useNavigate();
@@ -18,13 +19,9 @@ const LogIn = ({setAuthenticated}) => {
     }, []);
 
     const submitForm = async event => {
-        const loginrequest = JSON.stringify({
-            email: emailAddress,
-            password: password
-        })
 
         event.preventDefault();
-        axios.post('http://18.169.58.161:8082/userLogin', {
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/userLogin`, {
             email: emailAddress,
             password: password
         }).then(response => {
