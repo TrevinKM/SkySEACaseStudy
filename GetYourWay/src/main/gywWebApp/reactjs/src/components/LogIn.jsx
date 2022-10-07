@@ -9,23 +9,23 @@ const LogIn = ({setAuthenticated}) => {
     let navigate = useNavigate();
     const submitForm = async event => {
         event.preventDefault();
-        axios.post('http://18.169.58.161:8082/user_login',{
+        axios.post('http://18.169.58.161:8082/userLogin',{
             email: emailAddress,
             password: password
         }).then(response => {
-                let user_id = 0;
                 localStorage.removeItem("logged_in_as");
                 localStorage.setItem("logged_in_as", response.data);
                 setAuthenticated(1);
                 navigate("/");
             }
-        );
+        ).catch(error => console.log(eror));
     }
     return (
         <Container>
             <Row>
                 <Col md={6}>
                     <h3>Log In</h3>
+
                     <Form onSubmit={submitForm}>
                         <Form.Group className={"mb-3"}>
                             <Form.Label>Email Address:</Form.Label>
