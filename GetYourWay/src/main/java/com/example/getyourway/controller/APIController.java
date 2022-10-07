@@ -89,6 +89,7 @@ public class APIController {
             return new Location[0];
         }
     }
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/flights")
     public FlightOfferSearch[] flights(@RequestParam(name = "origin") String origin,
                                        @RequestParam(name = "destination") String destination,

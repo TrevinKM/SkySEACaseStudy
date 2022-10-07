@@ -31,6 +31,12 @@ public enum AmadeusConnect {
     }
 
     public FlightOfferSearch[] flights(String origin, String destination, String departDate, String adults, String returnDate) throws ResponseException {
+        System.out.println(Params.with("originLocationCode", origin)
+                .and("destinationLocationCode", destination)
+                .and("departureDate", departDate)
+                .and("returnDate", returnDate)
+                .and("adults", adults)
+                .and("max", 5));
         return amadeus.shopping.flightOffersSearch.get(
                 Params.with("originLocationCode", origin)
                         .and("destinationLocationCode", destination)
