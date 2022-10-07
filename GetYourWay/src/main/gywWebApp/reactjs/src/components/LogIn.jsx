@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {Button, Form, Container, Row, Col} from "react-bootstrap";
@@ -7,9 +7,24 @@ const LogIn = ({setAuthenticated}) => {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     let navigate = useNavigate();
+
+    useEffect(() =>{
+        console.log(localStorage.getItem("logged_in_as"));
+        if(localStorage.getItem("logged_in_as") != null){
+            setAuthenticated(1);
+        } else{
+            setAuthenticated(0);
+        }
+    }, []);
+
     const submitForm = async event => {
+        const loginrequest = JSON.stringify({
+            email: emailAddress,
+            password: password
+        })
+
         event.preventDefault();
-        axios.post('http://18.169.58.161:8082/userLogin',{
+        axios.post('http://18.169.58.161:8082/userLogin', {
             email: emailAddress,
             password: password
         }).then(response => {
