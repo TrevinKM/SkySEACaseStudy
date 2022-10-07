@@ -12,6 +12,7 @@ import Home from "./Home";
 import SignUpForm from "./SignUpForm";
 import LogIn from "./LogIn";
 import TravelInfo from "./TravelInfo";
+import LogOut from "./LogOut";
 
 function RouteList() {
     return (
@@ -27,6 +28,7 @@ function RouteList() {
                 <Route path="/entryPage" element={<EntryPage />} />
                 <Route path="/signUpForm" element={<SignUpForm />} />
                 <Route path="/logIn" element={<LogIn />} />
+                <Route path="/logOut" element={<LogOut />} />
                 <Route path="/travelInfo" element={<TravelInfo />} />
             </Routes>
         </div>
