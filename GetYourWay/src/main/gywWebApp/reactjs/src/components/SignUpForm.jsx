@@ -10,8 +10,17 @@ const SignUpForm = props => {
     const [userEmailAddress, setUserEmailAddress] = useState(``);
     const [userPassword, setUserPassword] = useState(``);
     const [confirmPassword, setConfirmPassword] = useState(``);
-
     const [userid, setuserid] = useState("");
+
+    const formValid =    () =>{
+        if(firstName.length < 2) { setError("First name must exist"); return false;}
+        if(lastName.length < 2) { setError("Last name must exist"); return false;}
+        if(userEmailAddress.length < 2) { setError("Email must exist"); return false;}
+        if(userPassword.length < 6) { setError("Passwords must be at least 6 characters"); return false;}
+        if(confirmPassword != userPassword) { setError("The passwords provided don't match"); return false;}
+
+        return true;
+    }
 
     const createSubscription = async event => {
         event.preventDefault();
@@ -25,22 +34,21 @@ const SignUpForm = props => {
     }
 
     const submitForm = async event => {
-        event.preventDefault();
-        console.log(userEmailAddress)
-        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`,{
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`, {
             firstName: firstName,
             lastName: lastName,
             emailAddress: userEmailAddress,
             password: userPassword,
             role: "USER",
-            enabled:true
-        }).then(result => setuserid(result.data))
-            .catch(err => setError(err.response.data));
+            enabled: true
+        }).then(result => {setuserid(result.data); setError('')})
+            .catch(err => setError(err.response.data.toString()));
+
     }
 
     return (
         <>
-        <Form onSubmit={submitForm} >
+        <Form >
             <Form.Group>
                 <Form.Label htmlFor="firstName">First Name: &nbsp;</Form.Label>
                 <Form.Control
@@ -96,13 +104,13 @@ const SignUpForm = props => {
                 />
             </Form.Group>
             <Form.Group>
-                <Form.Text className={"text-danger font-weight-italic"}>{error}</Form.Text>
+                <p className={"text-danger"}>{error}</p>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Form.Control type="submit" className="btn" value="Sign Up"  />
+                <Button variant="dark" onClick={()=> { if(formValid()) submitForm()}} className={"w-100"}>Sign Up</Button>
             </Form.Group>
         </Form>
-            {userid != 0 ? <Button onClick={createSubscription}>Checkout</Button> : <></>}
+            {userid != 0 ? <Button variant="primary" onClick={createSubscription} className={"w-100"}>Checkout</Button> : <></>}
 
     </>
     );
