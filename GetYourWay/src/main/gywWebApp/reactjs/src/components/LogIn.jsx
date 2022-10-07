@@ -18,7 +18,7 @@ const LogIn = ({setAuthenticated}) => {
                 setAuthenticated(1);
                 navigate("/");
             }
-        ).catch(error => console.log(eror));
+        ).catch(error => console.log(error));
     }
     return (
         <Container>
