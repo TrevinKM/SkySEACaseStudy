@@ -16,6 +16,7 @@ import com.stripe.param.checkout.SessionCreateParams;
 import org.eclipse.jetty.util.ajax.JSON;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionRepo subscriptionRepo;
 
+    @Autowired
+    private Environment environment;
     @Autowired
     private UserRepo userRepo;
 
@@ -97,8 +100,8 @@ public class SubscriptionService {
         String priceId = "price_1LiFqUJ1jIOYkwj99CaiVlkS";
         SessionCreateParams params = new SessionCreateParams.Builder()
                 .putMetadata("user_id", userId)
-                .setSuccessUrl("https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}")
-                .setCancelUrl("https://example.com/canceled.html")
+                .setSuccessUrl(environment.getProperty("react.url") + "/login")
+                .setCancelUrl(environment.getProperty("react.url") + "/signup")
                 .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                 .addLineItem(new SessionCreateParams.LineItem.Builder()
                         // For metered billing, do not pass quantity
