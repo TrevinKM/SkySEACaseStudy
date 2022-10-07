@@ -3,6 +3,8 @@ import axios from "axios";
 import {Button, Form} from "react-bootstrap";
 const SignUpForm = props => {
 
+    const [error, setError] = useState(``);
+
     const [firstName, setFirstName] = useState(``);
     const [lastName, setLastName] = useState(``);
     const [userEmailAddress, setUserEmailAddress] = useState(``);
@@ -32,7 +34,8 @@ const SignUpForm = props => {
             password: userPassword,
             role: "USER",
             enabled:true
-        }).then(result => setuserid(result.data)).catch(err => console.log(err))
+        }).then(result => setuserid(result.data))
+            .catch(err => setError(err.response.data));
     }
 
     return (
@@ -41,7 +44,7 @@ const SignUpForm = props => {
             <Form.Group>
                 <Form.Label htmlFor="firstName">First Name: &nbsp;</Form.Label>
                 <Form.Control
-                    type="email"
+                    type="text"
                     name="firstName"
                     placeholder="Enter your first name"
                     value={firstName}
@@ -91,6 +94,9 @@ const SignUpForm = props => {
                     value={confirmPassword}
                     onChange={event => setConfirmPassword(event.target.value)}
                 />
+            </Form.Group>
+            <Form.Group>
+                <Form.Text className={"text-danger font-weight-italic"}>{error}</Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Control type="submit" className="btn" value="Sign Up"  />

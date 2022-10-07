@@ -7,6 +7,9 @@ const LogIn = ({setAuthenticated}) => {
     console.log(process.env.REACT_APP_SPRING_ROOT)
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+
     let navigate = useNavigate();
 
     useEffect(() =>{
@@ -32,6 +35,7 @@ const LogIn = ({setAuthenticated}) => {
             }
         ).catch(error => console.log(error));
     }
+
     return (
         <Container>
             <Row>
@@ -52,6 +56,9 @@ const LogIn = ({setAuthenticated}) => {
                                           name="password"
                                           value={password}
                                           onChange={e => setPassword(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Text className={"text-danger"}>{error}</Form.Text>
                         </Form.Group>
                         <Form.Group className={"mb-3"}>
                             <Button type="submit">Submit</Button>
