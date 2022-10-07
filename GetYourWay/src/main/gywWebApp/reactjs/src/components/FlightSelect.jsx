@@ -1,11 +1,12 @@
 import React from "react";
 import Weather from "./Weather";
+import {Card, CardGroup} from "react-bootstrap";
 
 function FlightSelect(props) {
     const providers = ["Which", "TUI", "TravelSupermarket", "Kayak", "SkyScanner", "Which"]
     const options = props.flightOptions.map((flight, index) =>
         <>
-            <input type="radio" id={flight.id} name="select" value={index} />
+            <input type="checkbox" id={flight.id} name="select" value={index} />
             <label htmlFor={flight.id}>
                 {"Cheapest price: " + flight.price.grandTotal + " " + flight.price.currency}
             </label>
@@ -25,12 +26,17 @@ function FlightSelect(props) {
                     {options}
                 </form>
             }
-            {props.returningDate&&
+            <CardGroup>
+            {
+                props.returningDate&&
                 props.departureDate&&
                 props.destination&&
+                <Card>
                 <Weather startDate={props.departureDate} endDate={props.returningDate} endLocation={props.destination} />
+                </Card>
 
             }
+            </CardGroup>
         </div>
     );
 }

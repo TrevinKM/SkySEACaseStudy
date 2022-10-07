@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import {useLocation, useNavigate} from "react-router-dom";
 import Flight from "./Flight";
 import MapsAPITest from "./MapsAPITest";
+import {Card, CardGroup} from "react-bootstrap";
 
 const TravelInfo = () => {
     const location = useLocation();
@@ -19,18 +20,33 @@ const TravelInfo = () => {
 
     return (
         <>
-            <Locate handleChoice={setDestination} display={"Your location"}/>
-            <Locate value = {location.state.destination} handleChoice={setOrigin} display={"Destination"}/>
-            { origin &&
-                destination &&
-                <MapsAPITest origin={origin} destination={destination} />
-            }
-            { origin &&
-                destination &&
-                <Flight origin={origin} destination={destination} setFlight={setFlight} endDestination={location.state.destination} />
-            }
-            {/*<Weather />*/}
-            <p></p>
+            <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
+            <CardGroup>
+                <Card>
+                    <Locate handleChoice={setDestination} display={"Your location"}/>
+                </Card>
+                <Card>
+                    <Locate value = {location.state.destination} handleChoice={setOrigin} display={"Destination"}/>
+                </Card>
+                <Card>
+                    { origin &&
+                        destination &&
+                        <MapsAPITest origin={origin} destination={destination} />
+                    }
+                </Card>
+                <Card>
+                    { origin &&
+                        destination &&
+                        <Flight origin={origin} destination={destination} setFlight={setFlight} endDestination={location.state.destination} />
+                    }
+                </Card>
+            </CardGroup>
+                <Card>
+                    <Weather />
+                </Card>
+
+            <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
+
         </>
     )
 

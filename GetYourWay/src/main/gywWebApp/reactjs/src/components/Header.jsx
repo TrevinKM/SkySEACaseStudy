@@ -1,12 +1,16 @@
 import React from 'react';
+import {Link, Route} from "react-router-dom";
+import RecommendedDestinations from "./RecommendedDestinations";
 
 const Header = () => {
     return (
         <header style={{paddingTop: '15px', paddingBottom: '15px'}}>
-            {/*<p style={{paddingTop: '15px'}}></p>*/}
-                <h2>Start your adventure here...</h2>
-
-
+                <h3>Start your adventure here...</h3>
+                <p>Be inspired and browse through our
+                     <Link to={"/recommendedDestinations"}
+                          element={ RecommendedDestinations } >
+                    Recommended Destinations </Link> from Sky shows you love!
+        </p>
         </header>
     );
 };
