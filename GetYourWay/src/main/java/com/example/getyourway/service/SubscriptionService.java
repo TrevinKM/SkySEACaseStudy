@@ -33,7 +33,8 @@ public class SubscriptionService {
     private UserRepo userRepo;
 
     public ResponseEntity<Void> webhook(String payload, String sigHeader){
-        String endpointSecret = "whsec_e9d7889ef2bf5007a999ea445d1f861cde21a4824bfd81920c6bbcf1ecc501b1";
+        //String endpointSecret = "whsec_e9d7889ef2bf5007a999ea445d1f861cde21a4824bfd81920c6bbcf1ecc501b1";
+        String endpointSecret = "whsec_gMn3hxepxfF8w6OW8yli7woPKDEvLZtD";
         Event event = null;
         try {
             event = Webhook.constructEvent(payload, sigHeader, endpointSecret);

@@ -39,9 +39,10 @@ public class AuthenticationController {
         userRepo.save(user);
         return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "http://18.169.58.161:3000")
-    @PostMapping("/user_login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request){
+    @PostMapping("/userLogin")
+    public ResponseEntity<String> userLogin(@RequestBody LoginRequest request){
 
         User user = userRepo.findByEmailAddress(request.getEmail());
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
