@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/weather")
+@CrossOrigin
 public class WeatherController {
 
     @Autowired

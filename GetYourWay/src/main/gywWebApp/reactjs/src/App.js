@@ -16,7 +16,7 @@ function App() {
 
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <RouteList authenticated={authenticated} setAuthenticated={setAuthenticated} />
             <Footer />
         </>

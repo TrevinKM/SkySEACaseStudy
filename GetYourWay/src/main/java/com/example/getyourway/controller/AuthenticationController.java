@@ -1,32 +1,23 @@
 package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.LoginRequest;
-import com.example.getyourway.DTOs.Response;
-import com.example.getyourway.entities.Subscription;
+import com.example.getyourway.DTOs.Password;
 import com.example.getyourway.entities.User;
 import com.example.getyourway.exceptions.PasswordsDontMatchException;
 import com.example.getyourway.exceptions.UserDetailsException;
 import com.example.getyourway.repositiories.UserRepo;
-import com.stripe.exception.StripeException;
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.security.Principal;
-import java.security.Provider;
 import java.util.Optional;
-import java.util.zip.DataFormatException;
 
 @RestController
+@CrossOrigin
 public class AuthenticationController {
     @Autowired
     UserRepo userRepo;
@@ -67,6 +58,20 @@ public class AuthenticationController {
 
         return new ResponseEntity<>(String.valueOf(user.getId()),HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "${react.url}")
+    @PatchMapping("/updatepassword/{id}")
+    public ResponseEntity<Object> updatePassword(@RequestBody Password password, @PathVariable(value = "id") int id){
+        Optional<User> user = userRepo.findById(id);
+        System.out.println(password.getPassword());
+        if(!user.isPresent())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        User updatedUser = user.get();
+        updatedUser.setPassword(passwordEncoder.encode(password.getPassword()));
+        userRepo.save(updatedUser);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 
     //If this returns a 200 then the user is logged in
     @CrossOrigin(origins = "${react.url}")

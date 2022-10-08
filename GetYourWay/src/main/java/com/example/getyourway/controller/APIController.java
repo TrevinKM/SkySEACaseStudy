@@ -19,6 +19,7 @@ import com.amadeus.resources.FlightPrice;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class APIController {
 
     /**

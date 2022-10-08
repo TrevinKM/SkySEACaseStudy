@@ -12,6 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/subscription")
+@CrossOrigin
 public class SubscriptionController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class SubscriptionController {
     }
 
     @GetMapping("/portal")
-    public ResponseEntity<Void> loadCustomerPortal(@RequestParam String customer_id) throws StripeException {
+    public ResponseEntity<String> loadCustomerPortal(@RequestParam String customer_id) throws StripeException {
         return service.getCustomerPortal(customer_id);
     }
 }
