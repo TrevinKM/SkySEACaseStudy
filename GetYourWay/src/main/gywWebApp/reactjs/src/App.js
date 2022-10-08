@@ -13,6 +13,7 @@ function App() {
             setAuthenticated(0);
         }
     }, []);
+
     return (
         <>
             <NavBar/>

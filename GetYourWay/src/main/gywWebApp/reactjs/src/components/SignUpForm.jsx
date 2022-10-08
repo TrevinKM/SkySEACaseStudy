@@ -3,13 +3,24 @@ import axios from "axios";
 import {Button, Form} from "react-bootstrap";
 const SignUpForm = props => {
 
+    const [error, setError] = useState(``);
+
     const [firstName, setFirstName] = useState(``);
     const [lastName, setLastName] = useState(``);
     const [userEmailAddress, setUserEmailAddress] = useState(``);
     const [userPassword, setUserPassword] = useState(``);
     const [confirmPassword, setConfirmPassword] = useState(``);
-
     const [userid, setuserid] = useState("");
+
+    const formValid =    () =>{
+        if(firstName.length < 2) { setError("First name must exist"); return false;}
+        if(lastName.length < 2) { setError("Last name must exist"); return false;}
+        if(userEmailAddress.length < 2) { setError("Email must exist"); return false;}
+        if(userPassword.length < 6) { setError("Passwords must be at least 6 characters"); return false;}
+        if(confirmPassword != userPassword) { setError("The passwords provided don't match"); return false;}
+
+        return true;
+    }
 
     const createSubscription = async event => {
         event.preventDefault();
@@ -23,25 +34,25 @@ const SignUpForm = props => {
     }
 
     const submitForm = async event => {
-        event.preventDefault();
-        console.log(userEmailAddress)
-        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`,{
+        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/process_register`, {
             firstName: firstName,
             lastName: lastName,
             emailAddress: userEmailAddress,
             password: userPassword,
             role: "USER",
-            enabled:true
-        }).then(result => setuserid(result.data)).catch(err => console.log(err))
+            enabled: true
+        }).then(result => {setuserid(result.data); setError('')})
+            .catch(err => setError(err.response.data.toString()));
+
     }
 
     return (
         <>
-        <Form onSubmit={submitForm} >
+        <Form >
             <Form.Group>
                 <Form.Label htmlFor="firstName">First Name: &nbsp;</Form.Label>
                 <Form.Control
-                    type="email"
+                    type="text"
                     name="firstName"
                     placeholder="Enter your first name"
                     value={firstName}
@@ -92,11 +103,14 @@ const SignUpForm = props => {
                     onChange={event => setConfirmPassword(event.target.value)}
                 />
             </Form.Group>
+            <Form.Group>
+                <p className={"text-danger"}>{error}</p>
+            </Form.Group>
             <Form.Group className="mb-3">
-                <Form.Control type="submit" className="btn" value="Sign Up"  />
+                <Button variant={userid != 0 ? "secondary": "primary"} onClick={()=> { if(formValid()) submitForm()}} className={"w-100"} disabled={userid !=0}>Sign Up</Button>
             </Form.Group>
         </Form>
-            {userid != 0 ? <Button onClick={createSubscription}>Checkout</Button> : <></>}
+            {userid != 0 ? <Button variant="primary" onClick={createSubscription} className={"w-100 shadow"}>Checkout</Button> : <></>}
 
     </>
     );

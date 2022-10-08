@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {Button, Form, Container, Row, Col} from "react-bootstrap";
 
 const LogIn = ({setAuthenticated}) => {
-    console.log(process.env.REACT_APP_SPRING_ROOT)
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     let navigate = useNavigate();
 
     useEffect(() =>{
-        console.log(localStorage.getItem("logged_in_as"));
         if(localStorage.getItem("logged_in_as") != null){
             setAuthenticated(1);
         } else{
@@ -19,7 +18,6 @@ const LogIn = ({setAuthenticated}) => {
     }, []);
 
     const submitForm = async event => {
-
         event.preventDefault();
         axios.post(`${process.env.REACT_APP_SPRING_ROOT}/userLogin`, {
             email: emailAddress,
@@ -30,8 +28,11 @@ const LogIn = ({setAuthenticated}) => {
                 setAuthenticated(1);
                 navigate("/");
             }
-        ).catch(error => console.log(error));
+        ).catch(error => {
+            setError("We were unable to log you in. Are your details correct?")
+        });
     }
+
     return (
         <Container>
             <Row>
@@ -42,7 +43,7 @@ const LogIn = ({setAuthenticated}) => {
                         <Form.Group className={"mb-3"}>
                             <Form.Label>Email Address:</Form.Label>
                             <Form.Control name="email"
-                                          type="text"
+                                          type="email"
                                           value={emailAddress}
                                           onChange={e => setEmailAddress(e.target.value)} />
                         </Form.Group>
@@ -53,16 +54,21 @@ const LogIn = ({setAuthenticated}) => {
                                           value={password}
                                           onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
+                        <Form.Group>
+                            <p className={"text-danger"}>{error}</p>
+                        </Form.Group>
                         <Form.Group className={"mb-3"}>
-                            <Button type="submit">Submit</Button>
+                            <Button type="submit">Log In</Button>
                         </Form.Group>
                     </Form>
+                    <p>Don't have an account? <NavLink to={"/signup"} >Sign up here</NavLink></p>
                 </Col>
                 <Col md={6}>
                     <img className="smallimg" src={"images/8dest.jpeg"} style={{objectFit: "cover", width:"100%", height: "100%"}}/>
                 </Col>
             </Row>
-
+            <Row>
+            </Row>
         </Container>
     );
 }
