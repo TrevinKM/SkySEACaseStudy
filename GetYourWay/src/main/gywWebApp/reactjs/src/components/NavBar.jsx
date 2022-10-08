@@ -13,7 +13,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className={"mb-3"}>
       <Container>
         <Navbar.Brand href="/">
         <img src={skyLogo} alt="Sky logo" style={{width: '60px', paddingRight: '20px'}} className="d-inline-block align-text-top"/>

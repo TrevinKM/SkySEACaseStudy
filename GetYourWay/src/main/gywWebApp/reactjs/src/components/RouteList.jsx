@@ -20,7 +20,7 @@ function RouteList({authenticated, setAuthenticated}) {
             <Routes>
                 <Route path="/about" element={<About />}/>
                 <Route path="/" element={<RequireAuth authenticated={authenticated}><Home /></RequireAuth>} />
-                <Route path="/profile" element={<RequireAuth authenticated={authenticated}><Profile /></RequireAuth>} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/recommendedDestinations" element={<RequireAuth authenticated={authenticated}><RecommendedDestinations /></RequireAuth>} />
                 <Route path="/travelSearch" element={<RequireAuth authenticated={authenticated}><TravelSearch /></RequireAuth>} />
                 <Route path="*" element={<NotFound404 />}/>

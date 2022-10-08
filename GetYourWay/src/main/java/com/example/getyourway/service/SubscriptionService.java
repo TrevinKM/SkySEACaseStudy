@@ -111,9 +111,9 @@ public class SubscriptionService {
                 )
                 .build();
         Session session = Session.create(params);
-        return new ResponseEntity<>(session.getUrl().toString(), HttpStatus.OK);
+        return new ResponseEntity<>(session.getUrl(), HttpStatus.OK);
     }
-    public ResponseEntity<Void> getCustomerPortal(String customer_id) throws StripeException{
+    public ResponseEntity<String> getCustomerPortal(String customer_id) throws StripeException{
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
         com.stripe.param.billingportal.SessionCreateParams params = new com.stripe.param.billingportal.SessionCreateParams.Builder()
@@ -122,6 +122,7 @@ public class SubscriptionService {
                 .build();
         com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
 
-        return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create(portalSession.getUrl())).build();
+        return new ResponseEntity<String>(portalSession.getUrl(), HttpStatus.OK);
+
     }
 }

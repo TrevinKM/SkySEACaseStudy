@@ -1,12 +1,11 @@
 import React from "react";
-import UserDetails from "./UserDetails";
+import UserGreeting from "./Profile/UserGreeting";
 
 
 const Profile = () => {
     return (
         <>
-            <h3>Your Details</h3>
-            <UserDetails/>
+            <UserGreeting />
         </>
     );
 }
