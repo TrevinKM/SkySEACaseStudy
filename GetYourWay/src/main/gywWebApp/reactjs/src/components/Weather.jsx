@@ -19,25 +19,33 @@ const Weather = (props) => {
             let weatherdata = await response.data;
             setWeather(weatherdata);
         };
-        
-        getWeather();
+            getWeather();
     }, []);
 
-    console.log(typeof(props.startDate));
+    
+    const str = props.startDate;
+    const startDat = new Date(str);
+    const str2 = props.endDate;
+    const endDat = new Date(str2);
+    
     return (
         <>
         <Card style={{ width: '18rem' }}>
-            <Card.Header>Weather Forecast for {props.endLocation} from {props.startDate} to {props.endDate} </Card.Header>
+            <Card.Header>Weather Forecast for {props.endLocation} from {startDat.toLocaleDateString()} to {endDat.toLocaleDateString()} </Card.Header>
             <ListGroup variant="flush">
                     {weather.map((data, key) => {
-                        console.log("day number" + key)
+                        const weatherDate = (startDat, key) => {
+                            let result = new Date(startDat);
+                            result.setDate(result.getDate() + key);
+                            return result.toLocaleDateString();
+                        }                        
                         return (
                             <>
                             <ListGroup.Item>
+                                <h6>{weatherDate(startDat, key)}</h6>
                                 <WeatherDay temp={data.temp} humidity={data.humidity} precip={data.precip}/>
                             </ListGroup.Item>
-                            </>
-                            
+                            </> 
                         )
                     }
                     )
