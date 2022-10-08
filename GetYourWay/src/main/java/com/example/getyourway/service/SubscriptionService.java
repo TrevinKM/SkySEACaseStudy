@@ -124,7 +124,7 @@ public class SubscriptionService {
 
         com.stripe.param.billingportal.SessionCreateParams params = new com.stripe.param.billingportal.SessionCreateParams.Builder()
                 .setReturnUrl("http://18.169.58.161:3000/profile")
-                .setCustomer(customer_id)
+                .setCustomer(stripe_id)
                 .build();
         com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
 
