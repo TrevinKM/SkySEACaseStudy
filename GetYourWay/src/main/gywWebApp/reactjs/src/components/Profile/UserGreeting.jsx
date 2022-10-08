@@ -11,7 +11,7 @@ const UserGreeting = () => {
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SPRING_ROOT}/user/${localStorage.getItem("logged_in_as")}`).then(
-            response => {setUser(response.data); setLoading(false); console.log(response.data)}
+            response => {setUser(response.data); setLoading(false)}
         ).catch(error => console.log(error));
     },[]);
 

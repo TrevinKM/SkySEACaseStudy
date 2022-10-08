@@ -35,6 +35,7 @@ public class UserController {
         User user = this.userRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("This user does not exist")
         );
+        user.setSubscription(null);
         return new ResponseEntity<>(user, HttpStatus.OK );
     }
 
