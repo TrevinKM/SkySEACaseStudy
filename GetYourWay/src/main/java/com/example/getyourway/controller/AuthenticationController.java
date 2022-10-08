@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 public class AuthenticationController {
@@ -51,6 +52,21 @@ public class AuthenticationController {
 
         return new ResponseEntity<>("-1", HttpStatus.BAD_REQUEST);
     }
+
+    @CrossOrigin(origins = "${react.url}")
+    @PatchMapping("/updatepassword")
+    public ResponseEntity<Object> updatePassword(@RequestBody String password, int userid){
+        Optional<User> user = userRepo.findById(userid);
+
+        if(!user.isPresent())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        User updatedUser = user.get();
+        updatedUser.setPassword(passwordEncoder.encode(password));
+        userRepo.save(updatedUser);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+
+    }
+
 
     //If this returns a 200 then the user is logged in
     @CrossOrigin(origins = "${react.url}")
