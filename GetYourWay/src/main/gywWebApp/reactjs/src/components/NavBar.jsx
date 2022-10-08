@@ -28,7 +28,7 @@ function NavBar() {
           </Nav>
           <Nav>
             <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/logOut">Logout</Nav.Link>
+            <LogOut />
           </Nav>
         </Navbar.Collapse>
       </Container>
