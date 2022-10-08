@@ -6,11 +6,11 @@ function FlightSelect(props) {
     const providers = ["Which", "TUI", "TravelSupermarket", "Kayak", "SkyScanner", "Which"]
     const options = props.flightOptions.map((flight, index) =>
         <>
-            <div>
-            Option {flight.id} Flight Code: {providers[parseInt(flight.id)] + " [ " + flight.itineraries[1].duration + " ] "}<br></br>
-            {"Cheapest price: " + flight.price.grandTotal + " " + flight.price.currency} <br></br>
-            Journey Type: {flight.oneWay ? "This is a single journey" : "This is a return trip"}
-            </div><br></br>
+            <Card>
+            <Card.Img variant="top" className="smallimg" src={"images/" + providers[parseInt(flight.id)] + ".jpeg"} alt= {"Logo"} />
+            Travel Time: {flight.itineraries[1].duration.slice(2)}<br/>
+            {"Best price: " + flight.price.grandTotal + " " + flight.price.currency + " "} {flight.oneWay ? "one way" : "return"}
+            </Card>
         </>
     );
 
