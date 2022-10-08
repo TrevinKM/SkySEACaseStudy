@@ -1,6 +1,7 @@
 package com.example.getyourway.controller;
 
 import com.example.getyourway.DTOs.LoginRequest;
+import com.example.getyourway.DTOs.Password;
 import com.example.getyourway.DTOs.Response;
 import com.example.getyourway.entities.Subscription;
 import com.example.getyourway.entities.User;
@@ -56,13 +57,13 @@ public class AuthenticationController {
 
     @CrossOrigin(origins = "${react.url}")
     @PatchMapping("/updatepassword/{id}")
-    public ResponseEntity<Object> updatePassword(@RequestBody String password, @PathVariable(value = "id") int id){
+    public ResponseEntity<Object> updatePassword(@RequestBody Password password, @PathVariable(value = "id") int id){
         Optional<User> user = userRepo.findById(id);
         System.out.println(password);
         if(!user.isPresent())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         User updatedUser = user.get();
-        updatedUser.setPassword(passwordEncoder.encode(password));
+        updatedUser.setPassword(passwordEncoder.encode(password.getPassword()));
         userRepo.save(updatedUser);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
