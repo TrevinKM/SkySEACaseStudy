@@ -1,7 +1,17 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { useNavigate } from 'react-router-dom';
 
 export default function BootstrapCarousel() {
+
+    const navigate = useNavigate()
+
+    function handleClick(iata) {
+        //e.preventDefault();
+        console.log(iata)
+        navigate('/travelInfo', {state: {destination: iata}})
+    }
+
     return (
         <div id="carouselWrapper">
 
@@ -12,6 +22,7 @@ export default function BootstrapCarousel() {
             style={{height : 500}}
             src="/images/1dest.jpeg"
             alt="First slide"
+            onClick={() => {handleClick("Belfast")}}
             />
             <Carousel.Caption>
             <h3><strong>Belfast, Northern Ireland</strong></h3>
@@ -25,6 +36,7 @@ export default function BootstrapCarousel() {
                         style={{height : 500}}
                         src="/images/2dest.jpeg"
                         alt="Second slide"
+                        onClick={() => {handleClick('Nice')}}
                     />
 
             <Carousel.Caption>
@@ -39,6 +51,7 @@ export default function BootstrapCarousel() {
             style={{height : 500}}
             src="/images/3dest.jpeg"
             alt="Third slide"
+            onClick={() => {handleClick('Monterey')}}
             />
 
             <Carousel.Caption>
