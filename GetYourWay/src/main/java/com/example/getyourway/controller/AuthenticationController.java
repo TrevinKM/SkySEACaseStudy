@@ -58,7 +58,7 @@ public class AuthenticationController {
     @PatchMapping("/updatepassword/{id}")
     public ResponseEntity<Object> updatePassword(@RequestBody String password, @PathVariable(value = "id") int id){
         Optional<User> user = userRepo.findById(id);
-
+        System.out.println(password);
         if(!user.isPresent())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         User updatedUser = user.get();
