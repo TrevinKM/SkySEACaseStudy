@@ -31,6 +31,7 @@ const Weather = (props) => {
     return (
         <>
         <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={"images/forecast.jpeg"} alt= {"Picture of weather forecast icons"}/>
             <Card.Header>Weather Forecast for {props.endLocation} from {startDat.toLocaleDateString()} to {endDat.toLocaleDateString()} </Card.Header>
             <ListGroup variant="flush">
                     {weather.map((data, key) => {
