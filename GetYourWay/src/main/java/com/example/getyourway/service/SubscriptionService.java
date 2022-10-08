@@ -126,6 +126,7 @@ public class SubscriptionService {
                 .setReturnUrl("http://18.169.58.161:3000/profile")
                 .setCustomer(stripe_id)
                 .build();
+
         com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
 
         return new ResponseEntity<String>(portalSession.getUrl(), HttpStatus.OK);
