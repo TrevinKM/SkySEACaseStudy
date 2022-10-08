@@ -11,7 +11,7 @@ const ChangePassword = () => {
 
     const savePassword =()=> {
         const config = { headers: {'Content-Type': 'application/json'} };
-        axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/updatepassword/${localStorage.getItem("logged_in_as")}`, newPassword)
+        axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/updatepassword/${localStorage.getItem("logged_in_as")}`, newPassword, config)
             .then(()=>
                 setSelected(false)
             ).catch(error => setError('We were unable to update your password. Please try again later!'))
