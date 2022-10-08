@@ -41,9 +41,9 @@ const TravelInfo = () => {
                     }
                 </Card>
             </CardGroup>
-                <Card>
+                {/* <Card>
                     <Weather />
-                </Card>
+                </Card> */}
 
             <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
 
