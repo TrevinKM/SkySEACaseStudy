@@ -21,6 +21,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class AuthenticationController {
     @Autowired
     UserRepo userRepo;
@@ -53,7 +54,7 @@ public class AuthenticationController {
         return new ResponseEntity<>("-1", HttpStatus.BAD_REQUEST);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "${react.url}")
     @PatchMapping("/updatepassword/{id}")
     public ResponseEntity<Object> updatePassword(@RequestBody String password, @PathVariable(value = "id") int id){
         Optional<User> user = userRepo.findById(id);

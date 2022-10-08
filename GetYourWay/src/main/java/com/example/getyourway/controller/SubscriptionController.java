@@ -12,6 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/subscription")
+@CrossOrigin
 public class SubscriptionController {
 
     @Autowired

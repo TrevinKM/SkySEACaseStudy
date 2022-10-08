@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     private UserRepo userRepository;
 
@@ -22,13 +23,13 @@ public class UserController {
     public UserController(UserRepo userRepository){
         this.userRepository = userRepository;
     }
-
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping("/show")
     public ResponseEntity<List<User>> getUser(){
         return ResponseEntity.ok(this.userRepository.findAll());
     }
 
-    @CrossOrigin("http://localhost:3000")
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") int id){
         User user = this.userRepository.findById(id).orElseThrow(
@@ -38,13 +39,13 @@ public class UserController {
     }
 
     //All put/post requests for users
-
+    @CrossOrigin(origins = "${react.url}")
     @PostMapping("/save")
     public User saveUser(@RequestBody User user){
         return this.userRepository.save(user);
     }
 
-    @CrossOrigin("http://localhost:3000")
+    @CrossOrigin(origins = "${react.url}")
     @PatchMapping("/user/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable(value = "id") Integer id){
         System.out.println(newUser.getFirstName());
@@ -61,7 +62,7 @@ public class UserController {
         return new ResponseEntity<>(existingUser, HttpStatus.OK);
 
     }
-
+    @CrossOrigin(origins = "${react.url}")
     @DeleteMapping("user/{id}")
     public ResponseEntity<Void> removeUser(@PathVariable(value = "id") int id){
         User user = this.userRepository.findById(id).orElseThrow(
