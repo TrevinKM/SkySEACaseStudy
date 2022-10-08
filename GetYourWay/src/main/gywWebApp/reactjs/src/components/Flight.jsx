@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FlightSelect from "./FlightSelect";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 function Flight(props) {
     const [passengers, setPassengers] = useState("1");
@@ -48,11 +49,11 @@ function Flight(props) {
                            setFlightDestination(props.destination)}}
                        id="return"
                        name="return" /><br></br>
-                <input type="submit" />
+                <Button variant="outline-secondary" type="submit" className="btn-sm" value="Enter">Submit</Button>
             </form>
             <FlightSelect destination={props.endDestination} departureDate={departureDate} returningDate={returningDate} flightOptions={flightOptions} setFlight={props.setFlight} />
         </div>
     );
-};
+}
 
 export default Flight;

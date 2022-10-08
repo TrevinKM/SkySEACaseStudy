@@ -15,3 +15,11 @@ code {
 .d-block {
     opacity: 0.7;
 }
+
+#rd {
+    text-decoration: none;
+    color: black;
+}
+#rd :hover {
+    color: darkturquoise;
+}
