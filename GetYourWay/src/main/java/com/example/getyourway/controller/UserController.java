@@ -44,9 +44,13 @@ public class UserController {
         return this.userRepository.save(user);
     }
 
-
+    @CrossOrigin("http://localhost:3000")
     @PatchMapping("/user/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User newUser, @PathVariable(value = "id") Integer id){
+        System.out.println(newUser.getFirstName());
+        System.out.println(newUser.getLastName());
+        System.out.println(newUser.getEmailAddress());
+
         Optional<User> user = userRepository.findById(id);
         if(!user.isPresent()) return null;
         User existingUser = user.get();

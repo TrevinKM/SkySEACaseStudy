@@ -53,10 +53,10 @@ public class AuthenticationController {
         return new ResponseEntity<>("-1", HttpStatus.BAD_REQUEST);
     }
 
-    @CrossOrigin(origins = "${react.url}")
-    @PatchMapping("/updatepassword")
-    public ResponseEntity<Object> updatePassword(@RequestBody String password, int userid){
-        Optional<User> user = userRepo.findById(userid);
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PatchMapping("/updatepassword/{id}")
+    public ResponseEntity<Object> updatePassword(@RequestBody String password, @PathVariable(value = "id") int id){
+        Optional<User> user = userRepo.findById(id);
 
         if(!user.isPresent())return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -64,7 +64,6 @@ public class AuthenticationController {
         updatedUser.setPassword(passwordEncoder.encode(password));
         userRepo.save(updatedUser);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
-
     }
 
 

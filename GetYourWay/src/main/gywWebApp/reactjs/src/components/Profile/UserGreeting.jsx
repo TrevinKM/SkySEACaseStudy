@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useEffect} from "react";
 import axios from "axios";
-import {Col, Container, Row, Form, Button} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import ChangePassword from "./ChangePassword";
 import ManageSubscription from "./ManageSubscription";
 import EditProfile from "./EditProfile";

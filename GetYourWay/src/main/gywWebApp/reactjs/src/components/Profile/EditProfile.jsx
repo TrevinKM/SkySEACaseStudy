@@ -1,9 +1,19 @@
 import React from 'react';
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import axios from "axios";
-import {Col, Container, Row, Form, Button} from "react-bootstrap";
+import {Col, Row, Form, Button} from "react-bootstrap";
 const EditProfile = ({user, setUser, loading}) => {
     const [disabled, setDisabled ] = useState(true);
+    const [error, setError ] = useState('');
+
+    const submitForm = () => {
+        console.log(user);
+        axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/user/user/22`, user)
+            .then(()=>setDisabled(!disabled)).catch((err) => console.log(err))
+            .catch(()=> setError('Something went wrong! Please check your details and try again later'))
+    }
+
+
     return (
         <>
             <h4>Your details</h4>
@@ -35,7 +45,8 @@ const EditProfile = ({user, setUser, loading}) => {
                         </Col>
                     </Row>
                 </Form>
-                <Button onClick={()=>disabled ? setDisabled(false) : setDisabled(true)}>{disabled ? "Edit Profile" : "Save"}</Button>
+                <p className={"text-danger"}>{error}</p>
+                <Button onClick={()=>disabled ? setDisabled(false) : submitForm()}>{disabled ? "Edit Profile" : "Save"}</Button>
                     </>
                     }
         </>
