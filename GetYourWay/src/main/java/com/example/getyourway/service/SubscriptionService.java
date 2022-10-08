@@ -98,6 +98,8 @@ public class SubscriptionService {
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
         String priceId = "price_1LiFqUJ1jIOYkwj99CaiVlkS";
+
+
         SessionCreateParams params = new SessionCreateParams.Builder()
                 .putMetadata("user_id", userId)
                 .setSuccessUrl(environment.getProperty("react.url") + "/login")
@@ -116,8 +118,12 @@ public class SubscriptionService {
     public ResponseEntity<String> getCustomerPortal(String customer_id) throws StripeException{
         Stripe.apiKey ="sk_test_51LiEeSJ1jIOYkwj9e80rbsjIrVIBRLFJaq1v0WgocMNGge4TTMWiJSZbN3pebdBXyeQyFmKr7gthfHVzHnWOzF0e00Y6xhE0AO";
 
+        Optional<User> user = userRepo.findById(Integer.valueOf(customer_id));
+
+        String stripe_id = user.isPresent() ? user.get().getSubscription().getStripeId() : "";
+
         com.stripe.param.billingportal.SessionCreateParams params = new com.stripe.param.billingportal.SessionCreateParams.Builder()
-                .setReturnUrl("http://localhost:8082")
+                .setReturnUrl("http://18.169.58.161:3000/profile")
                 .setCustomer(customer_id)
                 .build();
         com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
