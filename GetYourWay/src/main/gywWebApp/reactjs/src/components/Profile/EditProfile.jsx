@@ -8,7 +8,7 @@ const EditProfile = ({user, setUser, loading}) => {
 
     const submitForm = () => {
         console.log(user);
-        axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/user/user/22`, user)
+        axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/user/user/${localStorage.getItem("logged_in_as")}`, user)
             .then(()=>setDisabled(!disabled)).catch((err) => console.log(err))
             .catch(()=> setError('Something went wrong! Please check your details and try again later'))
     }

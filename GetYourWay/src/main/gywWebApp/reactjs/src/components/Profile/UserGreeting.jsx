@@ -5,21 +5,15 @@ import {Col, Container, Row} from "react-bootstrap";
 import ChangePassword from "./ChangePassword";
 import ManageSubscription from "./ManageSubscription";
 import EditProfile from "./EditProfile";
-const UserGreeting = props => {
+const UserGreeting = () => {
     const [user, setUser ] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SPRING_ROOT}/user/22`).then(
+        axios.get(`${process.env.REACT_APP_SPRING_ROOT}/user/${localStorage.getItem("logged_in_as")}`).then(
             response => {setUser(response.data); setLoading(false); console.log(response.data)}
         ).catch(error => console.log(error));
     },[]);
-
-    const submitChanges = () =>{
-        axios.post(`${process.env.REACT_APP_SPRING_ROOT}/user/save`, user)
-            .then(response => {setUser(response.data); setLoading(false); console.log(response.data)}
-        ).catch(error => console.log(error));
-    }
 
 
     return (
