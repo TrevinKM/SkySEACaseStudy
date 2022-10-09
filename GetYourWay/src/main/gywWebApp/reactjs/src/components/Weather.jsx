@@ -19,8 +19,7 @@ const Weather = (props) => {
     useEffect(() => {
         setLoading(true);
         const getWeather = async () => {
-            let response = await axios.get('http://localhost:8082/weather/timeline', {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
-            console.log('http://localhost:8082/weather/timeline', {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
+            let response = await axios.get(`${process.env.REACT_APP_SPRING_ROOT}/weather/timeline`, {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
             let weatherdata = await response.data;
             setWeather(weatherdata);
             setLoading(false);

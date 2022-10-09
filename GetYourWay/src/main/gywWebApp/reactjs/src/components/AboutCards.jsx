@@ -19,7 +19,7 @@ const cards = [
     {
         id: 3,
         title: 'Ryan',
-        image: './images/Carousel3.jpg',
+        image: './images/Ryan.jpg',
         description: 'Studied Computer Science at university',
         office: 'Working at the  office'
     },
@@ -42,7 +42,7 @@ const cards = [
 
 function AboutCards() {
     return (
-        <div className="container-sm d-flex justify-content-md-center align-items-center h-100">
+        <div className="d-flex justify-content-md-center align-items-center h-100">
             <div className="row">
                 {
                     cards.map((card) => (
