@@ -8,10 +8,21 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const RecommendedDestinations = () => {
+    //const [iata, setIata] = useState('')
+    const navigate = useNavigate()
+
+    function handleClick(iata) {
+        //e.preventDefault();
+        console.log(iata)
+        navigate('/travelInfo', {state: {destination: iata}})
+    }
+
+    
+
     return (
         <>
         <p>
@@ -21,6 +32,7 @@ const RecommendedDestinations = () => {
         <Row>
 
             {destinationData.map((data, key) => {
+                //setIata(data.arrivaliatacode)
                 return (<>
                        
                         <Card style={{ width: '18rem' }}>
@@ -35,7 +47,7 @@ const RecommendedDestinations = () => {
                                     <Card.Text>
                                     {data.destination_info}
                                     </Card.Text>
-                                    <Button variant="secondary">Find flights to {data.arrivaliatacode} </Button>
+                                    <Button variant="secondary" onClick={() => {handleClick(data.name)}}>Find flights to {data.arrivaliatacode} </Button>
                               </Card.Body>
                         </Card>                  
                     
