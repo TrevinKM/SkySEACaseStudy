@@ -36,20 +36,20 @@ function Flight(props) {
                        name="passengers"
                        min="1"
                        max="5"
-                       required /><br></br>
+                       required /><br></br><br/>
                 <label htmlFor="departure">Depart Date:</label>
                 <input type="date"
                        onChange={(e) => setDepartDate(e.target.value)}
                        id="departure"
                        name="departure"
-                       required /><br></br>
+                       required /><br></br><br/>
                 <label htmlFor="return">Return Date:</label>
                 <input type="date"
                        onChange={(e) => {setReturnDate(e.target.value);
                            setFlightDestination(props.destination)}}
                        id="return"
-                       name="return" /><br></br>
-                <Button variant="outline-secondary" type="submit" className="btn-sm" value="Enter">Submit</Button>
+                       name="return" /><br></br><br/>
+                <Button variant="outline-secondary" type="submit" className="btn-sm" value="Enter">Submit</Button><br/><br/>
             </form>
             <FlightSelect destination={props.endDestination} departureDate={departureDate} returningDate={returningDate} flightOptions={flightOptions} setFlight={props.setFlight} />
         </div>

@@ -5,11 +5,13 @@ import Header from "./Header";
 export function Home() {
     return (
         <>
-        <p><Header /></p>
+            <center>
+                <p><Header /></p>
+            </center>
 
-        <div>
-            <BootstrapCarousel />
-        </div>
+            <div>
+                <BootstrapCarousel />
+            </div>
 
         </>
     );

@@ -24,22 +24,24 @@ const TravelInfo = () => {
             <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
             <CardGroup>
                 <Card>
-                    <Locate handleChoice={setDestination} display={<strong>Your location</strong>}/>
+                    <Locate handleChoice={setDestination} display={<strong>Your Location</strong>}/>
                 </Card>
                 <Card>
                     <Locate value = {location.state.destination} handleChoice={setOrigin} display={<strong>Your Destination</strong>}/>
                 </Card>
                 <Card>
-                    { origin &&
-                        destination &&
-                        <MapsAPITest origin={origin} destination={destination} />
-                    }
+                        { origin &&
+                            destination &&
+                            <MapsAPITest origin={origin} destination={destination} />
+                        }
                 </Card>
                 <Card>
-                    { origin &&
-                        destination &&
-                        <Flight origin={origin} destination={destination} setFlight={setFlight} endDestination={location.state.destination} />
-                    }
+                    <center>
+                        { origin &&
+                            destination &&
+                            <Flight origin={origin} destination={destination} setFlight={setFlight} endDestination={location.state.destination} />
+                        }
+                    </center>
                 </Card>
             </CardGroup>
 

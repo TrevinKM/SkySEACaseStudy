@@ -10,16 +10,24 @@ const TravelSearch = () => {
         <>
             
                 
-                <Card>
-                <h2>Find Your Way</h2>
-                <p>
-                    Search for a destination to begin your adventure.
-                </p>
-                </Card>
+                {/*<Card>*/}
+                {/*<h2>Find Your Way</h2>*/}
+                {/*<p>*/}
+                {/*    Search for a destination to begin your adventure.*/}
+                {/*</p>*/}
+                {/*</Card>*/}
                 <CardGroup>
-                <Card> 
+                <Card>
+                <center>
                     <br/>
-                    <br/><br/><br/><br/><br/><br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2>Find Your Way</h2>
+                    <p>
+                        Search for a destination to begin your adventure.
+                    </p>
+                </center>
                     <SearchBar />
                 
                 </Card>

@@ -175,11 +175,16 @@ function MapsAPITest(props) {
 
     return (
         <>
-            <LoadScript googleMapsApiKey="AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE">
+            <center>
+                <br/>
+
+            <LoadScript googleMapsApiKey="AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE"
+                        style={{width: '100%'}}>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={4}>
+
                     <></>
 
                     <Marker position={startDestination} />
@@ -187,6 +192,7 @@ function MapsAPITest(props) {
                     <Polyline path={flightPath} />
                 </GoogleMap>
             </LoadScript>
+            </center>
         </>
     )
 }

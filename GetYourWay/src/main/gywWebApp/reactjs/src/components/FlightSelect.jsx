@@ -22,7 +22,7 @@ function FlightSelect(props) {
                 </form>
             }
             <CardGroup>
-            {
+            {props.flightOptions.length > 0 &&
                 props.returningDate&&
                 props.departureDate&&
                 props.destination&&
