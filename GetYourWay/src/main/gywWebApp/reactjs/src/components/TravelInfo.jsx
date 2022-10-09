@@ -7,6 +7,7 @@ import Flight from "./Flight";
 import MapsAPITest from "./MapsAPITest";
 import {Card, Row, CardGroup, Container, Col} from "react-bootstrap";
 import FlightSelect from "./FlightSelect";
+import CardHeader from "react-bootstrap/CardHeader";
 
 const TravelInfo = () => {
     const location = useLocation();
@@ -31,8 +32,11 @@ const TravelInfo = () => {
     const cardClass = "mx-1 py-3 border rounded bg-light overflow-hidden mb-3"
     return (
 
-        <Container fluid>
+        <Container>
             <h3 style={{paddingTop: '15px', paddingBottom: '15px'}}>Your Journey</h3>
+            <Row>
+                <h4>Search</h4>
+            </Row>
             <Row>
             <CardGroup>
                 <Card className={cardClass}>
@@ -68,12 +72,19 @@ const TravelInfo = () => {
             </CardGroup>
             </Row>
             <Row>
-                <Col md={6}>
+                {origin && destination &&
+                    <h4>Results</h4>
+                }
+            </Row>
+            <Row>
+                <Col md={7}>
                         { origin &&
                             destination &&
+                            <>
                             <Card className={cardClass}>
                                 <MapsAPITest origin={origin} destination={destination} />
                             </Card>
+                            </>
 
                         }
                     {flightOptions.length > 0 &&
@@ -86,7 +97,7 @@ const TravelInfo = () => {
                         </Card>
                     }
                 </Col>
-                <Col md={6}>
+                <Col md={5}>
                     {flightOptions.length > 0 &&
                         returningDate &&
                         departureDate &&
@@ -105,3 +116,7 @@ const TravelInfo = () => {
 };
 
 export default TravelInfo;
+
+/*
+
+ */
