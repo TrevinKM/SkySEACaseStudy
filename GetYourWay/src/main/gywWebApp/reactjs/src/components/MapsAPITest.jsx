@@ -16,7 +16,7 @@ var centerLat = (startDestLat + endDestLat)/2
 var centerLng = (startDestLng + endDestLng)/2*/
 
 const containerStyle = {
-    width: '400px',
+    width: '100%',
     height: '400px'
 };
 
