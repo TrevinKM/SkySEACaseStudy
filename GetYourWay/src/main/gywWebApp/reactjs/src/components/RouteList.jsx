@@ -19,18 +19,17 @@ function RouteList({authenticated, setAuthenticated}) {
             <Routes>
                 <Route path="/about" element={<About />}/>
                 <Route path="/" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/travelSearch" element={<TravelSearch />} />
+                <Route path="/profile" element={<RequireAuth authenticated={authenticated}><Profile /> </RequireAuth>} />
                 {/*<Route path="/" element={<RequireAuth authenticated={authenticated}><Home /></RequireAuth>} />*/}
-                <Route path="/recommendedDestinations" element={<RecommendedDestinations />} />
+                <Route path="/recommendedDestinations" element={<RequireAuth authenticated={authenticated}><RecommendedDestinations /></RequireAuth>} />
                 {/*<Route path="/recommendedDestinations" element={<RequireAuth authenticated={authenticated}><RecommendedDestinations /></RequireAuth>} />*/}
                 {/*<Route path="/travelSearch" element={<RequireAuth authenticated={authenticated}><TravelSearch /></RequireAuth>} />*/}
-                <Route path="/travelSearch" element={<TravelSearch />} />
+                <Route path="/travelSearch" element={<RequireAuth authenticated={authenticated}> <TravelSearch /></RequireAuth>} />
                 <Route path="*" element={<NotFound404 />}/>
                 <Route path="/signUp" element={<SignUp />} />
                 <Route path="/entryPage" element={<RequireAuth authenticated={authenticated}><EntryPage /></RequireAuth>} />
                 <Route path="/logIn" element={<LogIn setAuthenticated={setAuthenticated}/>} />
-                <Route path="/travelInfo" element={<TravelInfo />} />
+                <Route path="/travelInfo" element={<RequireAuth authenticated={authenticated}><TravelInfo /></RequireAuth>} />
             </Routes>
         </div>
     );
