@@ -26,7 +26,7 @@ const LogIn = ({setAuthenticated}) => {
                 localStorage.removeItem("logged_in_as");
                 localStorage.setItem("logged_in_as", response.data);
                 setAuthenticated(1);
-                navigate("/");
+                navigate("/travelSearch");
             }
         ).catch(error => {
             setError("We were unable to log you in. Are your details correct?")
@@ -63,8 +63,11 @@ const LogIn = ({setAuthenticated}) => {
                     </Form>
                     <p>Don't have an account? <NavLink to={"/signup"} >Sign up here</NavLink></p>
                 </Col>
-                <Col md={6}>
-                    <img className="smallimg" src={"images/8dest.jpeg"} style={{objectFit: "cover", width:"100%", height: "100%"}}/>
+                <Col md={6} >
+                    <div className={"rounded-3 overflow-hidden"}>
+                        <img className="smallimg" src={"images/8dest.jpeg"} style={{objectFit: "cover", width:"100%", height: "100%"}}/>
+
+                    </div>
                 </Col>
             </Row>
             <Row>
