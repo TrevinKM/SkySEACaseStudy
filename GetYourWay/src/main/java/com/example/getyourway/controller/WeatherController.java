@@ -18,12 +18,12 @@ public class WeatherController {
 
     @Autowired
     private WeatherService weatherService;
-
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping(path = "/current", params = {"location"})
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(@RequestParam("location") String location) {
         return weatherService.getCurrentWeatherAt(location);
     }
-
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping(path = "/current", params = {"lat", "lon"})
     public ResponseEntity<WeatherForecast> getCurrentWeatherAt(@RequestParam("lat") float lat, @RequestParam("lon") float lon) {
         return weatherService.getCurrentWeatherAt(lat, lon);

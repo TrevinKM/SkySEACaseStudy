@@ -46,7 +46,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "${react.url}")
     @PostMapping("/userLogin")
     public ResponseEntity<String> userLogin(@RequestBody LoginRequest request){
 
