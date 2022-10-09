@@ -5,6 +5,7 @@ import { useState } from "react";
 import WeatherDay from "./WeatherDay";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { CardGroup } from "react-bootstrap";
 
 const Weather = (props) => {
     console.log(props.endDate);
@@ -30,7 +31,7 @@ const Weather = (props) => {
     
     return (
         <>
-        <Card style={{ width: '18rem' }}>
+            <Card >
             <Card.Img variant="top" src={"images/forecast.jpeg"} alt= {"Picture of weather forecast icons"}/>
             <Card.Header>Weather Forecast for {props.endLocation} from {startDat.toLocaleDateString()} to {endDat.toLocaleDateString()} </Card.Header>
             <ListGroup variant="flush">

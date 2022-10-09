@@ -179,7 +179,7 @@ function MapsAPITest(props) {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={2}>
+                    zoom={4}>
                     <></>
 
                     <Marker position={startDestination} />

@@ -8,6 +8,7 @@ const TextInput = props => (
             <form onSubmit={props.onSubmit}>
                 <label>{props.display} </label>
                 <input className="form-control" value={props.value} onChange={props.onChange}></input>
+                <br/>
                 <Button variant="outline-secondary" type="submit" className="btn" value="Enter">Enter</Button>
             </form>
     </div>

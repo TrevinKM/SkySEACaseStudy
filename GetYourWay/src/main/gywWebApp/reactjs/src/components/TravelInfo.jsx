@@ -19,14 +19,15 @@ const TravelInfo = () => {
     // },  [location.state.destination]);
 
     return (
+        
         <>
             <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
             <CardGroup>
                 <Card>
-                    <Locate handleChoice={setDestination} display={"Your location"}/>
+                    <Locate handleChoice={setDestination} display={<strong>Your location</strong>}/>
                 </Card>
                 <Card>
-                    <Locate value = {location.state.destination} handleChoice={setOrigin} display={"Destination"}/>
+                    <Locate value = {location.state.destination} handleChoice={setOrigin} display={<strong>Your Destination</strong>}/>
                 </Card>
                 <Card>
                     { origin &&
@@ -41,9 +42,6 @@ const TravelInfo = () => {
                     }
                 </Card>
             </CardGroup>
-                {/* <Card>
-                    <Weather />
-                </Card> */}
 
             <h1 style={{paddingTop: '15px', paddingBottom: '15px'}}></h1>
 
