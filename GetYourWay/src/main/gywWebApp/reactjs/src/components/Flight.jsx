@@ -1,37 +1,34 @@
 import React, { useState } from "react";
-import FlightSelect from "./FlightSelect";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-
-function Flight(props) {
-    const [passengers, setPassengers] = useState("1");
-    const [departureDate, setDepartDate] = useState('');
-    const [returningDate, setReturnDate] = useState('');
-    const [flightOptions, setFlightOptions] = useState([]);
-    const [flightDestination, setFlightDestination] = useState();
+import {ClipLoader} from "react-spinners";
+const Flight = (props) => {
+    const override = {
+        display: "block",
+        margin: "0 auto",
+    };
 
     async function submit(e, props){
         e.preventDefault();
-
-        if(returningDate){
-            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: departureDate, adults: passengers, returnDate: returningDate}})
-                .then((res) => {setFlightOptions(res.data);
-                    console.log(res.data)});
+        props.setLoading(true);
+        if(props.returningDate){
+            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers, returnDate: props.returningDate}})
+                .then((res) => {props.setFlightOptions(res.data);
+                    props.setLoading(false)
+                    console.log(res.data)}).catch(() => props.setLoading(false));
 
         }else {
-            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: departureDate, adults: passengers}})
-                .then((res) => {setFlightOptions(res.data);
-                    console.log(res.data)});
+            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers}})
+                .then((res) => {props.setFlightOptions(res.data); props.setLoading(false);
+                    console.log(res.data)}).catch(()=>props.setLoading(false));
+
         }
-
-
     }
-
     return (
         <div>
             <form onSubmit={(e) => submit(e, props)}>
                 <label htmlFor="passengers">Passengers:</label>
-                <input onChange={(e) => setPassengers(e.target.value)}
+                <input onChange={(e) => props.setPassengers(e.target.value)}
                        type="number"
                        name="passengers"
                        min="1"
@@ -39,19 +36,28 @@ function Flight(props) {
                        required /><br></br><br/>
                 <label htmlFor="departure">Depart Date:</label>
                 <input type="date"
-                       onChange={(e) => setDepartDate(e.target.value)}
+                       onChange={(e) => props.setDepartDate(e.target.value)}
                        id="departure"
                        name="departure"
                        required /><br></br><br/>
                 <label htmlFor="return">Return Date:</label>
                 <input type="date"
-                       onChange={(e) => {setReturnDate(e.target.value);
-                           setFlightDestination(props.destination)}}
+                       onChange={(e) => {props.setReturnDate(e.target.value);
+                           props.setFlightDestination(props.destination)}}
                        id="return"
                        name="return" /><br></br><br/>
                 <Button variant="outline-secondary" type="submit" className="btn-sm" value="Enter">Submit</Button><br/><br/>
             </form>
-            <FlightSelect destination={props.endDestination} departureDate={departureDate} returningDate={returningDate} flightOptions={flightOptions} setFlight={props.setFlight} />
+            {props.loading ? <ClipLoader
+                    color={'#34e1eb'}
+                    loading={props.loading}
+                    size={50}
+                    cssOverride={override}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                /> :
+               <></>
+            }
         </div>
     );
 }

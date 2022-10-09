@@ -21,17 +21,6 @@ function FlightSelect(props) {
                     {options}
                 </form>
             }
-            <CardGroup>
-            {props.flightOptions.length > 0 &&
-                props.returningDate&&
-                props.departureDate&&
-                props.destination&&
-                <Card>
-                <Weather startDate={props.departureDate} endDate={props.returningDate} endLocation={props.destination} />
-                </Card>
-
-            }
-            </CardGroup>
         </div>
     );
 }

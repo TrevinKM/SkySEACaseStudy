@@ -5,20 +5,25 @@ import { useState } from "react";
 import WeatherDay from "./WeatherDay";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { CardGroup } from "react-bootstrap";
+import {ClipLoader} from "react-spinners";
 
 const Weather = (props) => {
-    console.log(props.endDate);
-    console.log(props.endLocation);
     const [weather, setWeather] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const override = {
+        display: "block",
+        margin: "0 auto",
+    };
 
     useEffect(() => {
+        setLoading(true);
         const getWeather = async () => {
-
             let response = await axios.get('http://localhost:8082/weather/timeline', {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
             console.log('http://localhost:8082/weather/timeline', {params: {location: props.endLocation, startdate: props.startDate, enddate: props.endDate}});
             let weatherdata = await response.data;
             setWeather(weatherdata);
+            setLoading(false);
         };
             getWeather();
     }, []);
@@ -34,7 +39,15 @@ const Weather = (props) => {
             <Card >
             <Card.Img variant="top" src={"images/forecast.jpeg"} alt= {"Picture of weather forecast icons"}/>
             <Card.Header>Weather Forecast for {props.endLocation} from {startDat.toLocaleDateString()} to {endDat.toLocaleDateString()} </Card.Header>
-            <ListGroup variant="flush">
+                {loading ? <ClipLoader
+                        color={'#34e1eb'}
+                        loading={props.loading}
+                        size={50}
+                        cssOverride={override}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    /> :
+                <ListGroup variant="flush">
                     {weather.map((data, key) => {
                         const weatherDate = (startDat, key) => {
                             let result = new Date(startDat);
@@ -53,6 +66,7 @@ const Weather = (props) => {
                     )
                 }
             </ListGroup>
+                }
         </Card>
         </>
     );
