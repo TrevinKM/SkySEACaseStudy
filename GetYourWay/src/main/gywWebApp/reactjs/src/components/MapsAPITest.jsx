@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { GoogleMap, LoadScript, DirectionsRenderer, useJsApiLoader, Marker, Polyline } from '@react-google-maps/api';
 import axios from 'axios';
-import Geocode from "react-geocode"
+import Geocode from "react-geocode";
 
 //const google = window.google;
 
@@ -60,8 +60,12 @@ const flightPath = [
 
 function MapsAPITest(props) {
 
-    const startIataCode = 'Airport STN'
-    const endIataCode = 'Airport FCO'
+    console.log(props.origin);
+    console.log(props.destination);
+
+
+    const startIataCode = 'Airport ' + props.origin
+    const endIataCode = 'Airport ' + props.destination
 
     const [startDestinationLatitude, setStartDestinationLatitude] = useState(0);
     const [startDestinationLongitude, setStartDestinationLongitude] = useState(0);
@@ -168,21 +172,27 @@ function MapsAPITest(props) {
     //eslint-disable-next-line no-undef
     //var map = new window.google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     //setDirectionsResponse(results)
-    
+
     return (
         <>
-        <LoadScript googleMapsApiKey="AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE">
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={2}>
-                <></>
-                
-                <Marker position={startDestination} />
-                <Marker position={endDestination} />
-                <Polyline path={flightPath} />
-            </GoogleMap>
-        </LoadScript>
+            <center>
+                <br/>
+
+            <LoadScript googleMapsApiKey="AIzaSyD9T7Iz3AHsGMeGNprGoIojX6CHfbuF4EE"
+                        style={{width: '100%'}}>
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={4}>
+
+                    <></>
+
+                    <Marker position={startDestination} />
+                    <Marker position={endDestination} />
+                    <Polyline path={flightPath} />
+                </GoogleMap>
+            </LoadScript>
+            </center>
         </>
     )
 }

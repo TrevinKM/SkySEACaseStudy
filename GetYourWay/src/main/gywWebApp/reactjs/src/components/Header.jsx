@@ -1,26 +1,13 @@
 import React from 'react';
-import logo from '../logo.png';
 
 const Header = () => {
     return (
-        <header>
-            <nav className="navbar navbar-expand-sm">
-                <a
-                    href="https://getyourway.com"
-                    className="navbar-brand"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {/* <img
-                        src={logo}
-                        alt="Get Your Way"
-                        style={{width: '100px'}}
-                    /> */}
-                </a>
-                <a className="navbar-brand" href="/">
-                    <h1>Get Your Way</h1>
-                </a>
-            </nav>
+        <header style={{paddingTop: '15px', paddingBottom: '15px', color: 'SlateGray'}}>
+            <h3 style={{color : 'DarkSlateGray'}}>Start your adventure here...</h3>
+            <p>Be inspired and browse through our
+                <a id="rd" href="/recommendedDestinations" ><strong style={{color : 'DarkSlateGray'}}> recommended destinations</strong> </a>
+                from Sky shows you love!
+            </p>
         </header>
     );
 };

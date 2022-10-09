@@ -1,6 +1,4 @@
 import React from 'react';
-// import logo from "../logo.png";
-import logo from "./logo.png";
 import skyLogo from "./skyLogo.png";
 import {Link} from 'react-router-dom';
 import LogOut from "./LogOut";
@@ -16,8 +14,8 @@ function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className={"mb-3"}>
       <Container>
         <Navbar.Brand href="/">
-        <img src={skyLogo} alt="Sky logo" style={{width: '60px', paddingRight: '20px'}} className="d-inline-block align-text-top"/>
-            Get Your Way
+        <img src={skyLogo} alt="Sky logo" style={{width: '60px', paddingRight: '15px'}} className="d-inline-block align-text-top"/>
+          <strong>Get Your Way</strong>
                 </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

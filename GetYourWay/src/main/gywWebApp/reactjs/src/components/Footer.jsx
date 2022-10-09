@@ -5,20 +5,18 @@ import line from "../line.png";
 const Footer = () => {
     return (
         <>
-        <img
-                src={line}
-                alt="rainbow line"
-                style={{width: '100%'}}
-            />
-        <Container>
-                           
-        
-
-            <footer className="mt-auto py-3 container text-center">
-                &copy; Sky Ltd - Software Engineering Academy 2022 <br/>
+            <footer className="mt-auto position-relative text-center">
+                <div>
+                    <img
+                        src={line}
+                        alt="rainbow line"
+                        style={{width: '100%'}}
+                    />
+                </div>
+                <div>
+                    &copy; Sky Ltd - Software Engineering Academy 2022 <br/>
+                </div>
             </footer>
-            
-        </Container>
         </>
     );
 };

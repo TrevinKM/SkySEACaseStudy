@@ -5,7 +5,7 @@ const cards = [
     {
         id: 1,
         title: 'Benji',
-        image: './images/logo.png',
+        image: './images/Benji.jpg',
         description: 'Studied Computer Science & Maths at university',
         office: 'Working at the  office'
     },

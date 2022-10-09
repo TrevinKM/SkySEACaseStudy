@@ -1,16 +1,17 @@
-import {Link} from "react-router-dom";
 import React from "react";
 import BootstrapCarousel from "./BootstrapCarousel";
 import Header from "./Header";
-import line from "../line.png";
 
 export function Home() {
     return (
         <>
+            <center>
+                <p><Header /></p>
+            </center>
 
-        <div>
-            <BootstrapCarousel />
-        </div>
+            <div>
+                <BootstrapCarousel />
+            </div>
 
         </>
     );
