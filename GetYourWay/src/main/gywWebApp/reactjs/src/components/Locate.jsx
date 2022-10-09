@@ -17,7 +17,7 @@ function Locate(props) {
         e.preventDefault();
         if (props.value){setValue(props.value)}
         setLoading(true);
-        await axios.get('http://localhost:8082/api/airportlocations', {params: {keyword:(props.value ? props.value: value) }})
+        await axios.get(`${process.env.REACT_APP_SPRING_ROOT}/api/airportlocations`, {params: {keyword:(props.value ? props.value: value) }})
             .then((res) => {
                 setLocations(res.data);
                 setLoading(false);

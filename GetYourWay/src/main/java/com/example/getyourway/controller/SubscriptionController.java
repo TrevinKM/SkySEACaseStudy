@@ -30,7 +30,7 @@ public class SubscriptionController {
     public ResponseEntity<Void> subscriptionWebhook(@RequestBody String payload, @RequestHeader("Stripe-signature") String sigHeader) {
         return service.webhook(payload, sigHeader);
     }
-
+    @CrossOrigin(origins = "${react.url}")
     @GetMapping("/portal")
     public ResponseEntity<String> loadCustomerPortal(@RequestParam String customer_id) throws StripeException {
         return service.getCustomerPortal(customer_id);

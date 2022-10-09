@@ -12,13 +12,13 @@ const Flight = (props) => {
         e.preventDefault();
         props.setLoading(true);
         if(props.returningDate){
-            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers, returnDate: props.returningDate}})
+            await axios.get(`${process.env.REACT_APP_SPRING_ROOT}/api/flights/`, {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers, returnDate: props.returningDate}})
                 .then((res) => {props.setFlightOptions(res.data);
                     props.setLoading(false)
                     console.log(res.data)}).catch(() => props.setLoading(false));
 
         }else {
-            await axios.get('http://localhost:8082/api/flights/', {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers}})
+            await axios.get(`${process.env.REACT_APP_SPRING_ROOT}/api/flights/`, {params: {origin: props.origin, destination: props.destination, departDate: props.departureDate, adults: props.passengers}})
                 .then((res) => {props.setFlightOptions(res.data); props.setLoading(false);
                     console.log(res.data)}).catch(()=>props.setLoading(false));
 
