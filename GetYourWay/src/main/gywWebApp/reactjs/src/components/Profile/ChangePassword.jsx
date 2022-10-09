@@ -28,7 +28,6 @@ const ChangePassword = () => {
         }
         savePassword()
         setSelected(!selected)
-
     }
 
     return (

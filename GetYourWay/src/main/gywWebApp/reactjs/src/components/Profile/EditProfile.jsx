@@ -13,7 +13,6 @@ const EditProfile = ({user, setUser, loading}) => {
             .catch(()=> setError('Something went wrong! Please check your details and try again later'))
     }
 
-
     return (
         <>
             <h4>Your details</h4>

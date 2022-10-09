@@ -22,13 +22,31 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/travelSearch">Travel Search</Nav.Link>
-            <Nav.Link href="/recommendedDestinations">Recommended Destinations</Nav.Link>
+            <Nav.Link href="/about">About Us</Nav.Link>
+            {localStorage.getItem("logged_in_as") != null ?
+              <>
+                <Nav.Link href="/travelSearch">Travel Search</Nav.Link>
+                <Nav.Link href="/recommendedDestinations">Recommended Destinations</Nav.Link>
+              </> :
+                <></>
+            }
+
           </Nav>
+
           <Nav>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <LogOut />
+            {localStorage.getItem("logged_in_as") != null
+                ?
+                <>
+                  <Nav.Link href="/profile">Profile</Nav.Link>
+                  <LogOut />
+                </>
+                :
+                <>
+                  <Nav.Link href="/signUp">Sign Up</Nav.Link>
+                  <Nav.Link href="/logIn">Log In</Nav.Link>
+                </>
+            }
+
           </Nav>
         </Navbar.Collapse>
       </Container>
