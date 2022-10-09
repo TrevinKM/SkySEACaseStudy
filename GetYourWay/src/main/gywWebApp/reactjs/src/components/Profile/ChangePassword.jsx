@@ -8,11 +8,13 @@ const ChangePassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
 
     const savePassword =()=> {
         axios.patch(`${process.env.REACT_APP_SPRING_ROOT}/updatepassword/${localStorage.getItem("logged_in_as")}`, {password: newPassword})
-            .then(()=>
-                setSelected(false)
+            .then(()=>{
+                setSelected(false);
+                setSuccess(true);}
             ).catch(error => setError('We were unable to update your password. Please try again later!'))
     }
 
@@ -42,14 +44,15 @@ const ChangePassword = () => {
                 </Form.Group>
                 <Container>
                     <Row>
-                        <p className={"text-danger"}>{error}</p>
-                        <Col>
+                        {error.length > 0 ? <p className={"text-danger"}>{error}</p> : <></>}
+                        {success? <p className={"text-success fw-bold"}>Password saved!</p> : <></>}
+                        <Col md={12} className={'d-flex flex-row'}>
                             {selected ?
-                                <Button variant="secondary" className={"mr-3"} onClick={() => {setSelected(false); setNewPassword('');setConfirmPassword('')}} >Cancel
+                                <Button variant="secondary"  onClick={() => {setSelected(false); setNewPassword('');setConfirmPassword('')}} >Cancel
                                 </Button>
                                 : <></>
                             }
-                            <Button variant={!selected ? "danger" : "warning"} onClick={() => selected ? submitPassword() : setSelected(true)} >{!selected ? "Change Password" : "Confirm"}</Button>
+                            <Button className={selected? "mx-3" : "m-0"} variant={!selected ? "danger" : "warning"} onClick={() => selected ? submitPassword() : setSelected(true)} >{!selected ? "Change Password" : "Confirm"}</Button>
                         </Col>
 
                     </Row>
