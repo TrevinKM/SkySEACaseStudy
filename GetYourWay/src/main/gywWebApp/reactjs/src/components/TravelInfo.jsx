@@ -25,6 +25,7 @@ const TravelInfo = () => {
             <CardGroup>
                 <Card>
                     <Locate handleChoice={setDestination} display={<strong>Your Location</strong>}/>
+
                 </Card>
                 <Card>
                     <Locate value = {location.state.destination} handleChoice={setOrigin} display={<strong>Your Destination</strong>}/>

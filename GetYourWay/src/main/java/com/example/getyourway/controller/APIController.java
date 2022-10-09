@@ -45,6 +45,8 @@ public class APIController {
     //Change lat lng to text(good for turning the above live location to text)
     @GetMapping("/address")
     @ResponseBody
+    @CrossOrigin(origins = "${react.url}")
+
     public ResponseEntity<Result> getAddress(
             @RequestParam(name = "lat") double lat,
             @RequestParam(name = "lng") double lng
@@ -55,6 +57,7 @@ public class APIController {
     //Change postcode to lat lng/address
     @GetMapping("/coordinates")
     @ResponseBody
+    @CrossOrigin(origins = "${react.url}")
     public ResponseEntity<Result> getLatLng(
             @RequestParam(name = "address") String address
     )
@@ -66,6 +69,7 @@ public class APIController {
     //Find airports near a certain lat lng location (using amadeus api instead now)
     @GetMapping("/airports")
     @ResponseBody
+    @CrossOrigin(origins = "${react.url}")
     public ResponseEntity<?> getAirPorts(
             @RequestParam(name = "lat") double lat,
             @RequestParam(name = "lng") double lng
@@ -77,8 +81,8 @@ public class APIController {
 
     //Flights between two destinations
     //Airports by iata code
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/airportlocations")
+    @CrossOrigin(origins = "${react.url}")
     public Location[] locations(
             @RequestParam(name = "keyword") String keyword
     )
@@ -89,8 +93,8 @@ public class APIController {
             return new Location[0];
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/flights")
+    @CrossOrigin(origins = "${react.url}")
     public FlightOfferSearch[] flights(@RequestParam(name = "origin") String origin,
                                        @RequestParam(name = "destination") String destination,
                                        @RequestParam(name = "departDate") String departDate,
@@ -100,11 +104,13 @@ public class APIController {
         return AmadeusConnect.INSTANCE.flights(origin, destination, departDate, adults, returnDate);
     }
     @PostMapping("/confirm")
+    @CrossOrigin(origins = "${react.url}")
     public FlightPrice confirm(@RequestBody(required=true) FlightOfferSearch search) throws ResponseException {
         return AmadeusConnect.INSTANCE.confirm(search);
     }
     //
     @PostMapping("/traveler")
+    @CrossOrigin(origins = "${react.url}")
     public Traveler traveler(@RequestBody(required=true) JsonObject travelerInfo) {
         return DBConnect.traveler(travelerInfo.get("data").getAsJsonObject());
     }
