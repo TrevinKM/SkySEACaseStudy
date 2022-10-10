@@ -7,35 +7,35 @@ const cards = [
         title: 'Benji',
         image: './images/Benji.jpg',
         description: 'Studied Computer Science & Maths at university',
-        office: 'Working at the  office'
+        office: 'Working at the Brentwood office'
     },
     {
         id: 2,
         title: 'Charlotte',
         image: './images/Charlotte.jpg',
         description: 'Studied Psychology at university',
-        office: 'Working at the  office'
+        office: 'Working at the Brentwood office'
     },
     {
         id: 3,
         title: 'Ryan',
         image: './images/Ryan.jpg',
         description: 'Studied Computer Science at university',
-        office: 'Working at the  office'
+        office: 'Working at the Osterley office'
     },
     {
         id: 4,
         title: 'Sarah',
         image: './images/Sarah.jpg',
         description: 'Studied French & Italian and Political Communication at university',
-        office: 'Working at the  office'
+        office: 'Working at the Leeds office'
     },
     {
         id: 5,
         title: 'Trev',
         image: './images/Carousel2.jpg',
         description: 'Studied Computer Science at university',
-        office: 'Working at the  office'
+        office: 'Working at the Osterley office'
     },
 ]
 
