@@ -33,7 +33,7 @@ const cards = [
     {
         id: 5,
         title: 'Trev',
-        image: './images/Carousel2.jpg',
+        image: './images/Trev.jpeg',
         description: 'Studied Computer Science at university',
         office: 'Working at the Osterley office'
     },
