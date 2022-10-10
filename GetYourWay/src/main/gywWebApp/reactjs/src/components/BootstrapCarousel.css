@@ -29,3 +29,8 @@
     color: white;
     padding: 20px;
 }
+#grad-text {
+    background-image: linear-gradient(90deg, red, orange, purple, blue);
+    -webkit-background-clip:text;
+    color: transparent;
+}
